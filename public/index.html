@@ -11,7 +11,7 @@
   </head>
   <body>
     <header>
-      <img src="/images/logo.png" alt=""><br>
+      <img class = "logo" src="/images/logo.png" alt=""><br>
      
     </header>
     <div class="content">
@@ -21,16 +21,18 @@
     <div class="form-area">
         <form action="" id="formLogin" novalidate>
             <div class="form-group">
-                <label for ="username" id="label" >Kullanıcı Adı veya Email</label>
+                <label for = "email" id="label" >Email</label>
                 <br>
-                <input type="text" class="form-control" id="username"  data-error = "false" data-title="Kullanıcı Adı veya Email" required>                 
+                <input type = "email" class="form-control" id="email"  data-error = "false" data-title = "Email" required>                 
             </div>     
 
             <div class="form-group">
                 <label for ="password" id="label" >Şifre:</label>
                 <br>
-                <input type="password" class="form-control" id="password" data-error = "false" data-title="Şifre" required>
+                <span class= "search-icon"></span>
+                <input type = "password" class="form-control" id="password" data-error = "false" data-title = "Şifre" required>
             </div>
+            
 
             <button type="submit" class="btn btn-success tr">Üye Girişi</button>
             <div class="seperate"> veya </div>

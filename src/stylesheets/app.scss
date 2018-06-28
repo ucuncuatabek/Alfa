@@ -2,11 +2,20 @@
 @import "home.scss";
 
 body {
-  
+  background-image: url(http://fishermanslandingrestaurant.com/wp-content/uploads/2014/05/main_background2.png);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-repeat:no-repeat;
+
 }
 
 header {
-
+  text-align:center;
+  .logo{
+   
+  }
 }
 
 
@@ -14,11 +23,33 @@ footer {
  
 }
 [data-controller=home] {
+  .form-area{
+    border-radius: 5px;
+    background: rgba(black, 0.5);
+    width: 170px;
+    height: auto;
+    padding: 20px;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  label{
+    margin-left: auto;
+    color:#fff;
+    font-weight: 400;
+    line-height: 1.42857143;
+    font-size: 14px;
+  }
+  .seperate{   
+   text-align:center;
+   color:#fff;
+  }
   input{
       border-radius: 4px;
       height: 12px;
+      width: 94%;
       font-size: 12px;
-      padding: 3px 5px;
+      padding: 3px 3px;   
+      margin-bottom:5px;  
   }
   .btn-success{
     color: #fff;
@@ -30,11 +61,22 @@ footer {
     background-color: #337ab7;
     border-color: #2e6da4;
   }
+  .error{
+    border-color: #a94442;
+  }
+  .noError{
+    border-color: green;
+    border:1px;   
+    -webkit-box-shadow: 0px 0px 4px #4195fc;
+       -moz-box-shadow: 0px 0px 4px #4195fc;
+            box-shadow: 0px 0px 4px #4195fc;
+  }
   .btn{
     display: inline-block;
     padding: 6px 12px;
-    margin-bottom: 0;
-    margin-top:2px;
+    margin-bottom: 10px;
+    margin-top:10px;
+    width: 100%;
     font-size: 14px;
     font-weight: 400;
     line-height: 1.42857143;
