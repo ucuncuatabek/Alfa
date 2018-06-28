@@ -1,0 +1,35 @@
+{#
+Nunjucks Templating!
+Homepage: https://mozilla.github.io/nunjucks/
+Docs: https://mozilla.github.io/nunjucks/api.html
+#}
+
+{% extends 'layouts/application.html' %}
+
+{% block title %}Giriş Sayfası{% endblock %}
+
+{% block content %}
+
+<div data-controller="home">
+    <div class="form-area">
+        <form action="" id="formLogin" novalidate>
+            <div class="form-group">
+                <label for ="username" id="label" >Kullanıcı Adı veya Email</label>
+                <br>
+                <input type="text" class="form-control" id="username"  data-error = "false" data-title="Kullanıcı Adı veya Email" required>                 
+            </div>     
+
+            <div class="form-group">
+                <label for ="password" id="label" >Şifre:</label>
+                <br>
+                <input type="password" class="form-control" id="password" data-error = "false" data-title="Şifre" required>
+            </div>
+
+            <button type="submit" class="btn btn-success tr">Üye Girişi</button>
+            <div class="seperate"> veya </div>
+            <button type="button" class="btn btn-primary tr">Kayıt ol</button>
+        </form>
+    </div>    
+</div>
+
+{% endblock %}
