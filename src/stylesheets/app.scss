@@ -22,7 +22,7 @@ header {
 footer {
  
 }
-[data-controller=home] {
+[data-controller=home],[data-controller = signup] {
   .form-area{
     border-radius: 5px;
     background: rgba(black, 0.5);
@@ -65,11 +65,13 @@ footer {
     border-color: #a94442;
   }
   .noError{
-    border-color: green;
-    border:1px;   
-    -webkit-box-shadow: 0px 0px 4px #4195fc;
-       -moz-box-shadow: 0px 0px 4px #4195fc;
-            box-shadow: 0px 0px 4px #4195fc;
+    border-color: green;    
+  }
+  .small-error{
+    color:#a94442
+  }
+  .small-noError{
+    color: #4cae4c
   }
   .btn{
     display: inline-block;
@@ -94,6 +96,93 @@ footer {
     border: 1px solid transparent;
     border-radius: 4px;
   }
+
+  .popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* The actual popup */
+.popup .popuptext {
+    visibility: hidden;
+    width: 160px;
+    background-color: white;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+   
+}
+i{
+  float:right;
+  position:absolute;
+}
+.fa-angry{
+  color:red;
+}
+.fa-smile{
+  color: #4cae4c;
+}
+
+.signup{
+  display: none;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+.inner-addon {
+  position: relative;
+}
+
+/* style glyph */
+.glyphicon {
+  position: absolute;
+  padding: 5px;
+}
+
+#viewPwd{
+  z-index:1;
+}
+
+
+/* align glyph */
+.right-addon .glyphicon { right: 0px;}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;} 
+    to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+}
 
 }
 

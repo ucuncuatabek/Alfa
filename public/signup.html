@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Giriş Sayfası - Yemeksepeti</title>
+    <title>Kayıt Sayfası - Yemeksepeti</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon"/>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
@@ -18,11 +18,9 @@
     </header>
     <div class="content">
       
-
-
+    
 <div data-controller = "signup">
     <div class="form-area">
-        
         <form action="" id="formSignup" novalidate>
             <div class="form-group">
                 <label for = "email" id="label" >Email</label>
@@ -31,8 +29,8 @@
             </div>     
 
             <div class="form-group">
-                <label for  = "password"  id="label" >Şifre:</label>   
-                <i id="pwdIcon" class="far fa-angry popup signup">
+                <label class = "signup" for  = "password" id="label" >Şifre:</label>   
+                <i id="pwdIcon" class="far fa-angry popup">
                     <span class="popuptext" id="pwdInfo">
                         <small class = "small-error" id = "lovercase"> - Şifre en az 1 küçük harf içermeli. </small>        
                         <small class = "small-error" id = "uppercase"><br> - Şifre en az 1 Büyük harf içermeli. </small>
@@ -41,20 +39,20 @@
                     </span>
                 </i>
                 <br>             
-               
-                <div class= "inner-addon right-addon">       
-                    <i id = "viewPwd" class="fas fa-eye glyphicon signup" ></i>            
-                    <input type = "password" class="form-control " id="password"  data-error = "false" data-title = "Şifre" required > 
-                </div>               
-            </div>            
-            <button type="submit" id = "login" class="btn btn-success tr">Üye Girişi</button>
-            <div class="seperate"> veya </div>
-            <button type="button" id = "ButtonSignup" class="btn btn-primary tr">Kayıt ol</button>
+                <input type = "password" class="form-control " id="password"  data-error = "false" data-title = "Şifre" required> 
+            </div>
+
+            <div class="form-group signup">
+                <label for  = "passwordMatch" id="label" >Şifre Tekrar:</label>
+                <br>
+                <input type = "password" class="form-control popup" id="passwordMatch" data-error = "false" data-title = "Şifre">
+            </div>
+            <button type="submit" id = "signup" class="btn btn-success tr">Kayıt ol</button>
         </form>
     </div>
 </div>
 
-
+    
     </div>
     <footer>
      

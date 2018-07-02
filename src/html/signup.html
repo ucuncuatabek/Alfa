@@ -1,19 +1,17 @@
 {#
-Nunjucks Templating!
-Homepage: https://mozilla.github.io/nunjucks/
-Docs: https://mozilla.github.io/nunjucks/api.html
-#}
-
-{% extends 'layouts/application.html' %}
-
-{% block title %}Giriş Sayfası{% endblock %}
-
-{% block content %}
-
-
+    Nunjucks Templating!
+    Homepage: https://mozilla.github.io/nunjucks/
+    Docs: https://mozilla.github.io/nunjucks/api.html
+    #}
+    
+    {% extends 'layouts/application.html' %}
+    
+    {% block title %}Kayıt Sayfası{% endblock %}
+    
+    {% block content %}
+    
 <div data-controller = "signup">
     <div class="form-area">
-        
         <form action="" id="formSignup" novalidate>
             <div class="form-group">
                 <label for = "email" id="label" >Email</label>
@@ -22,8 +20,8 @@ Docs: https://mozilla.github.io/nunjucks/api.html
             </div>     
 
             <div class="form-group">
-                <label for  = "password"  id="label" >Şifre:</label>   
-                <i id="pwdIcon" class="far fa-angry popup signup">
+                <label class = "signup" for  = "password" id="label" >Şifre:</label>   
+                <i id="pwdIcon" class="far fa-angry popup">
                     <span class="popuptext" id="pwdInfo">
                         <small class = "small-error" id = "lovercase"> - Şifre en az 1 küçük harf içermeli. </small>        
                         <small class = "small-error" id = "uppercase"><br> - Şifre en az 1 Büyük harf içermeli. </small>
@@ -32,17 +30,17 @@ Docs: https://mozilla.github.io/nunjucks/api.html
                     </span>
                 </i>
                 <br>             
-               
-                <div class= "inner-addon right-addon">       
-                    <i id = "viewPwd" class="fas fa-eye glyphicon signup" ></i>            
-                    <input type = "password" class="form-control " id="password"  data-error = "false" data-title = "Şifre" required > 
-                </div>               
-            </div>            
-            <button type="submit" id = "login" class="btn btn-success tr">Üye Girişi</button>
-            <div class="seperate"> veya </div>
-            <button type="button" id = "ButtonSignup" class="btn btn-primary tr">Kayıt ol</button>
+                <input type = "password" class="form-control " id="password"  data-error = "false" data-title = "Şifre" required> 
+            </div>
+
+            <div class="form-group signup">
+                <label for  = "passwordMatch" id="label" >Şifre Tekrar:</label>
+                <br>
+                <input type = "password" class="form-control popup" id="passwordMatch" data-error = "false" data-title = "Şifre">
+            </div>
+            <button type="submit" id = "signup" class="btn btn-success tr">Kayıt ol</button>
         </form>
     </div>
 </div>
 
-{% endblock %}
+    {% endblock %}
