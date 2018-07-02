@@ -23,7 +23,19 @@
 <div data-controller = "signup">
     <div class="form-area">
         
-        <form action="" id="formSignup" novalidate>
+        <div id = "city-search-wrapper" >           
+            <input id="city-search-field" list="cities" name="cities" placeholder = "Semtinizi Seçiniz" >
+                <datalist id="cities">
+                    <option value="Acıbadem">
+                    <option value="Adatepe">
+                    <option value="Akatlar">
+                    <option value="Alibeyköy">
+                </datalist>
+            <button id = "city-search-button" class="fas fa-search glyphicon"></button>
+        </div>
+
+        <form action="/signup.html" id="formSignup" novalidate>
+
             <div class="form-group">
                 <label for = "email" id="label" >Email</label>
                 <br>
@@ -45,8 +57,10 @@
                 <div class= "inner-addon right-addon">       
                     <i id = "viewPwd" class="fas fa-eye glyphicon signup" ></i>            
                     <input type = "password" class="form-control " id="password"  data-error = "false" data-title = "Şifre" required > 
-                </div>               
-            </div>            
+                </div>  
+
+            </div>      
+
             <button type="submit" id = "login" class="btn btn-success tr">Üye Girişi</button>
             <div class="seperate"> veya </div>
             <button type="button" id = "ButtonSignup" class="btn btn-primary tr">Kayıt ol</button>
