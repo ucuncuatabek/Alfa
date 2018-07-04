@@ -1,23 +1,21 @@
+
 export default {
     init(){       
-        var controller = document.querySelector('[data-controller="restaurants"]');
+        
+        var controller = document.querySelector('[data-controller="restaurants"]');       
         if(!controller) return false;
-        this.attachEvents();   
+        
+        this.attachEvents();         
     },
     attachEvents(){
        this.getRestaurants();
     },
-    getRestaurants(){
-           fetch('data.json')
-           .then((res) => res.json())
-           .then((data) =>{
-               let output = '<h2> restaurants </h2>'
-               var restaurants = data.d.ResultSet.searchResponseList;
-               restaurants.forEach(function(restaurant) {
-                   console.log(restaurant.DeliveryTime);
-               });
-           })
-           
-           
+    getRestaurants(){        
+        fetch('http://localhost:3000/restaurants')
+        .then((res) => res.json())
+        .then((data) =>{
+            console.log(data[1].DisplayName);              
+        });          
+         
     }
 };

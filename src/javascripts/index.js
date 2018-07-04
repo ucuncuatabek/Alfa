@@ -32,7 +32,15 @@ export default {
         var i;
         var empty    = 0;
         var form     = e.target;
+       // var signupToggled = 0;
         var elements = form.getElementsByTagName("input");   
+        var signupElements = document.querySelector(".signup");
+
+        if(signupElements.style.display === "block"){
+            var signupToggled = 1;
+        } else {
+            var signupToggled = 0;
+        }
 
         for (i = 0; i < elements.length; i++) {
             var el = elements[i];            
@@ -51,15 +59,25 @@ export default {
                 }
             }
         }          
-        
+        var email = document.querySelector("#email").value;
+        var password = document.querySelector("#password").value;
+
         if(empty == 1){
             return false;
+        } else if (signupToggled === 1 && empty === 0) {   //signup
+            return false;
+        } else if(signupToggled === 0 && empty === 0) {      //login                                 
+            fetch('http://localhost:3000/check-user?user='+email+'&pass='+password)
+            .then((res) => res.json())
+            .then((data) =>{   
+                alert(data.message);                                     
+            }); 
+            return false; 
         }
     },    
     signupControl(e){ 
 
-        var signupActivated = document.querySelector(".signup");     
-        
+        var signupActivated = document.querySelector(".signup");           
 
             var field           = e.target;
             var formGroup       = field.closest(".form-group");          
@@ -184,8 +202,7 @@ export default {
                     arg.classList.remove("small-noError");
                     arg.classList.add("small-error");
                 }
-            }
-            
+            }            
         }
 
     },
