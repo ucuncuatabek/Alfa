@@ -1,4 +1,4 @@
-
+import helper from './helper'
 export default {
     timer : null,
     init(){
@@ -65,13 +65,36 @@ export default {
         if(empty == 1){
             return false;
         } else if (signupToggled === 1 && empty === 0) {   //signup
+            helper.request('POST','add-user',
+            {
+                email,
+                password
+            })
+            .then((data) => {
+                if(data.message === "Kayıt başarılı!"){
+                    alert(data.message);
+                    window.open("index.html","_self");
+                    return true;
+                } else {
+                    alert(data.message);
+                    return false;
+                }
+            })
             return false;
+
         } else if(signupToggled === 0 && empty === 0) {      //login                                 
-            fetch('http://localhost:3000/check-user?user='+email+'&pass='+password)
-            .then((res) => res.json())
-            .then((data) =>{   
-                alert(data.message);                                     
-            }); 
+            helper.request('POST','check-user',
+            {
+                email,
+                password
+            })
+            .then((data) => {
+                if(data.message === "ok"){
+                    return true;
+                } else {
+                    alert(data.message);
+                }
+            })
             return false; 
         }
     },    
@@ -91,9 +114,9 @@ export default {
 
         if(signupActivated.style.display === "block") {    
 
-            clearTimeout(this.timer);
-
-            if(e.target.getAttribute("id") == "password"){              
+            clearTimeout(this.timer);            
+            
+            if(e.target.getAttribute("id") == "password"){             
                 
                 this.timer =  setTimeout(function() {       
                     
@@ -217,6 +240,11 @@ export default {
     toggleSignup(){
        var toggleElements =  document.querySelectorAll(".signup");
        toggleElements.forEach(element => element.style.display = "block"); 
+       var loginButton =  document.querySelector("#login");
+       document.querySelector("#ButtonSignup").remove();
+       loginButton.innerHTML = "Kayıt ol";
+
+       document.querySelector("#buttonSeperator").remove();
     },
     viewPassword(){
         var x = document.querySelector("#password");
