@@ -18,21 +18,22 @@ mongoose.connect('mongodb://localhost:27017/ysapp');
 
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
-  console.log("baglandı");
- 
-  app.get('/restaurants', (req, res) => {
-      res.set('Content-Type', 'application/json');
-      res.set("Access-Control-Allow-Origin","*");
-      res.status(200);
-    
-      var restaurantCollection = db.collection('restaurants'); 
-      var restaurantInfo = restaurantCollection.find({},{}).toArray(function(err, result) {
-        if (err) throw err;
-        res.send(result)
-      });
-  });
+  console.log("baglandı"); 
   app.listen(3000, () => console.log('Example app listening on port 3000!'))
-  // insertDocuments(db);
+  //insertDocuments(db);
+ 
+});
+app.post('/get-restaurants', (req, res) => {
+  res.set('Content-Type', 'application/json');      
+  res.status(200);  
+  
+  var selectedArea = req.body.selectedArea;
+  var restaurantCollection = db.collection('restaurants');   
+  
+  var restaurantInfo = restaurantCollection.find({AreaName:selectedArea}).toArray(function(err, result) {
+    if (err) throw err;
+    res.send(result)
+  });
 });
 
 app.post('/check-user', (req, res) => {   
@@ -79,7 +80,38 @@ app.post('/add-user', (req, res) => {
   });
 
 });
+app.post('/get-cities',(req,res)=>{
+  res.set('Content-Type', 'application/json');
+  res.status(200);
 
+  var cityCollection = db.collection('cities');
+  var cities = cityCollection.find().toArray(function(err,result){
+    if(err) throw err;
+    if(result.length>0){
+      res.send(result);
+    }   
+  });
+});
+
+app.post('/get-areas',(req,res)=>{
+  res.set('Content-Type', 'application/json');
+  res.status(200);
+  var cityName = req.body.cityName;
+  var areaCollection = db.collection('areas');
+  var areas = areaCollection.find({CityName:cityName}).toArray(function(err,result){
+    if(err) throw err;
+    if(result.length>0){
+      res.send(result);
+    }   
+  });
+});
+
+
+function insertDocuments(){
+  var collection = db.collection('areas');
+  //collection.update({"SeoUrl" : {$regex : ".*ankara.*"}},{$set : {"CityName":"ANKARA"}},{multi:true});
+  collection.insert([]);
+}
 
 
 

@@ -21,28 +21,23 @@
 
 
 <div data-controller = "signup">
-    <div class="form-area">
-        
+    <div class="form-area">        
         <div id = "city-search-wrapper" >           
-            <input id="city-search-field" list="cities" name="cities" placeholder = "Semtinizi Seçiniz" >
-                <datalist id="cities">
-                    <option value="Acıbadem">
-                    <option value="Adatepe">
-                    <option value="Akatlar">
-                    <option value="Alibeyköy">
+            <input id="city-search-field" list="cities" name="cities" placeholder = "Şehir Seçiniz" >
+                <datalist id="cities">                    
                 </datalist>
             <button id = "city-search-button" class="fas fa-search glyphicon"></button>
         </div>
 
+       
         <form id="formSignup" novalidate>
-
             <div class="form-group">
                 <label for = "email" id="label" >Email</label>
                 <br>
                 <input type = "email" class="form-control" id="email"  data-error = "false" data-title = "Email" required>                 
             </div>     
 
-            <div class="form-group">
+            <div class="form-group" id = "#pass-group">
                 <label for  = "password"  id="label" >Şifre:</label>   
                 <i id="pwdIcon" class="far fa-angry popup signup">
                     <span class="popuptext" id="pwdInfo">

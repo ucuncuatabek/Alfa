@@ -1,14 +1,14 @@
 import helper from './helper'
+
 export default {
     timer : null,
+    
     init(){
-       
         var controller = document.querySelector('[data-controller="signup"]');
         if(!controller) return false;
-        this.attachEvents();     
-         
+        this.attachEvents();  
     },
-    attachEvents(){       
+    attachEvents(){ 
         var formLogin = document.querySelector('#formSignup');
         formLogin.onsubmit = this.validateLogin;
 
@@ -22,16 +22,19 @@ export default {
         viewPwd.onclick = this.viewPassword;
         
         var citySearch = document.querySelector("#city-search-button");
-        citySearch.onclick = this.citySearch;
+        citySearch.onclick = this.areaSearch;  
+       
 
         var pwdIcon = document.querySelector("#pwdIcon");
         pwdIcon.onmouseover = this.popupOn;     
-        pwdIcon.onmouseout  = this.popupOff;       
+        pwdIcon.onmouseout  = this.popupOff;   
+        this.getCities();    
     },
     validateLogin(e){         
         var i;
         var empty    = 0;
         var form     = e.target;
+        localStorage.setItem("userlogged",0);
        // var signupToggled = 0;
         var elements = form.getElementsByTagName("input");   
         var signupElements = document.querySelector(".signup");
@@ -89,9 +92,13 @@ export default {
                 password
             })
             .then((data) => {
-                if(data.message === "ok"){
+                if(data.message === "ok"){      //logged in succesfully
+                    alert("doğru");
+                    localStorage.setItem("userlogged",1);
+                    window.open("home.html?city=ISTANBUL","_self");
                     return true;
                 } else {
+                    localStorage.setItem("userlogged",0);
                     alert(data.message);
                 }
             })
@@ -258,9 +265,18 @@ export default {
             icon.classList.remove("fa-eye-slash");
             icon.classList.add("fa-eye");
         }
-    },
-    citySearch(){
-        window.open("Home.html","_self");
+    },   
+    getCities(){
+        var citiesList = document.querySelector("#cities");       
+        helper.request('POST','get-cities')
+        .then((data)=>{           
+           data.forEach (element => citiesList.insertAdjacentHTML('beforeend','<option value='+element.CityName+'>') );  
+        })
+    }, 
+    areaSearch(){
+        var selectedCity = document.querySelector("#city-search-field").value;
+        window.open('http://localhost:3001/home.html?city='+selectedCity,"_self")
     }
+   
     
 };
