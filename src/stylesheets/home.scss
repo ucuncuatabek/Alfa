@@ -37,12 +37,64 @@
         height:400px;        
         top:0;
         position: -webkit-sticky;
-        position:sticky;         
+        position:sticky;     
+        border-radius:3px;    
     }
-
+    a{
+      -webkit-any-link:active {
+        color: -webkit-activelink;
+      }
+    }
+    a:-webkit-any-link {
+      color: black;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    a:hover{
+      color: #ff6508
+    }
     .column-right{
-      background: red;      
+      background: #fff;      
       height:5000px;       
+    }
+    .head{
+      display:flex;
+      flex-wrap:wrap; 
+      margin: 0 5px;
+      font-size:15;
+      font-weight: 700;
+      font-family: 'Open Sans', sans-serif;
+    }
+    .minimumDeliveryPrice{
+      color: #707070;
+      font-size: 12px;
+      top: 1px;
+      position: relative;
+      cursor: default;
+      font-weight: 600;
+      margin-left: 5px;
+    }
+    .res-item{
+      margin-top: 14px;
+    }
+    .ys-invert{
+      border-radius: 4px;
+      background:#a5c530;
+      font-weight: 700;
+      color:#fff;
+      padding: 1px 5px;
+    }
+    .point{
+        color: #ffffff;
+        min-width: 31px;
+        text-align: center;
+        font-family: 'Open Sans', sans-serif;
+        text-align: center;
+        margin: 0 5px;
+        margin-top: 0px;
+        margin-right: 5px;
+        margin-bottom: 0px;
+        margin-left: 5px;
     }
     .col-md-4{
         width:25%;

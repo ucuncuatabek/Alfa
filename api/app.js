@@ -27,7 +27,7 @@ app.post('/get-restaurants', (req, res) => {
   res.set('Content-Type', 'application/json');      
   res.status(200);  
   
-  var selectedArea = req.body.selectedArea;
+  var selectedArea = req.body.area;
   var restaurantCollection = db.collection('restaurants');   
   
   var restaurantInfo = restaurantCollection.find({AreaName:selectedArea}).toArray(function(err, result) {
