@@ -3,13 +3,13 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hoşgeldiniz - Yemeksepeti</title>
+    <title>{% block title %}{% endblock %} - {{ title }}</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon"/>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
     <link rel="stylesheet" href="stylesheets/app.css">
     
-    
+    {% block head %}{% endblock %}
   </head>
   <body class="main-layout">
     <header>
@@ -66,17 +66,7 @@
             </div>
     
             <div class = "column-right col-md-12">
-                
-
-<div data-controller = "home">
-    <div class="res-count"></div>
-    <div class = "res-list">
-        <div class ="res-list-items">
-        </div>
-    </div>  
-</div>
-
-                          
+                {% block content %}{% endblock %}                      
             </div>    
         </div>   
     </div>
@@ -84,8 +74,8 @@
     <footer>     
     </footer>
 
-    
+    {% block javascript %}
       <script src="javascripts/app.js"></script>    
-    
+    {% endblock %}
   </body>
 </html>

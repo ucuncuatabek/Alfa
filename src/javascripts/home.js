@@ -4,7 +4,7 @@ export default {
     init(){               
         var controller = document.querySelector('[data-controller="home"]');       
         if(!controller) return false;        
-        this.attachEvents();   
+        this.attachEvents();        
     },
     attachEvents(){        
         var userLogged = localStorage.getItem("userlogged");  
@@ -15,6 +15,7 @@ export default {
         areaSearch.onclick = this.areaSearch.bind(this);
         this.getAreas();
         this.getRestaurants();
+       
     },   
     knownUser(){
         //alert("known")
@@ -22,6 +23,7 @@ export default {
     getAreas(){  
         var cityName = this.urlParser().city;        
         var areasList = document.querySelector("#areas")
+        localStorage.setItem("city", cityName);       
         helper.request('POST','get-areas',{
             cityName
         })
@@ -34,30 +36,35 @@ export default {
                 }                              
             })
         })      
-        
     },
     areaSearch(){
         var selectedArea = document.querySelector("#areas").value;
+        localStorage.setItem("area",selectedArea)
         var cityName = this.urlParser().city;            
         window.open('http://localhost:3001/home.html?city='+cityName+'&area='+selectedArea,"_self");        
     },   
     getRestaurants(){                  
-        var area = this.urlParser().area;
+        var Area = this.urlParser().area;
+        var City = this.urlParser().city
         var resListArea = document.querySelector(".res-list-items");
-        if(area != null){      
-            helper.request('POST','get-restaurants',{area})
-            .then((data) =>{ 
+        var resCount = 0;
+        if(Area){      
+            helper.request('POST','get-restaurants',{area:Area})
+            .then((data) =>{                
                 if(data.length === 0){
+                    document.querySelector(".res-count").insertAdjacentHTML('beforeend','<b>Seçmiş olduğunuz kriterlere uygun restoran bulunamadı.</b>')
                     console.log("bulunamadı");
-                } else {          
-                    data.forEach(element => {                         
+                } else {      
+                    document.querySelector(".res-count").insertAdjacentHTML('beforeend','<b>Seçmiş olduğunuz kriterlere uygun <span>'+data.length+'</span> restoran listelenmiştir.</b>')
+                    data.forEach(element => {                                             
                         if(element.DisplayName){ 
+                            //var SeoUrl = element.SeoUrl.replace(/\//g,"");
                             element.AllPromotionImageListFullPath.forEach(el => { status += '<img src='+el+'>'})
                             var restaurant =
                             '<div class ="res-item">'
                                 +'<div class="head">'
                                     +'<span class="point point9 ys-invert"> '+element.AvgRestaurantScore+' </span>'
-                                    +'<a class="restaurantName" href='+element.SeoUrl+'>  '+element.DisplayName+'</a>'
+                                    +'<a class="restaurantName" href=http://localhost:3001/restaurant.html?restaurant='+element.SeoUrl+'>  '+element.DisplayName+'</a>'
                                     +'<div class="status">'+status+'</div>'
                                     +'<span class="minimumDeliveryPrice"> min. '+element.MinimumDeliveryPrice+' TL </span>'
                                 +'</div>'
@@ -67,8 +74,29 @@ export default {
                         }              
                     });
                 }
-            })   
-        }               
+            });
+        }  else {    
+                helper.request('POST','get-restaurants',{city:City})
+                .then((data) => {
+                    document.querySelector(".res-count").insertAdjacentHTML('beforeend','<p><b>Seçmiş olduğunuz kriterlere uygun <span>'+data.length+'</span> restoran listelenmiştir.</b></p>')
+                    data.forEach(element => {
+                    if(element.DisplayName){ 
+                        element.AllPromotionImageListFullPath.forEach(el => { status += '<img src='+el+'>'})
+                        var restaurant =
+                        '<div class ="res-item">'
+                            +'<div class="head">'
+                                +'<span class="point point9 ys-invert"> '+element.AvgRestaurantScore+' </span>'
+                                +'<a class="restaurantName" href=http://localhost:3001/restaurant.html?restaurant='+element.SeoUrl+'>  '+element.DisplayName+'</a>'
+                                +'<div class="status">'+status+'</div>'
+                                +'<span class="minimumDeliveryPrice"> min. '+element.MinimumDeliveryPrice+' TL </span>'
+                            +'</div>'
+                        +'</div>';
+                        resListArea.insertAdjacentHTML('beforeend',restaurant); 
+                        status ='';                             
+                    }              
+                })
+            })
+        }           
     },
     urlParser(){
         var url = decodeURIComponent(location.search)

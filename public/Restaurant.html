@@ -67,14 +67,24 @@
     
             <div class = "column-right col-md-12">
                 
-
-<div data-controller = "home">
-    <div class="res-count"></div>
-    <div class = "res-list">
-        <div class ="res-list-items">
+<div class="restaurant-layout">
+<div data-controller = "restaurant">
+    <div id="res-detail" class=Restaurant>
+        <div id="detailTopBox">
+            <div class="detailArea resPoints"></div>
+            <div class="detailArea shortInfo"></div>
+            <div class="restLogo"></div>
         </div>
-    </div>  
+        <div class="restaurant-tabs">
+            <div class="panel-heading with-tabs"></div>
+            <div class="panel-body">
+                <div class="restaurant-menu"></div>
+            </div>
+        </div>
+    </div>        
 </div>
+</div>
+<script src="javascripts/app.js"></script>
 
                           
             </div>    

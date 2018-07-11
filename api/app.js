@@ -23,17 +23,29 @@ db.once('open', function() {
   //insertDocuments(db);
  
 });
+
 app.post('/get-restaurants', (req, res) => {
   res.set('Content-Type', 'application/json');      
   res.status(200);  
   
   var selectedArea = req.body.area;
+  var city = req.body.city;
+  var catalogName = 'TR_'+city;
+
+  console.log(req.body);
+
   var restaurantCollection = db.collection('restaurants');   
+  if(selectedArea){
+    var restaurantInfo = restaurantCollection.find({AreaName:selectedArea}).toArray(function(err, result) {
+      if (err) throw err;
+      res.send(result)
+    });
+  }else {
+    var restaurantInfo = restaurantCollection.find({CatalogName:catalogName}).toArray(function(err, result) {
+      if (err) throw err;
+      res.send(result)});
+  }
   
-  var restaurantInfo = restaurantCollection.find({AreaName:selectedArea}).toArray(function(err, result) {
-    if (err) throw err;
-    res.send(result)
-  });
 });
 
 app.post('/check-user', (req, res) => {   
@@ -106,9 +118,23 @@ app.post('/get-areas',(req,res)=>{
   });
 });
 
+app.post('/get-menu', (req, res) => {   
+  res.set('Content-Type', 'application/json'); 
+  res.status(200);
+ 
+  var collection = db.collection('menus');
+  var menu = collection.find({}).toArray(function(err, result) {
+    if (err) throw err;
+    if(result.length >0){
+      res.send(result);
+    }
+  });  
+  
+});
+
 
 function insertDocuments(){
-  var collection = db.collection('areas');
+  //var collection = db.collection('menus');
   //collection.update({"SeoUrl" : {$regex : ".*ankara.*"}},{$set : {"CityName":"ANKARA"}},{multi:true});
   collection.insert([]);
 }

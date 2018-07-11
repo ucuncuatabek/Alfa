@@ -1,0 +1,30 @@
+{#
+    Nunjucks Templating!
+    Homepage: https://mozilla.github.io/nunjucks/
+    Docs: https://mozilla.github.io/nunjucks/api.html
+    #}
+    
+    {% extends 'layouts/main.html' %}
+    {% block title %}Hoşgeldiniz{% endblock %}
+    
+    {% block content %}
+<div class="restaurant-layout">
+<div data-controller = "restaurant">
+    <div id="res-detail" class=Restaurant>
+        <div id="detailTopBox">
+            <div class="detailArea resPoints"></div>
+            <div class="detailArea shortInfo"></div>
+            <div class="restLogo"></div>
+        </div>
+        <div class="restaurant-tabs">
+            <div class="panel-heading with-tabs"></div>
+            <div class="panel-body">
+                <div class="restaurant-menu"></div>
+            </div>
+        </div>
+    </div>        
+</div>
+</div>
+<script src="javascripts/app.js"></script>
+
+    {% endblock %}
