@@ -12,56 +12,71 @@
     
   </head>
   <body class="main-layout">
+        
     <header>
-      <img class = "logo" src="/images/logo.png" alt=""><br>
-      <div class="inner">
-          <div class ="row search-bar">        
-              <div id = "area-search-wrapper" >               
-                  <select id= "areas" class="area-search-field" placeholder = "Semt Seçiniz">
-                          <option></option>
-                  </select>
-                  <button id = "area-search-button" class="fas fa-search glyphicon"></button>
-              </div>
-          </div>
+   
+            
+      
+    </header>
+    <div class="top" ></div>
+    <div id="sticky-bar">     
+            <div class="inner">
+                <div class ="search-bar">   
+                    <img class = "logo" src="/images/logo.png" alt=""><br>     
+                    <div id = "area-search-wrapper" >               
+                        <select id= "areas" class="area-search-field" placeholder = "Semt Seçiniz">
+                                <option place-holder="Tüm restoranlar"></option>
+                        </select>
+                        <button id = "area-search-button" class="fas fa-search glyphicon"></button>
+                    </div>
+                </div>
+            </div>
       </div>
       <div class="highlight"></div>
-    </header>
-
     <div class="content">      
         <div class="container">
             <div class ="column-left col-md-4">
-                <div class = "notLogged">
-                    <div class="form-area">                 
-                            <form id="formSignup" novalidate>            
-                                <div class="form-group">
-                                    <label for = "email" id="label" >Email</label>
-                                    <br>
-                                    <input type = "email" class="form-control" id="email"  data-error = "false" data-title = "Email" required>                 
-                                </div>                 
-                                <div class="form-group" id = "#pass-group">
-                                    <label for  = "password"  id="label" >Şifre:</label>   
-                                    <i id="pwdIcon" class="far fa-angry popup signup">
-                                        <span class="popuptext" id="pwdInfo">
-                                            <small class = "small-error" id = "lovercase"> - Şifre en az 1 küçük harf içermeli. </small>        
-                                            <small class = "small-error" id = "uppercase"><br> - Şifre en az 1 Büyük harf içermeli. </small>
-                                            <small class = "small-error" id = "numbers"><br> - Şifre en az 1 Sayı içermeli. </small>
-                                            <small class = "small-error" id = "pwdLength"><br>-  Şifre en az 8 karakter olmalı. </small>
-                                        </span>
-                                    </i>
-                                    <br> 
-                                    <div class= "inner-addon right-addon">       
-                                        <i id = "viewPwd" class="fas fa-eye glyphicon signup" ></i>            
-                                        <input type = "password" class="form-control " id="password"  data-error = "false" data-title = "Şifre" required > 
-                                    </div>  
-                                </div>    
-                                <button type="submit" id = "login" class="btn btn-success tr">Üye Girişi</button>
-                                <div class="seperate" id = "buttonSeperator" > veya </div>
-                                <button type="button" id = "ButtonSignup" class="btn btn-primary tr">Kayıt ol</button>
-                            </form>
-                    </div>                            
+                <div class="form-block">
+                    <div class = "notLogged">
+                        <div class="form-area">                 
+                                <form id="formSignup" novalidate>            
+                                    <div class="form-group">
+                                        <label for = "email" id="label" >Email</label>
+                                        <br>
+                                        <input type = "email" class="form-control" id="email"  data-error = "false" data-title = "Email" required>                 
+                                    </div>                 
+                                    <div class="form-group" id = "#pass-group">
+                                        <label for  = "password"  id="label" >Şifre:</label>   
+                                        <i id="pwdIcon" class="far fa-angry popup signup">
+                                            <span class="popuptext" id="pwdInfo">
+                                                <small class = "small-error" id = "lovercase"> - Şifre en az 1 küçük harf içermeli. </small>        
+                                                <small class = "small-error" id = "uppercase"><br> - Şifre en az 1 Büyük harf içermeli. </small>
+                                                <small class = "small-error" id = "numbers"><br> - Şifre en az 1 Sayı içermeli. </small>
+                                                <small class = "small-error" id = "pwdLength"><br>-  Şifre en az 8 karakter olmalı. </small>
+                                            </span>
+                                        </i>
+                                        <br> 
+                                        <div class= "inner-addon right-addon">       
+                                            <i id = "viewPwd" class="fas fa-eye glyphicon signup" ></i>            
+                                            <input type = "password" class="form-control " id="password"  data-error = "false" data-title = "Şifre" required > 
+                                        </div>  
+                                    </div>    
+                                    <button type="submit" id = "login" class="btn btn-success tr">Üye Girişi</button>
+                                    <div class="seperate" id = "buttonSeperator" > veya </div>
+                                    <button type="button" id = "ButtonSignup" class="btn btn-primary tr">Kayıt ol</button>
+                                </form>
+                        </div>                            
+                    </div>
+                        
+                    <div class = "logged">    
+                    </div>
                 </div>
-                    
-                <div class = "logged">    
+                <div class="user-basket">
+                    <div class="basket-header">
+                            <span>YEMEK SEPETİM</span>
+                    </div>
+                    <div class="location"></div>
+                    <div class="itemList"></div>
                 </div>
             </div>
     
@@ -73,8 +88,9 @@
         <div id="detailTopBox">
             <div class="detailArea resPoints"></div>
             <div class="detailArea shortInfo"></div>
-            <div class="restLogo"></div>
+            <div class="detailArea resLogo"></div>
         </div>
+        
         <div class="restaurant-tabs">
             <div class="panel-heading with-tabs"></div>
             <div class="panel-body">
@@ -84,7 +100,7 @@
     </div>        
 </div>
 </div>
-<script src="javascripts/app.js"></script>
+
 
                           
             </div>    

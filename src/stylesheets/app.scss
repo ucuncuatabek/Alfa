@@ -1,3 +1,7 @@
+  body{
+    font-family: Verdana, Geneva, sans-serif;
+    
+  }
 
  body.landing-layout {
   background-image: url(http://fishermanslandingrestaurant.com/wp-content/uploads/2014/05/main_background2.png);
@@ -6,7 +10,32 @@
   -o-background-size: cover;
   background-size: cover;
   background-repeat:no-repeat; 
+
 } 
+.form-block{
+  border:2px solid #dadada;
+  background: blue;
+  margin-bottom:10px;
+  border-radius:6px;
+}
+.user-basket{
+  border:2px solid #dadada;
+  background: #fff;
+  border-radius:6px;
+}
+.basket-header{
+  padding: 10px 11px;
+  background-color: #ac000b;
+  color: #fff;
+  font-size: 12px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  line-height: 15px;
+ 
+}
+.location{
+  font-size:12px;
+}
 
 .landing-layout {  
   header {
@@ -234,6 +263,13 @@ body.main-layout{
   text-align:center;
   color:#fff;
   }
+  #sticky-bar{
+    position:sticky;
+    position:-webkit-sticky;    
+    top:0;
+    margin-bottom:2px;
+    z-index:1;
+  }
 
   input{
       border-radius: 4px;
@@ -374,14 +410,18 @@ i{
     to {opacity:1 ;}
 }
   .search-bar{
+   
     background:yellow;
     width:1000px;
-    height:80px;
+    height:55px;
     margin-right:auto;
     margin-left:auto;
+   
 }
 .inner{
+ 
     background:#ab0012;
+    box-shadow: -3px 3px 0px 1px rgba(130, 130, 130, 0.1);
 }
 
 .highlight{
@@ -403,15 +443,30 @@ i{
   margin-left:auto;
   margin-right:auto;
   width:1000px;
+  min-width:1000px;
 }
 
 .column-left{
-  background:blue;
+  background:#fff;
   height:400px;        
-  top:0;
+  top:75px;
+  
   position: -webkit-sticky;
   position:sticky;     
   border-radius:3px;    
+}
+
+.logo{
+  display: inline-block;
+  width: 157px;
+  height: 155px;
+  background: url(../Images/logo.png?v=1530878576856?v=1530878576856) no-repeat center;
+  position: absolute;
+  top:-76px;
+  transition: top .4s, opacity .4s;
+  opacity: 1;
+  z-index: 1;
+  border-radius: 50%;
 }
 a{
 -webkit-any-link:active {
@@ -424,19 +479,21 @@ cursor: pointer;
 text-decoration: none;
 }
 a:hover{
-color: #ff6508
+color:#ff6508;;
 }
 
 .column-right{
   background: #fff;      
-  height:5000px;       
+    
 }
 
 .col-md-4{
   width:25%;
+  
 }
 .col-md-12{
-  width:75%;
+  width: calc(75% - 15px);
+  margin-left:10px;
 }
 
 
@@ -446,26 +503,34 @@ color: #ff6508
   width:auto;
   height:25px;
   position:relative;
+  top:-5px;
 }
 #city-search-field,.area-search-field{
-width:137px;
+width:177px;
 border-top-left-radius: 4px;
 border-bottom-left-radius: 4px;
 border-top-right-radius: 0;
 border-bottom-right-radius: 0;
+margin-left:250px;
+height:28px;
+margin-right:auto;
 }
 #city-search-button,#area-search-button {
   position:absolute;
-  top:0;
-  right:0;
-  height:22px;
-  border-top-right-radius: 4px;
+  
+  height:28px;
+  width:39px;
+   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
-background:#ff7208;
+  background:#ff7208;
   border: none;
   
 }
-
+select {
+  -webkit-appearance: none;
+  width:20px;
+  overflow: hidden;
+}
 
 [data-controller = home ]{
  
@@ -693,16 +758,77 @@ background:#ff7208;
     overflow:auto;
   }
 }
-[data-controller = restaurant ]{
-  .search-bar{
-      background:yellow;
-      width:1000px;
-      height:80px;
-      margin-right:auto;
-      margin-left:auto;
-  }
+
+.top{
+  background-color: #eff0f2;
+  width:auto;
+  height:55px;
+}
+
+[data-controller = restaurant ],[data-controller = home ]{
+  
+#detailTopBox{
+  border: 1px solid #f2f2f2;
+  height: 117px;
+  margin: 0 0 15px 0;  
+}
+.detailArea{   
+  float: left;
+  font-size:12px;
+}
+.shortInfos{
+  display:flex;
+  width: 93px;
+  float: left; 
+  
+}
+.shortInfoItem{
+  margin-right:32px;
+}
+.points{
+  display:flex;  
+  color: white;
+  font-size: 12px;
+  text-align: center;
+  font-weight: 600;
+  font-family: 'Open Sans', sans-serif;
+
+}
+span{
+  color: white;
+  font-size: 10px;
+  display: block;
+  text-align: center;
+  font-weight: 600;
+  font-family: 'Open Sans', sans-serif;
+}
+.spanPoint{
+      font-size: 18px;
+    letter-spacing: -1px;
+    margin-right: 2px;
+    margin-top:5px;
+}
+.point{
+  width: 31px;
+  height:45px;
+  margin-right:5px;
+}
+.resPoints{
+  width:25%;
+  border-right: 1px solid #eff0f2;
+  position:relative;
+  float: left;
+}
+.shortInfo{
+  width:50%;
+  border-right: 1px solid #eff0f2;
+}
+.resLogo{
+  width:25%;
+}
   .inner{
       background:#ab0012;
+     
   }
   .highlight{
       background-color: #eff0f2;
@@ -724,9 +850,9 @@ background:#ff7208;
       width:1000px;
   }
   .column-left{
-      background:blue;
+      background:#fff;
       height:400px;        
-      top:0;
+     
       position: -webkit-sticky;
       position:sticky;     
       border-radius:3px;    
@@ -751,9 +877,38 @@ background:#ff7208;
   .head{
     display:flex;
     flex-wrap:wrap; 
-    margin: 0 5px;
-    font-size:15;
+    
+    font-size:15px;
     font-weight: 700;
+    font-family: 'Open Sans', sans-serif;
+  }
+  .head.white{
+    border: 1px solid #f3f3f3;
+  }
+  .productListPrice{
+    color: #ff6508;
+    font-weight:bold;
+  }
+ 
+  a:hover{
+    color:black;
+  }
+  
+  h2{
+    display: block;
+    font-size: 1.5em;
+    -webkit-margin-before: 0.83em;
+    -webkit-margin-after: 0.83em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    font-weight: bold;
+    margin-left: 15px;
+  }
+  b{
+    
+    font-size: 18px;
+    margin-bottom: 0;
+    margin-top: 3px;
     font-family: 'Open Sans', sans-serif;
   }
   .minimumDeliveryPrice{
@@ -800,6 +955,7 @@ background:#ff7208;
     border-bottom-left-radius: 4px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+   
   }
   #city-search-button,#area-search-button {
       position:absolute;
@@ -983,51 +1139,86 @@ background:#ff7208;
       box-shadow: 0 -1px 0 rgba(51,51,51,0.2);      
   }
   .ys-btn-icon-add-to-basket{
-    background-color: #366d20;
+   
   }
   .ys-btn{
-    padding: 2px 11px;
-    line-height: 16px;
-    background-color: #48912a;
-    color: #fff;
-    -webkit-box-shadow: 0 2px 0 rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.19);
-    -ms-box-shadow: 0 2px 0 rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.19);
-    -moz-box-shadow: 0 2px 0 rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.19);
-    -o-box-shadow: 0 2px 0 rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.19);
-    box-shadow: 0 2px 0 rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.19);
-    display: inline-block;
-    zoom: 1;
-    border:1px;
-    padding: 2px 11px;
-    line-height: 16px;
-    height: 10px;
-    width:10px;
+    height: 26px;
+    width: 31px;
     border-radius: 3px;
+    border: 1px;
+    margin-top: 1px;
+  }
+  .ys-button-success{
+    background-color: #48912a;
+  }
+  .ys-icon-plus{
+    display:inline-block;
+    position: relative;
+    /* Adjust these values accordingly */
+    top: 5px;
+    left: 5px;
+  }
+  .ys-icon-plus {
+    display: inline-block;
+    position: relative;
+    top: -1px;
+    left: -3px;
+    color: #fff;
+  }
+  .ys-button-success:hover{
+    background-color: #35751c;
+  }
+  .restaurantDetailBox{
+    margin-bottom: 37px;
+    box-shadow: 0 1px 0 #dadada;
+  }
+  .head.white{
+    border: 1px solid #f3f3f3;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    background-color: #fff;
+    -moz-box-shadow: 0 1px 0 #dadada;
+    -webkit-box-shadow: 0 1px 0 #dadada;
+    box-shadow: 0 1px 0 #dadada;
+    -webkit-border-radius: 3px 3px 0 0;
+    border-radius: 3px 3px 0 0;
   }
   .productName{
       display:inline-block;
+      color:#ff6508;
   }
   .productListPrice{
       display:inline-block;
       float:right;
+      margin-right:15px;
       
      
+  }
+  ul{
+    margin-left:-15px;
   }
   li{
     position: relative;
     border-bottom: 1px solid #f3f3f3;
-    padding: 7px 15px;
+    padding: 2px -1px;
+    list-style-type: none;
   }
   .listBody{
     padding: 0;
     border: 1px solid #f3f3f3;   
   }
   li:hover{
-      background-color:red;
+      background-color:rgba(255, 196, 0, 0.4);
+  }
+  .table-row{
+    margin-top:8px;
   }
   .productName{
       margin-left:15px;
-
+      font-weight: bold;
+      font-size:15;
+      position:relative;
   }
 
 }

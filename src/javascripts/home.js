@@ -13,6 +13,10 @@ export default {
         }       
         var areaSearch = document.querySelector("#area-search-button");
         areaSearch.onclick = this.areaSearch.bind(this);
+
+        var basketLocation =document.querySelector(".location")
+        basketLocation.insertAdjacentHTML('beforeend','<span>'+localStorage.getItem("area")+'</span>')
+
         this.getAreas();
         this.getRestaurants();
        
@@ -43,14 +47,16 @@ export default {
         var cityName = this.urlParser().city;            
         window.open('http://localhost:3001/home.html?city='+cityName+'&area='+selectedArea,"_self");        
     },   
-    getRestaurants(){                  
+    getRestaurants(){        
+        alert("lasdkjasd")          
         var Area = this.urlParser().area;
         var City = this.urlParser().city
         var resListArea = document.querySelector(".res-list-items");
         var resCount = 0;
         if(Area){      
             helper.request('POST','get-restaurants',{area:Area})
-            .then((data) =>{                
+            .then((data) =>{  
+                            
                 if(data.length === 0){
                     document.querySelector(".res-count").insertAdjacentHTML('beforeend','<b>Seçmiş olduğunuz kriterlere uygun restoran bulunamadı.</b>')
                     console.log("bulunamadı");
@@ -78,6 +84,7 @@ export default {
         }  else {    
                 helper.request('POST','get-restaurants',{city:City})
                 .then((data) => {
+                    console.log(data)  
                     document.querySelector(".res-count").insertAdjacentHTML('beforeend','<p><b>Seçmiş olduğunuz kriterlere uygun <span>'+data.length+'</span> restoran listelenmiştir.</b></p>')
                     data.forEach(element => {
                     if(element.DisplayName){ 

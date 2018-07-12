@@ -31,8 +31,7 @@ app.post('/get-restaurants', (req, res) => {
   var selectedArea = req.body.area;
   var city = req.body.city;
   var catalogName = 'TR_'+city;
-
-  console.log(req.body);
+ 
 
   var restaurantCollection = db.collection('restaurants');   
   if(selectedArea){
@@ -40,12 +39,21 @@ app.post('/get-restaurants', (req, res) => {
       if (err) throw err;
       res.send(result)
     });
-  }else {
-    var restaurantInfo = restaurantCollection.find({CatalogName:catalogName}).toArray(function(err, result) {
+  }else if(catalogName) {
+      var restaurantInfo = restaurantCollection.find({CatalogName:catalogName}).toArray(function(err, result) {
       if (err) throw err;
       res.send(result)});
   }
-  
+ 
+});
+app.post('/get-restaurant-info',(req,res) =>{
+  res.set('Content-Type', 'application/json');      
+  res.status(200);  
+  var seoUrl = req.body.SeoUrl;
+  var restaurantCollection = db.collection('restaurants');   
+  var restaurantInfo = restaurantCollection.find({SeoUrl:seoUrl}).toArray(function(err, result) {
+    if (err) throw err;
+    res.send(result)});
 });
 
 app.post('/check-user', (req, res) => {   
