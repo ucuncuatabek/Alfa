@@ -1,0 +1,224 @@
+body.landing-layout {
+    background-image: url(http://fishermanslandingrestaurant.com/wp-content/uploads/2014/05/main_background2.png);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-repeat:no-repeat; 
+  
+} 
+header {
+    text-align:center;
+    .logo{}
+} 
+
+
+
+//login styles ============================================
+.login {
+        #city-search-wrapper,#area-search-wrapper {
+            width:auto;
+            height:25px;
+            position:relative;
+        }
+
+        #city-search-field,.area-search-field {
+          width:137px;
+          border-top-left-radius: 4px;
+          border-bottom-left-radius: 4px;
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+        }
+
+        #city-search-button,#area-search-button {
+            position:absolute;
+            top:0;
+            right:0;
+            height:22px;
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+            background:#ff7208;
+            border: none;            
+        }
+
+        .form-area {
+            border-radius: 5px;
+            background: rgba(black, 0.5);
+            width: 170px;
+            height: auto;
+            padding: 20px;
+            margin-left:auto;
+            margin-right:auto;
+        }
+
+        label {
+            margin-left: auto;
+            color:#fff;
+            font-weight: 400;
+            line-height: 1.42857143;
+            font-size: 14px;
+        }
+
+        .seperate {   
+            text-align:center;
+            color:#fff;
+        }
+    
+        input {
+            border-radius: 4px;
+            height: 12px;
+            width: 94%;
+            font-size: 12px;
+            padding: 3px 3px;   
+            margin-bottom:5px;              
+        }
+
+        //Button styles ========================================
+        .btn-success {
+            color: #fff;
+            background-color: #5cb85c;
+            border-color: #4cae4c;    
+        }
+
+        .btn-primary {
+            color: #fff;
+            background-color: #337ab7;
+            border-color: #2e6da4;
+        }
+
+        .btn{
+            display: inline-block;
+            padding: 6px 12px;
+            margin-bottom: 10px;
+            margin-top:10px;
+            width: 100%;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.42857143;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-image: none;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+        //=======================================================
+
+
+        //error styles ==========================================
+        .error {
+            border-color: #a94442;
+        }
+
+        .noError {
+            border-color: green;    
+        }
+
+        .small-error {
+            color:#a94442
+        }
+
+        .small-noError {
+            color: #4cae4c
+        }
+        //========================================================
+
+        //popup styles ===========================================
+        .popup {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    
+        /* The actual popup */
+        .popup .popuptext {
+            visibility: hidden;
+            width: 160px;
+            background-color: white;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+          
+        }
+         /* Popup arrow */
+         .popup .popuptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #555 transparent transparent transparent;
+        }
+        .popup .show {
+            visibility: visible;
+            -webkit-animation: fadeIn 1s;
+            animation: fadeIn 1s;
+        }
+        /* Add animation (fade in the popup) */
+        @-webkit-keyframes fadeIn {
+            from {opacity: 0;} 
+            to {opacity: 1;}
+        }
+    
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity:1 ;}
+        }
+        //===================================================
+
+        //icon styles =======================================
+        i{
+          float:right;
+          position:absolute;
+        }
+        .fa-angry{
+          color:red;
+        }
+        .fa-smile{
+          color: #4cae4c;
+        }
+    
+        .signup{
+          display: none;
+        }
+    
+       
+        .inner-addon {
+          position: relative;
+        }
+    
+        /* style glyph */
+        .glyphicon {
+          position: absolute;
+          padding: 5px;
+        }   
+    
+        /* align glyph */
+        .right-addon .glyphicon { right: 0px;}
+        //=================================================   
+       
+
+        #areas{
+          max-width:200px;
+          overflow:auto;
+        }
+    }  
+    //=============================================================

@@ -48,7 +48,7 @@ export default {
         window.open('http://localhost:3001/home.html?city='+cityName+'&area='+selectedArea,"_self");        
     },   
     getRestaurants(){        
-        alert("lasdkjasd")          
+               
         var Area = this.urlParser().area;
         var City = this.urlParser().city
         var resListArea = document.querySelector(".res-list-items");

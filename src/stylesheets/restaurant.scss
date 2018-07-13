@@ -1,4 +1,317 @@
-body{
-    background: #fff;
-    background-image:none;
+
+[data-controller = restaurant ] {
+    
+    #detailTopBox{
+        border: 1px solid #f2f2f2;
+        height: 85px;
+        margin: 0 0 15px 0;  
+    }
+    .detailArea{   
+        float: left;
+        font-size:12px;
+    }
+    .shortInfos{
+        display:flex;
+        width: 150px;
+        float: left;         
+    }
+    .shortInfoItem{
+        margin-right:32px;
+    }
+    .shortInfoTitle{
+      font-size:10px;
+      color: #949494;
+      font-weight:bold;
+      line-height: 14px;
+      font-family: 'Open Sans', sans-serif;
+    }
+    .points{
+        margin-top:7px;
+        margin-left:20px;
+        display:flex;  
+        color: white;
+        font-size: 12px;
+        text-align: center;
+        font-weight: 600;
+        font-family: 'Open Sans', sans-serif;
+    }
+    .descriptionB{
+      font-size:11px;
+      font-weight:bold;
+    }
+    .grayText{
+      font-size:13px;
+      color: #949494;
+    }
+    span{
+        color: white;
+        font-size: 10px;
+        display: block;
+        text-align: center;
+        font-weight: 600;
+        font-family: 'Open Sans', sans-serif;
+    }
+    span.productInfo{
+      color: black;
+      font-size: 12px; 
+      position:relative;
+      font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+      text-align:left;
+      margin-left:86px;
+      width:78%;;
+    }
+    .spanPoint{
+        font-size: 18px;
+        letter-spacing: -1px;
+        margin-right: 2px;
+        margin-top:5px;
+    }
+    .point{
+      
+        width: 31px;
+        height:45px;
+        margin-right:5px;
+        
+    }
+    .resPoints{
+        width:25%;
+        border-right: 1px solid #eff0f2;
+        position:relative;
+        float: left;
+    }
+    .shortInfo{
+        width:50%;
+        border-right: 1px solid #eff0f2;
+    }
+    .resLogo{
+        width:24%;
+        display:flex;
+    }
+ 
+      img{
+        
+       
+        margin: auto;
+        padding: 7px;
+        height: auto;
+        max-height: 100%;
+        max-width: 150px;
+      }
+    
+   
+    .inner{
+        background:#ab0012;
+      
+    }
+    .highlight{
+        background-color: #eff0f2;
+        min-height: 100px;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        background-repeat: no-repeat;
+        background-position: right center;
+        background-attachment: fixed;
+        padding-top: 8px;
+        top: -4px;
+    }
+    .container{
+        display:flex;
+        flex-wrap:wrap;       
+        margin-left:auto;
+        margin-right:auto;
+        width:1000px;
+    }
+    .column-left{
+        background:#fff;
+        height:400px;        
+      
+        position: -webkit-sticky;
+        position:sticky;     
+        border-radius:3px;    
+    }
+    a{
+      -webkit-any-link:active {
+        color: -webkit-activelink;
+      }
+    }
+    a:-webkit-any-link {
+      color: black;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    a:hover{
+      color: #ff6508
+    }
+    .column-right{
+      background: #fff;      
+      height:5000px;       
+    }
+    .head{
+      display:flex;
+      flex-wrap:wrap; 
+      
+      font-size:15px;
+      font-weight: 700;
+      font-family: 'Open Sans', sans-serif;
+    }
+    .head.white{
+      border: 1px solid #f3f3f3;
+    }
+    .productListPrice{
+      color: #ff6508;
+      font-weight:bold;
+      font-size:15px;
+    }
+  
+    a:hover{
+      color:black;
+    }
+    
+    h2{
+      display: block;
+      font-size: 1.5em;
+      -webkit-margin-before: 0.83em;
+      -webkit-margin-after: 0.83em;
+      -webkit-margin-start: 0px;
+      -webkit-margin-end: 0px;
+      font-weight: bold;
+      margin-left: 15px;
+    }
+    b{
+      
+      font-size: 18px;
+      margin-bottom: 0;
+      margin-top: 3px;
+      font-family: 'Open Sans', sans-serif;
+    }
+    .minimumDeliveryPrice{
+      color: #707070;
+      font-size: 12px;
+      top: 1px;
+      position: relative;
+      cursor: default;
+      font-weight: 600;
+      margin-left: 5px;
+    }
+    .res-item{
+      margin-top: 14px;
+    }
+    .ys-invert{
+      border-radius: 4px;
+      background:#a5c530;
+      font-weight: 700;
+      color:#fff;
+      padding: 1px 5px;
+    } 
+    
+    b{
+      background: #fff; 
+      padding: 0 10px; 
+    } 
+    
+    .col-md-4{
+        width:25%;
+    }
+    .col-md-12{
+        width:75%;
+    }
+    
+   
+
+      
+
+    .item-count{
+        float:left;
+        margin-right:5px;
+        display:flex;
+        width: 26px;
+        height: 17px;
+        text-align: center;
+        margin-top: 2px;
+        border: 1px solid #e5e5e5;
+        border-radius: 2px;
+        background-clip: padding-box;
+        background-color: #fff;
+        box-shadow: 0 -1px 0 rgba(51,51,51,0.2);      
+    }
+    .ys-btn-icon-add-to-basket{
+    
+    }
+    .ys-btn{
+      height: 22px;
+      width: 31px;
+      border-radius: 3px;
+      border: 1px;
+      margin-top: 1px;
+    }
+    .ys-button-success{
+      background-color: #48912a;
+    }
+  
+    .ys-icon-plus {
+      display: inline-block;
+      position: relative;
+      top: 0px;
+      left: -1px;
+      color: #fff;
+    }
+    .ys-button-success:hover{
+      background-color: #35751c;
+    }
+    .restaurantDetailBox{
+      margin-bottom: 37px;
+      box-shadow: 0 1px 0 #dadada;
+      
+    }
+    .head.white{
+      border: 1px solid #f3f3f3;
+      -moz-background-clip: padding;
+      -webkit-background-clip: padding-box;
+      background-clip: padding-box;
+      background-color: #fff;
+      -moz-box-shadow: 0 1px 0 #dadada;
+      -webkit-box-shadow: 0 1px 0 #dadada;
+      box-shadow: 0 1px 0 #dadada;
+      -webkit-border-radius: 3px 3px 0 0;
+      border-radius: 3px 3px 0 0;
+    }
+    .productName{
+        display:inline-block;
+        color:#ff6508;
+        cursor:pointer;
+    }
+    .productListPrice{
+        display:inline-block;
+        float:right;
+        margin-right:15px;
+        
+      
+    }
+    ul{
+      margin-left:-15px;
+    }
+    li{
+      position: relative;
+      border-bottom: 1px solid #f3f3f3;
+      padding: 2px -1px;
+      list-style-type: none;
+    }
+    .listBody{
+      padding: 0;
+      border: 1px solid #f3f3f3;   
+    }
+    li:hover{
+        background-color:rgba(255, 196, 0, 0.4);
+    }
+    .table-row{
+      margin-top:8px;
+    }
+    .productName{
+        margin-left:15px;
+        font-weight: bold;
+        font-size:15;
+        position:relative;
+    }
+
   }
