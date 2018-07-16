@@ -3,7 +3,7 @@
     
     #detailTopBox{
         border: 1px solid #f2f2f2;
-        height: 85px;
+        height: 117px;
         margin: 0 0 15px 0;  
     }
     .detailArea{   
@@ -12,7 +12,8 @@
     }
     .shortInfos{
         display:flex;
-        width: 150px;
+        padding: 22px 19px;
+        width: 329px;
         float: left;         
     }
     .shortInfoItem{
@@ -25,9 +26,15 @@
       line-height: 14px;
       font-family: 'Open Sans', sans-serif;
     }
+    .fa-coins,.fa-clock,.fa-motorcycle{
+      color:#ff6508;
+     
+      font-size: 17px;  
+     
+    }
     .points{
-        margin-top:7px;
-        margin-left:20px;
+       
+        padding:33px 19px;
         display:flex;  
         color: white;
         font-size: 12px;
@@ -38,6 +45,11 @@
     .descriptionB{
       font-size:11px;
       font-weight:bold;
+      padding: -1px 10px !important; 
+
+    }
+    .description{
+      margin-left:-10px;
     }
     .grayText{
       font-size:13px;
@@ -74,35 +86,42 @@
         
     }
     .resPoints{
-        width:25%;
+        width:24%;
+        height:100%;
         border-right: 1px solid #eff0f2;
         position:relative;
         float: left;
     }
     .shortInfo{
-        width:50%;
+        padding:8px 10px;
+        width:44%;
         border-right: 1px solid #eff0f2;
+        height:102px;
     }
     .resLogo{
         width:24%;
+        height:116px;
+        padding:0px 18px;
+        float:right;
         display:flex;
     }
  
-      img{
-        
+      img{   
+        vertical-align: middle;
        
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
         margin: auto;
-        padding: 7px;
+       
         height: auto;
         max-height: 100%;
         max-width: 150px;
       }
     
    
-    .inner{
-        background:#ab0012;
-      
-    }
+   
     .highlight{
         background-color: #eff0f2;
         min-height: 100px;
@@ -120,6 +139,7 @@
         flex-wrap:wrap;       
         margin-left:auto;
         margin-right:auto;
+       
         width:1000px;
     }
     .column-left{
@@ -223,6 +243,7 @@
 
     .item-count{
         float:left;
+        margin-left:6px;
         margin-right:5px;
         display:flex;
         width: 26px;
@@ -279,22 +300,22 @@
     .productName{
         display:inline-block;
         color:#ff6508;
+        font-size:15px;
         cursor:pointer;
     }
     .productListPrice{
         display:inline-block;
         float:right;
         margin-right:15px;
+        margin-top:-33px;
         
       
     }
-    ul{
-      margin-left:-15px;
-    }
+    
     li{
       position: relative;
       border-bottom: 1px solid #f3f3f3;
-      padding: 2px -1px;
+      padding:7px 15px;
       list-style-type: none;
     }
     .listBody{
@@ -306,6 +327,8 @@
     }
     .table-row{
       margin-top:8px;
+      width:auto;
+      display:table-row;
     }
     .productName{
         margin-left:15px;

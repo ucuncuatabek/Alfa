@@ -3,6 +3,16 @@ body.main-layout{
     background-image:none;
   }
 .main-layout {
+   
+   .slideUp {
+        opacity: 0 !important;
+        -moz-transition: opacity 0.4s ease-in-out !important;
+        -o-transition: opacity 0.4s ease-in-out  !important;
+        -webkit-transition: opacity 0.4s ease-in-out !important;
+        transition: opacity 0.4s ease-in-out !important;
+    }
+    
+      
     //login box styles ====================================
     .login{
         margin-top:20px;
@@ -49,9 +59,13 @@ body.main-layout{
         margin-bottom:2px;
         z-index:1;
     }
+    .inner{
+        background:#ab0012;
+        height:80px;
+    }
     
     .search-bar{    
-        background:yellow;
+        background:#ab0012;
         width:1000px;
         height:55px;
         margin-right:auto;
@@ -88,7 +102,7 @@ body.main-layout{
     .column-left{
         background:#fff;
         height:400px;        
-        top:75px;
+        top:100px;
         
         position: -webkit-sticky;
         position:sticky;     
@@ -106,6 +120,10 @@ body.main-layout{
         opacity: 1;
         z-index: 1;
         border-radius: 50%;
+        margin-left:37px;
+    }
+    .logo2{
+        margin-left:20px;
     }
 
     a{
@@ -145,17 +163,22 @@ body.main-layout{
         background-image:url('/path/to/your/sprite.gif');
         width:auto;
         height:25px;
+        display:inline-block;
         position:relative;
-        top:-5px;
+        margin-left:60px;
+        top:-13px;
     }
-
+    #ys-logo-2{
+        margin-top:3px;
+    }
     #city-search-field,.area-search-field{
         width:177px;
+        padding-left:15px;
+        display:inline-block;
         border-top-left-radius: 4px;
         border-bottom-left-radius: 4px;
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
-        margin-left:250px;
         height:28px;
         margin-right:auto;
     }
@@ -174,6 +197,7 @@ body.main-layout{
     select {
         -webkit-appearance: none;
         width:20px;
+        display:inline-block;
         overflow: hidden;
     }
 
