@@ -71,7 +71,7 @@ export default {
                 category.Products.forEach((product)=> {                                
                     productList += `<li>
                                         <div class = "table-row">
-                                            <input  data-product-id="${product.ProductId}" type="text" class="item-count" value ="1">
+                                            <input  data-product-id="${product.ProductId}" id ="${product.ProductId}" type="text" class="item-count" value ="1">
                                             <button data-product-id="${product.ProductId}" data-name = "${product.DisplayName}" data-price=${product.ListPrice} class="ys-btn ys-button-success ys-btn-icon-add-to-basket btn-addtobasket"><i class="fas fa-plus ys-icon-plus"></i></button>
                                             <div class="productName">
                                                 <a data-product-id="${product.ProductId}">${product.DisplayName}</a>
@@ -114,7 +114,7 @@ export default {
         var logo = document.querySelector(".resLogo")
         helper.request('POST','get-restaurant-info',{SeoUrl:seoUrl})
         .then((data)=> {
-            
+            localStorage.setItem("minDelivery",data[0].MinimumDeliveryPrice);
             var resPoints =  `<b class="grayText">Restoran Puanları</b>
                                 <div class="points">
                                     <div class = "point ys-invert">

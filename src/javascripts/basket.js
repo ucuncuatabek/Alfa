@@ -14,7 +14,7 @@ export default {
         trash.style="display:block";
         var productId       = button.dataset.productId;
         var productName     = button.dataset.name;
-        var productCount    = parseInt(document.querySelector("input[data-product-id='"+productId+"']").value); 
+        var productCount    = parseInt(document.querySelector("input[id='"+productId+"']").value); 
         var productPrice    = parseFloat(button.dataset.price.replace(",","."))
 
         var newItem = {
@@ -33,8 +33,10 @@ export default {
         var exists = 0;
         if(basket){
             var keys = Object.keys(basket);
+           
             keys.forEach((id) => {               
                 if(id === productId) { 
+                    console.log(productCount,productPrice, parseFloat(basket[id]["price"]))
                     exists = 1;   
                     basket[id]["price"] = productCount*productPrice + parseFloat(basket[id]["price"]);
                     basket[id]["count"] = productCount + parseFloat(basket[id]["count"])
@@ -52,7 +54,8 @@ export default {
         } else {
             localStorage.setItem("basket",JSON.stringify(newItem));
         }
-        this.insertItems();      
+        this.insertItems(); 
+        
     },
     clearBasket(){        
         localStorage.setItem("basket","");
@@ -87,7 +90,7 @@ export default {
         var basketItemList  = document.querySelector(".items");
         var itemExists = document.querySelectorAll(".exists")
         var emptyList = document.querySelector(".no-item");
-        
+
         if(localStorage.getItem("basket")){
             var basket  = JSON.parse(localStorage.getItem("basket"));
         
@@ -121,6 +124,17 @@ export default {
             emptyList.style ="display:none";
             var trash = document.querySelector(".emptyBasket");
             trash.style="display:block";
+            var minDeliveryPrice = localStorage.getItem("minDelivery")
+            if(totalPrice<minDeliveryPrice){
+                var shouldAdd = minDeliveryPrice-totalPrice;
+                var message = `<span class="basketMessage">Minimum paket tutarının altındasınız. Siparişinizi tamamlamak için sepetinize <b>${shouldAdd} TL</b> değerinde daha ürün eklemeniz gerekmektedir.
+                                </span>`
+                document.querySelector(".message").innerHTML=message;
+            } else {
+                if(document.querySelector(".basketMessage")){
+                    document.querySelector(".basketMessage").remove()
+                }
+            }
         } else {
             basketItemList.innerHTML = "";
             console.log("burdayım")

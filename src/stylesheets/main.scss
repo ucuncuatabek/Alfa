@@ -4,6 +4,38 @@ body.main-layout{
   }
 .main-layout {
     //basket styles========================================
+    .sepeti-onayla{
+        display: inline-block;
+        padding: 6px 12px;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        margin-left: 9px;
+        width: 92%;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.42857143;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        -ms-touch-action: manipulation;
+        touch-action: manipulation;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        background-image: none;
+        border: 1px solid transparent;
+        border-radius: 3px;
+        background-color: #feba36;
+        border: 1px solid #feb11d;
+    }
+    .basketMessage{
+        font-size:12px;
+        margin: 3px 0;
+        text-align: center;
+        display:block;
+    }
     tbody{
         display: table-row-group;
         vertical-align: middle;
