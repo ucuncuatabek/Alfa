@@ -23,7 +23,6 @@ body.main-layout{
     }
     input.txtCount{
         width:20px;
-        //height:17px;
         text-align: center;
         padding: 1px 2px;
     }
@@ -50,8 +49,7 @@ body.main-layout{
         height:220px;
     }
     .itemList{
-        min-height:60px;
-        max-height: 350px;
+        max-height: 300px;
         overflow-y: auto;
     }
     .ys-pullLeft{
@@ -114,6 +112,84 @@ body.main-layout{
       background-color: darkgrey;
       outline: 1px solid slategrey;
       border-radius:10px;
+    }
+    .emptyBasket{
+        float:right;
+    }
+    .no-item{
+        display:block;
+    }
+    .exists{
+        display:none;
+    }
+    
+    .fa-shopping-basket{
+        font-size: 60px;
+        opacity: 0.2;
+    }
+    .no-item span{
+        top: -10px;
+        left: 15px;
+        font-size:12px;
+        font-weight: bold;
+        position:relative;
+    }
+    
+    /* Popup container - can be anything you want */
+    .emptyBasket {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    /* The actual popup */
+    .emptyBasket .popuptext {
+        visibility: hidden;
+        width: 160px;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 8px 0;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 50%;
+        margin-left: -80px;
+    }
+
+    /* Popup arrow */
+    .emptyBasket .popuptext::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #555 transparent transparent transparent;
+    }
+
+    /* Toggle this class - hide and show the popup */
+    .emptyBasket .show {
+        visibility: visible;
+        -webkit-animation: fadeIn 0.2s;
+        animation: fadeIn 0.2s;
+    }
+
+    /* Add animation (fade in the popup) */
+    @-webkit-keyframes fadeIn {
+        from {opacity: 0;} 
+        to {opacity: 1;}
+    }
+
+    @keyframes fadeIn {
+        from {opacity: 0;}
+        to {opacity:1 ;}
     }
     //===================================================
    
