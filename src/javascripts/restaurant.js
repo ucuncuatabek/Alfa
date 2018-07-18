@@ -1,5 +1,5 @@
 import helper from './helper'
-import addToBasket from './basket'
+import Basket from './basket'
 export default {
     init(){ 
                     
@@ -72,7 +72,7 @@ export default {
                     productList += `<li>
                                         <div class = "table-row">
                                             <input  data-product-id="${product.ProductId}" type="text" class="item-count" value ="1">
-                                            <button data-product-id="${product.ProductId}"  class="ys-btn ys-button-success ys-btn-icon-add-to-basket btn-addtobasket"><i class="fas fa-plus ys-icon-plus"></i></button>
+                                            <button data-product-id="${product.ProductId}" data-name = "${product.DisplayName}" data-price=${product.ListPrice} class="ys-btn ys-button-success ys-btn-icon-add-to-basket btn-addtobasket"><i class="fas fa-plus ys-icon-plus"></i></button>
                                             <div class="productName">
                                                 <a data-product-id="${product.ProductId}">${product.DisplayName}</a>
                                             </div>                                            
@@ -98,9 +98,10 @@ export default {
                 counter++;
             });
             
-            var basketButtons = document.querySelectorAll(".btn-addtobasket")
-            basketButtons.forEach(element => element.onclick = addToBasket.addBasket.bind(this, element));
+            var basketButtons = document.querySelectorAll(".btn-addtobasket");
             
+            basketButtons.forEach(element => element.onclick = Basket.addBasket.bind(Basket, element));
+       
         });
         
     },

@@ -3,6 +3,119 @@ body.main-layout{
     background-image:none;
   }
 .main-layout {
+    //basket styles========================================
+    tbody{
+        display: table-row-group;
+        vertical-align: middle;
+        border-color: inherit;
+    }
+    tr{
+        display: table-row;
+        vertical-align: inherit;
+        border-color: inherit;
+        border-bottom:1px solid #f3f3f3;
+    }
+  
+   
+    td.item-name{
+        padding: 8px 6px;
+        width: 54%;
+    }
+    input.txtCount{
+        width:20px;
+        //height:17px;
+        text-align: center;
+        padding: 1px 2px;
+    }
+    .item-actions{
+        width: 8%;
+        padding-left: 8px;
+    }
+    .item-price{
+        font-size:11px;
+        width: 23%;
+        text-align: right;
+    }
+    tr{
+        display: table-row;
+    }
+    .item-name{
+        padding: 8px 6px;
+        width: 54%;
+    }
+    .item-count{
+        width: 8%;
+    }
+    .items{
+        height:220px;
+    }
+    .itemList{
+        min-height:60px;
+        max-height: 350px;
+        overflow-y: auto;
+    }
+    .ys-pullLeft{
+        float:left;
+    }
+    .ys-pullRight{
+        float:right;
+    }
+    .fa-times{
+        color:red;
+       
+    }
+    .total{
+        padding: 17px 8px;
+        border: 1px solid #e5e5e5;
+    }
+    .totalPrice,.textTotal{
+        margin-top:-7px;
+        height: 18px;
+        font-weight: 700;
+    }
+    .totlaPrice{
+       
+
+    }
+    .rmv-basket{
+        background-color: transparent;
+        border:none;       
+    }
+    .user-basket{
+        -webkit-transition: max-height ease-in-out 1s;
+        -o-transition: max-height ease-in-out 1s;
+        transition: max-height ease-in-out 1s;
+        border:2px solid #dadada;
+        background: #fff;
+        border-radius:6px;
+        max-height: 600px;
+      }
+      .basket-header{
+        padding: 10px 11px;
+        background-color: #ac000b;
+        border-radius:3px 3px 0px 0px;
+        color: #fff;
+        font-size: 12px;
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 700;
+        line-height: 15px; 
+      }
+
+      ::-webkit-scrollbar {
+        width: 9px;
+        
+    }
+     
+    ::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    }
+     
+    ::-webkit-scrollbar-thumb {
+      background-color: darkgrey;
+      outline: 1px solid slategrey;
+      border-radius:10px;
+    }
+    //===================================================
    
    .slideUp {
         opacity: 0 !important;
@@ -32,26 +145,7 @@ body.main-layout{
     }
     //=====================================================
     
-    //basket styles =======================================
-    .itemList{
-        min-height:60px;
-    }
-    .user-basket{
-        border:2px solid #dadada;
-        background: #fff;
-        border-radius:6px;
-      }
-      .basket-header{
-        padding: 10px 11px;
-        background-color: #ac000b;
-        border-radius:3px 3px 0px 0px;
-        color: #fff;
-        font-size: 12px;
-        font-family: 'Open Sans', sans-serif;
-        font-weight: 700;
-        line-height: 15px; 
-      }
-    //=====================================================
+   
     #sticky-bar{
         position:sticky;
         position:-webkit-sticky;    
