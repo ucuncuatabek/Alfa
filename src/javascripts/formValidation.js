@@ -8,35 +8,37 @@ export default {
     },
     attachEvents(){ 
         
-        var formLogin = document.querySelector('#formSignup');
-        formLogin.onsubmit = this.validateLogin;
+        var formLogin           = document.querySelector('#formSignup');
+        formLogin.onsubmit      = this.validateLogin;
 
-        var toggleSignup     = document.querySelector('#ButtonSignup');
-        toggleSignup.onclick = this.toggleSignup;
+        var toggleSignup        = document.querySelector('#ButtonSignup');
+        toggleSignup.onclick    = this.toggleSignup;
 
-        var inputs = document.querySelectorAll('input');
+        var inputs              = document.querySelectorAll('input');
         inputs.forEach(element => element.onkeyup = this.signupControl);  
 
-        var viewPwd = document.querySelector("#viewPwd");
-        viewPwd.onclick = this.viewPassword;   
+        var viewPwd             = document.querySelector("#viewPwd");
+        viewPwd.onclick         = this.viewPassword;   
         
-        var pwdIcon = document.querySelector("#pwdIcon");
-        pwdIcon.onmouseover = this.popupOn;     
-        pwdIcon.onmouseout  = this.popupOff;   
-        var signOutButton = document.querySelector("#signOut");
-        signOutButton.onclick=this.signOut;
+        var pwdIcon             = document.querySelector("#pwdIcon");
+        pwdIcon.onmouseover     = this.popupOn;     
+        pwdIcon.onmouseout      = this.popupOff;   
+        
+        var signOutButton       = document.querySelector("#signOut");
+        signOutButton.onclick   = this.signOut;
         
     },
     validateLogin(e){         
         var i;
-        var empty    = 0;
-        var form     = e.target;
-        localStorage.setItem("userlogged",0);
-        var signupToggled = 0;
-        var elements = form.getElementsByTagName("input");   
-        var signupElements = document.querySelector(".signup");
+        var empty           = 0;
+        var form            = e.target;        
+        var signupToggled   = 0;
+        var elements        = form.getElementsByTagName("input");   
+        var signupElements  = document.querySelector(".signup");
 
-        if(signupElements.style.display === "block"){
+        localStorage.setItem("userlogged",0);
+
+        if (signupElements.style.display === "block") {
             var signupToggled = 1;
         } else {
             var signupToggled = 0;
@@ -44,7 +46,7 @@ export default {
 
         for (i = 0; i < elements.length; i++) {
             var el = elements[i];            
-            if(el.getAttribute("required") != null){
+            if (el.getAttribute("required") != null) {
                 var fieldValue  = el.value;
                 var formGroup   = el.closest(".form-group");
                 var hasError    = formGroup.querySelector(".empty-error");
@@ -60,16 +62,17 @@ export default {
             }
         }          
       
-        var email = document.querySelector("#email").value;
-        var password = document.querySelector("#password").value;
-        var username = document.querySelector("#name").value;       
-        var surname = document.querySelector("#surname").value;
-        if(username!="" && surname !=""){
+        var email       = document.querySelector("#email").value;
+        var password    = document.querySelector("#password").value;
+        var username    = document.querySelector("#name").value;       
+        var surname     = document.querySelector("#surname").value;
+
+        if (username!="" && surname !="") {
             username = username.replace(username[0],username[0].toUpperCase());
-            surname = surname.replace(surname[0],surname[0].toUpperCase());  
+            surname  = surname.replace(surname[0],surname[0].toUpperCase());  
         }
        
-        if(empty == 1){
+        if (empty == 1) {
             return false;
         } else if (signupToggled === 1 && empty === 0) {   //signup
             helper.request('POST','add-user',
@@ -80,7 +83,7 @@ export default {
                 surname
             })
             .then((data) => {
-                if(data.message === "Kayıt başarılı!"){
+                if (data.message === "Kayıt başarılı!") {
                     alert(data.message);
                     window.open("index.html","_self");
                     return true;
@@ -98,11 +101,12 @@ export default {
                 password
             })
             .then((data) => {
-                if(data.message === "ok"){      //logged in succesfully                    
+                if (data.message === "ok") {      //logged in succesfully                    
                     localStorage.setItem("userlogged",1);         
                     localStorage.setItem("username",data.username);
                     localStorage.setItem("surname",data.surname);
-                    if(window.location.pathname == "/index.html"){
+
+                    if (window.location.pathname == "/index.html") {
                         window.open("home.html?city=ISTANBUL","_self");
                     } else {
                         location.reload();
@@ -149,35 +153,34 @@ export default {
                     var smallPwdLength = formGroup.querySelector("#pwdLength");
                     var smallNumbers   = formGroup.querySelector("#numbers");
 
-                    if(password.match(lowerCaseLetters)) {   
+                    if (password.match(lowerCaseLetters)) {   
                         passwordError(smallLovercase,"small-noError");                          
                     } else {
                         passwordError(smallLovercase,"error");
                     }
-                    if(password.match(UpperCaseLetters)) {
+                    if (password.match(UpperCaseLetters)) {
                         passwordError(smallUppercase,"small-noError");              
                     }  else {
                         passwordError(smallUppercase,"error");            
                     }
-                    if(password.match(Numbers)) {
+                    if (password.match(Numbers)) {
                         passwordError(smallNumbers,"small-noError");   
                     } else {
                         passwordError(smallNumbers,"error");   
                     }
-                    if(length >= 8) {
+                    if (length >= 8) {
                         passwordError(smallPwdLength,"small-noError");      
                     } else {
                         passwordError(smallPwdLength,"error");        
-                    }    
-
-                    if(field.value == ""){
+                    } 
+                    if (field.value == ""){
                         errorMessage.classList.remove("small-noError");
                         errorMessage.classList.add("small-error");
                     }
 
                     var errExists = formGroup.querySelectorAll(".small-error");
 
-                    if(field.value != "" && errExists.length == 0){
+                    if (field.value != "" && errExists.length == 0){
                         addToClass('noError');  
                         this.pwdIcon.classList.remove("fa-angry");
                         this.pwdIcon.classList.add("fa-smile");    
@@ -191,7 +194,7 @@ export default {
             }    
         
 
-            if(e.target.getAttribute("type") == "email") {
+            if (e.target.getAttribute("type") == "email") {
                 
                 this.timer =  setTimeout(function() {
                     
@@ -202,13 +205,13 @@ export default {
                     }              
                     var errExists = formGroup.querySelector(".small-error"); 
 
-                    if(field.value != "" && errExists == null){
+                    if (field.value != "" && errExists == null){
                         addToClass("noError");
                     } else {
                         addToClass("error");
                     }
 
-                    if(field.value == "" && errExists != null){
+                    if (field.value == "" && errExists != null){
                         addToClass("noError");
                         field.style.borderColor = "initial";  
                         formGroup.querySelector(".small-error").remove()
@@ -216,7 +219,7 @@ export default {
                 },500);       
             }
 
-            if(e.target.getAttribute("id") == "name" || e.target.getAttribute("id") == "surname"){
+            if (e.target.getAttribute("id") == "name" || e.target.getAttribute("id") == "surname") {
                
                 this.timer =  setTimeout(function() {                     
                     if(!isNaN(parseFloat(field.value))){

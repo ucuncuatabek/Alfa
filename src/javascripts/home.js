@@ -7,10 +7,6 @@ export default {
         this.attachEvents();        
     },
     attachEvents(){        
-        var userLogged = localStorage.getItem("userlogged");  
-        if(userLogged == 1){
-            this.knownUser();
-        }       
         var areaSearch = document.querySelector("#area-search-button");
         areaSearch.onclick = this.areaSearch.bind(this);
 
@@ -20,20 +16,19 @@ export default {
         this.getAreas();
         this.getRestaurants();
        
-    },   
-    knownUser(){
-        //alert("known")
-    },
+    },      
     getAreas(){  
-        var cityName = this.urlParser().city;        
-        var areasList = document.querySelector("#areas")
+        var cityName    = this.urlParser().city;        
+        var areasList   = document.querySelector("#areas");
+
         localStorage.setItem("city", cityName);       
+
         helper.request('POST','get-areas',{
             cityName
         })
         .then((data) =>{
             data.forEach (element => {
-                if(this.urlParser().area && element.Name == this.urlParser().area ) {
+                if (this.urlParser().area && element.Name == this.urlParser().area ) {
                     areasList.insertAdjacentHTML('beforeend','<option selected = true value="'+element.Name+'">'+element.Name+'</option>')
                 } else {
                     areasList.insertAdjacentHTML('beforeend','<option value="'+element.Name+'">'+element.Name+'</option>')
@@ -42,9 +37,9 @@ export default {
         })      
     },
     areaSearch(){
-        var selectedArea = document.querySelector("#areas").value;
+        var selectedArea    = document.querySelector("#areas").value;
         localStorage.setItem("area",selectedArea)
-        var cityName = this.urlParser().city;            
+        var cityName        = this.urlParser().city;            
         window.open('http://localhost:3001/home.html?city='+cityName+'&area='+selectedArea,"_self");        
     },   
     getRestaurants(){        
@@ -53,7 +48,8 @@ export default {
         var City = this.urlParser().city
         var resListArea = document.querySelector(".res-list-items");
         var resCount = 0;
-        if(Area){      
+
+        if (Area) {      
             helper.request('POST','get-restaurants',{area:Area})
             .then((data) =>{  
                             
@@ -108,13 +104,14 @@ export default {
     urlParser(){
         var url = decodeURIComponent(location.search)
         var start = url.indexOf("city")+5; 
-        if(url.indexOf("&") != -1){
+
+        if (url.indexOf("&") != -1) {
             var end = url.indexOf("&") ;
             var areaStart = url.indexOf("area")+5;
             var selectedArea = url.substring(areaStart,url.length);   
             var cityName = url.substring(start,end);
             return {city:cityName,area:selectedArea}
-        }else {
+        } else {
             var cityName = url.substring(start,url.length);
             return {city:cityName}
         }

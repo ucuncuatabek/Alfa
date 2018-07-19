@@ -9,8 +9,8 @@ export default {
         this.attachEvents();  
     },
     attachEvents(){       
-        var citySearch = document.querySelector("#city-search-button");
-        citySearch.onclick = this.areaSearch;        
+        var citySearch      = document.querySelector("#city-search-button");
+        citySearch.onclick  = this.areaSearch;        
         this.getCities();    
     },   
     getCities(){

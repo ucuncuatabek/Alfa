@@ -59,6 +59,16 @@ body.main-layout{
   }
   //========================================================
     //basket styles========================================
+    .location{
+        background-color: #ffd55a;
+        padding: 7px 11px;
+        display: block;
+    }
+    a.restaurantInfo{
+        color: #ff6508 !important;
+        cursor:pointer;
+        text-decoration: underline !important;
+    }
     .sepeti-onayla{
         display: inline-block;
         padding: 6px 12px;
@@ -167,6 +177,7 @@ body.main-layout{
     .rmv-basket{
         background-color: transparent;
         border:none;       
+        cursor:pointer;
     }
     .user-basket{
         -webkit-transition: max-height ease-in-out 1s;

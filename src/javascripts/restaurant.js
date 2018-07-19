@@ -9,18 +9,17 @@ export default {
     },
     attachEvents(){        
         this.getAreas();
-        var areaSearch = document.querySelector("#area-search-button");
-        areaSearch.onclick = this.areaSearch.bind(this);
+        var areaSearch      = document.querySelector("#area-search-button");
+        areaSearch.onclick  = this.areaSearch.bind(this);
             
-        var basketLocation = document.querySelector(".location");
-        basketLocation.insertAdjacentHTML('beforeend','<span>'+localStorage.getItem("area")+'</span>')
+        this.locationHandler();
         this.getRestaurantMenu();
         this.getRestaurantInfo(); 
 
-        var that = this;
+        var that    = this;
         var element = document.querySelector(".search-bar");
-        var logo = document.querySelector("#ys-logo");
-        var logo2 = document.querySelector("#ys-logo-2");
+        var logo    = document.querySelector("#ys-logo");
+        var logo2   = document.querySelector("#ys-logo-2");
         window.onscroll = function(){            
             if(that.getOffset(element).top == 0 ){
                 console.log("asdasd");
@@ -107,11 +106,12 @@ export default {
     },
     getRestaurantInfo(){
         
-        var url = location.search
-        var seoUrl =url.substring(url.indexOf('/'),url.length);
-        var Points = document.querySelector(".resPoints")
-        var Infos = document.querySelector(".shortInfo")
-        var logo = document.querySelector(".resLogo")
+        var url     = location.search
+        var seoUrl  = url.substring(url.indexOf('/'),url.length);
+        var Points  = document.querySelector(".resPoints");
+        var Infos   = document.querySelector(".shortInfo");
+        var logo    = document.querySelector(".resLogo");
+
         helper.request('POST','get-restaurant-info',{SeoUrl:seoUrl})
         .then((data)=> {
             localStorage.setItem("minDelivery",data[0].MinimumDeliveryPrice);
@@ -131,28 +131,28 @@ export default {
                                     </div>
                                 </div>`;
                 
-                var resInfos =     `<div class="shortInfos">
-                                        <div class = "shortInfoItem">
-                                            <div class ="iconHolder"><i class="fas fa-coins"></i></div>
-                                            <div class = "shortInfoTitle">Minimum Paket Tutarı</div>
-                                            <div class = "description"><b class="descriptionB">${data[0].MinimumDeliveryPriceText} TL</b></div>
-                                        </div> 
-                                        <div class ="shortInfoItem">
-                                            <div class ="iconHolder"><i class="far fa-clock"></i></div>
-                                            <div class = "shortInfoTitle">Çalışma Saatleri(bugün)</div>
-                                            <div class = "description"><b class="descriptionB">${data[0].WorkHoursText}</b></div>
-                                        </div>
-                                        <div class ="shortInfoItem">
-                                            <div class ="iconHolder"><i class="fas fa-motorcycle"></i></div>
-                                            <div class = "shortInfoTitle">Servis Süresi (ortalama)</div>
-                                            <div class = "description"><b class="descriptionB">${data[0].DeliveryTime} dk.</b></div>
-                                        </div>
-                                    </div>`;    
+            var resInfos =     `<div class="shortInfos">
+                                    <div class = "shortInfoItem">
+                                        <div class ="iconHolder"><i class="fas fa-coins"></i></div>
+                                        <div class = "shortInfoTitle">Minimum Paket Tutarı</div>
+                                        <div class = "description"><b class="descriptionB">${data[0].MinimumDeliveryPriceText} TL</b></div>
+                                    </div> 
+                                    <div class ="shortInfoItem">
+                                        <div class ="iconHolder"><i class="far fa-clock"></i></div>
+                                        <div class = "shortInfoTitle">Çalışma Saatleri(bugün)</div>
+                                        <div class = "description"><b class="descriptionB">${data[0].WorkHoursText}</b></div>
+                                    </div>
+                                    <div class ="shortInfoItem">
+                                        <div class ="iconHolder"><i class="fas fa-motorcycle"></i></div>
+                                        <div class = "shortInfoTitle">Servis Süresi (ortalama)</div>
+                                        <div class = "description"><b class="descriptionB">${data[0].DeliveryTime} dk.</b></div>
+                                    </div>
+                                </div>`;    
                 var resLogo = `<img src ="${ data[0].ImageFullPath}">`;                           
             
-        Points.insertAdjacentHTML('beforeend',resPoints)
-        Infos.insertAdjacentHTML('beforeend',resInfos)
-        logo.insertAdjacentHTML('beforeend',resLogo)
+        Points.insertAdjacentHTML('beforeend',resPoints);
+        Infos.insertAdjacentHTML('beforeend',resInfos);
+        logo.insertAdjacentHTML('beforeend',resLogo);
         
        })
        
@@ -164,14 +164,35 @@ export default {
           top: el.top 
         }
     },
-    preventLetters(){
-        
-        var menuInputs = document.querySelectorAll(".item-count");   
-        
-        //element => element.onkeyup = this.preventLetters.bind(this, element)      
-        menuInputs.forEach(element =>{console.log(element)});       
+    locationHandler(){
+        var url             = location.search;
+        var seoUrl          = url.substring(url.indexOf("/"),url.length);
+        var basketLocation  = document.querySelector(".location");
+
+        console.log(seoUrl);
+
+        if (localStorage.getItem("area")) {
+            if(localStorage.getItem("currentRestaurant")){
+                helper.request('POST','get-restaurant-info',{SeoUrl:seoUrl})
+                .then( (data) => {  
+                    localStorage.setItem("currentRestaurant",seoUrl);              
+                    basketLocation.innerHTML   = `<a class ="restaurantInfo" href="restaurant.html?restaurant=${data[0].SeoUrl}">${data[0].DisplayName}</a>`;
+                    basketLocation.innerHTML   += `<span><br>${data[0].AreaName}</span>`;
+                });        
+            }   else {
+                basketLocation.innerHTML = `<span>${localStorage.getItem("area")}</span>`;
+            }
+        } else {
+            helper.request('POST','get-restaurant-info',{SeoUrl:seoUrl})
+            .then( (data) => {  
+                localStorage.setItem("currentRestaurant",seoUrl);              
+                basketLocation.innerHTML   = `<a class ="restaurantInfo" href="restaurant.html?restaurant=${data[0].SeoUrl}">${data[0].DisplayName}</a>`;
+                basketLocation.innerHTML   += `<span><br>${data[0].AreaName}</span>`;
+            });        
+        }
     }
-   
+    
+    
 
     
     
