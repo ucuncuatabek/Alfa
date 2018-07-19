@@ -49,10 +49,10 @@
                                         <label for  = "password"  id="label" >Şifre:</label>   
                                         <i id="pwdIcon" class="far fa-angry popup signup">
                                             <span class="popuptext" id="pwdInfo">
-                                                <small class = "small-error" id = "lovercase"> - Şifre en az 1 küçük harf içermeli. </small>        
-                                                <small class = "small-error" id = "uppercase"><br> - Şifre en az 1 Büyük harf içermeli. </small>
-                                                <small class = "small-error" id = "numbers"><br> - Şifre en az 1 Sayı içermeli. </small>
-                                                <small class = "small-error" id = "pwdLength"><br>-  Şifre en az 8 karakter olmalı. </small>
+                                                <small class = "small-error popupInfo" id = "lovercase"> - Şifre en az 1 küçük harf içermeli. </small>        
+                                                <small class = "small-error popupInfo" id = "uppercase"><br> - Şifre en az 1 Büyük harf içermeli. </small>
+                                                <small class = "small-error popupInfo" id = "numbers"><br> - Şifre en az 1 Sayı içermeli. </small>
+                                                <small class = "small-error popupInfo" id = "pwdLength"><br>-  Şifre en az 8 karakter olmalı. </small>
                                             </span>
                                         </i>
                                         <br> 
@@ -60,15 +60,37 @@
                                             <i id = "viewPwd" class="fas fa-eye glyphicon signup" ></i>            
                                             <input type = "password" class="form-control " id="password"  data-error = "false" data-title = "Şifre" required > 
                                         </div>  
-                                    </div>    
+                                    </div>
+                                    <div class ="form-group signup">
+                                            <label for = "name" id="label" >Ad:</label>
+                                            <input type = "text" class="form-control" id="name"  data-error = "false" data-title = "Ad" >
+                                    </div> 
+                                    <div class = "form-group signup">
+                                            <label for ="surname" id="label">Soyad:</label>
+                                            <input type ="text" class ="form-control" id="surname" data-error ="false" data-title = "Soyad" >
+                                    </div>   
                                     <button type="submit" id = "login" class="btn btn-success tr">Üye Girişi</button>
                                     <div class="seperate" id = "buttonSeperator" > veya </div>
                                     <button type="button" id = "ButtonSignup" class="btn btn-primary tr">Kayıt ol</button>
                                 </form>
                         </div>                            
-                    </div>
-                        
+                    </div>                        
                     <div class = "logged">    
+                        <div class="ys-userComp">
+                            <div class ="ys-userInfo" id="user-info">
+                                <div class ="ys-pullLeft">
+                                    <img class="ys-profile-picture" id ="ysUserPicture" src="https://www.yemeksepeti.com/assets/images/gamification/default_icon.png">
+                                </div>
+                                <div class = "ys-pullRight">
+                                    <div class ="ys-user-info-container withPoint">
+                                        <div>
+                                            <b id="ysUserName"></b>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" id="signOut" >ÇIKIŞ YAP</button>
+                        </div>
                     </div>
                 </div>
                 <div class="user-basket">
@@ -97,7 +119,6 @@
                     <div class="actions exists">
                             <button class="sepeti-onayla">SEPETİ ONAYLA</button>
                             <div class="message">
-                                
                             </div>
                     </div>
                 </div>

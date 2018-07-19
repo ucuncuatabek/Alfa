@@ -69,7 +69,7 @@ app.post('/check-user', (req, res) => {
     if(result.length >0){
       var userPassword = collection.find({email:email,password:pass}).toArray(function(err, result) {
         if(result.length>0){
-          res.send({message:"ok"});
+          res.send({message:"ok",username:result[0].Name,surname:result[0].Surname});
         } else {           
           res.send({message:"Şifre yanlış"});
         }
@@ -87,6 +87,8 @@ app.post('/add-user', (req, res) => {
 
   var email = req.body.email;
   var pass = req.body.password;
+  var username = req.body.username;
+  var surname = req.body.surname;
    
   var userCollection = db.collection('users'); 
   var user = userCollection.find({email:email}).toArray(function(err, result) {
@@ -94,7 +96,7 @@ app.post('/add-user', (req, res) => {
       if(result.length > 0){
           res.send({message:"Email kullanımda"});
       } else {        
-          userCollection.insert({email:email,password:pass});
+          userCollection.insert({email:email,password:pass,Name:username,Surname:surname});
           res.send({message:"Kayıt başarılı!"});
       }
   });

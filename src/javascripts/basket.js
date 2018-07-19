@@ -1,7 +1,6 @@
 export default {
     timer:null,
-    init(){
-       
+    init(){       
         this.insertItems()
         var trash = document.querySelector(".emptyBasket");
         trash.onmouseover   = this.emptyBasketPopupOn;
@@ -15,6 +14,9 @@ export default {
         var productId       = button.dataset.productId;
         var productName     = button.dataset.name;
         var productCount    = parseInt(document.querySelector("input[id='"+productId+"']").value); 
+        if(productCount==0){
+            productCount =1 ;
+        }
         var productPrice    = parseFloat(button.dataset.price.replace(",","."))
 
         var newItem = {
@@ -64,11 +66,16 @@ export default {
         trash.style="display:none";
     },
     deleteItem(button){
-        var basket =  JSON.parse(localStorage.getItem("basket"));       
+        var basket = JSON.parse(localStorage.getItem("basket"));
+        
         delete basket[button.dataset.productId];
-        localStorage.setItem("basket",JSON.stringify(basket));
-        this.insertItems();
-
+        localStorage.setItem("basket",JSON.stringify(basket));  
+        var keys = Object.keys(basket);
+        if(keys.length == 0){         
+            this.clearBasket();
+        } else {
+            this.insertItems();
+        }
     },changeCount(input){
         var that = this
         clearTimeout(this.timer);   
@@ -107,7 +114,7 @@ export default {
                                         <span></span>
                                     </td>
                                 <td class = "item-count">                              
-                                    <input type="text"  data-product-id = "${id}" name="txtCount" class="txtCount ys-input-mini" title="Ürün Adedi" value="${basket[id]["count"]}">                                
+                                    <input type="number"  data-product-id = "${id}" name="txtCount" class="txtCount ys-input-mini" title="Ürün Adedi" value="${basket[id]["count"]}">                                
                                 </td>                           
                                 <td class="item-price">
                                     ${basket[id]["price"]} TL
@@ -127,12 +134,14 @@ export default {
             var minDeliveryPrice = localStorage.getItem("minDelivery")
             if(totalPrice<minDeliveryPrice){
                 var shouldAdd = minDeliveryPrice-totalPrice;
+                document.querySelector(".sepeti-onayla").setAttribute("disabled","disabled");
                 var message = `<span class="basketMessage">Minimum paket tutarının altındasınız. Siparişinizi tamamlamak için sepetinize <b>${shouldAdd} TL</b> değerinde daha ürün eklemeniz gerekmektedir.
                                 </span>`
                 document.querySelector(".message").innerHTML=message;
             } else {
                 if(document.querySelector(".basketMessage")){
                     document.querySelector(".basketMessage").remove()
+                    document.querySelector(".sepeti-onayla").removeAttribute("disabled");
                 }
             }
         } else {

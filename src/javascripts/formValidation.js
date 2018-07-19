@@ -2,11 +2,12 @@ import helper from './helper'
 
 export default {
     timer : null,    
-    init(){
-       
+    init(){       
         this.attachEvents();  
+        this.userLogged();
     },
     attachEvents(){ 
+        
         var formLogin = document.querySelector('#formSignup');
         formLogin.onsubmit = this.validateLogin;
 
@@ -22,6 +23,8 @@ export default {
         var pwdIcon = document.querySelector("#pwdIcon");
         pwdIcon.onmouseover = this.popupOn;     
         pwdIcon.onmouseout  = this.popupOff;   
+        var signOutButton = document.querySelector("#signOut");
+        signOutButton.onclick=this.signOut;
         
     },
     validateLogin(e){         
@@ -29,7 +32,7 @@ export default {
         var empty    = 0;
         var form     = e.target;
         localStorage.setItem("userlogged",0);
-       // var signupToggled = 0;
+        var signupToggled = 0;
         var elements = form.getElementsByTagName("input");   
         var signupElements = document.querySelector(".signup");
 
@@ -46,7 +49,7 @@ export default {
                 var formGroup   = el.closest(".form-group");
                 var hasError    = formGroup.querySelector(".empty-error");
                 if (fieldValue == "") { 
-                    empty = 1;             
+                    empty = 1;                               
                     el.classList.add("error");       
                     el.setAttribute("data-error","true");
                     if(hasError === null){       
@@ -56,16 +59,25 @@ export default {
                 }
             }
         }          
+      
         var email = document.querySelector("#email").value;
         var password = document.querySelector("#password").value;
-
+        var username = document.querySelector("#name").value;       
+        var surname = document.querySelector("#surname").value;
+        if(username!="" && surname !=""){
+            username = username.replace(username[0],username[0].toUpperCase());
+            surname = surname.replace(surname[0],surname[0].toUpperCase());  
+        }
+       
         if(empty == 1){
             return false;
         } else if (signupToggled === 1 && empty === 0) {   //signup
             helper.request('POST','add-user',
             {
                 email,
-                password
+                password,
+                username,
+                surname
             })
             .then((data) => {
                 if(data.message === "Kayıt başarılı!"){
@@ -86,10 +98,16 @@ export default {
                 password
             })
             .then((data) => {
-                if(data.message === "ok"){      //logged in succesfully
-                    alert("doğru");
-                    localStorage.setItem("userlogged",1);
-                    window.open("home.html?city=ISTANBUL","_self");
+                if(data.message === "ok"){      //logged in succesfully                    
+                    localStorage.setItem("userlogged",1);         
+                    localStorage.setItem("username",data.username);
+                    localStorage.setItem("surname",data.surname);
+                    if(window.location.pathname == "/index.html"){
+                        window.open("home.html?city=ISTANBUL","_self");
+                    } else {
+                        location.reload();
+                    }
+                   
                     return true;
                 } else {
                     localStorage.setItem("userlogged",0);
@@ -100,7 +118,6 @@ export default {
         }
     },    
     signupControl(e){ 
-
         var signupActivated = document.querySelector(".signup");           
 
             var field           = e.target;
@@ -186,9 +203,9 @@ export default {
                     var errExists = formGroup.querySelector(".small-error"); 
 
                     if(field.value != "" && errExists == null){
-                    addToClass("noError");
+                        addToClass("noError");
                     } else {
-                    addToClass("error");
+                        addToClass("error");
                     }
 
                     if(field.value == "" && errExists != null){
@@ -198,6 +215,29 @@ export default {
                     }
                 },500);       
             }
+
+            if(e.target.getAttribute("id") == "name" || e.target.getAttribute("id") == "surname"){
+               
+                this.timer =  setTimeout(function() {                     
+                    if(!isNaN(parseFloat(field.value))){
+                        errorMaker(e.target.getAttribute("data-title") + " alanına yalnızca alfabetik karakter girebilirsiniz.");
+                    } 
+                    var errExists = formGroup.querySelector(".small-error"); 
+
+                    if(field.value != "" && errExists == null){
+                        addToClass("noError");                       
+                    } else {
+                        addToClass("error");
+                    }   
+
+                    if(field.value == "" && errExists != null){
+                        addToClass("noError");
+                        field.style.borderColor = "initial";  
+                        formGroup.querySelector(".small-error").remove()
+                    }
+                },500);    
+               
+            }           
 
             function errorMaker(str){
                 var errExists = formGroup.querySelector(".small-error"); 
@@ -258,5 +298,21 @@ export default {
             icon.classList.remove("fa-eye-slash");
             icon.classList.add("fa-eye");
         }
-    },   
+    }, 
+    userLogged(){        
+        if(parseInt(localStorage.getItem("userlogged")) == 1){
+            
+            var username = localStorage.getItem("username");
+            var surname = localStorage.getItem("surname");
+            document.querySelector(".notLogged").style = "display:none";
+            document.querySelector(".logged").style = "display:block";
+            
+            document.querySelector("#ysUserName").innerHTML = `${username} ${surname}`;
+        }
+    },
+    signOut(){
+        localStorage.setItem("userlogged",0);
+        localStorage.setItem("basket","");
+        location.reload()
+    }
 }

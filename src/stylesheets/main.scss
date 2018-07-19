@@ -3,6 +3,61 @@ body.main-layout{
     background-image:none;
   }
 .main-layout {
+    
+    //error styles ==========================================
+    #ysUserName{
+          display: block;
+          float: left;
+          color: #ff6508;
+          font-size: 12px;
+          font-family: 'Open Sans', sans-serif;
+          max-width: 135px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          font-weight: bold;
+          text-decoration: none;
+          margin-top: 14px;
+          margin-right: 77px;
+      }
+      .ys-profile-picture{
+        width: 40px;
+        height: 40px;
+        border: 1px solid #d5d5d5;
+        border-radius:5px;
+      }
+     
+      .ys-userInfo{
+        padding: 7px 8px;
+        background-color: #eff0f2;
+        border: 1px solid #e5e5e5;
+        border-radius: 4px;
+        height:40px;
+        cursor: pointer;
+      }
+.error {
+    border-color: #a94442;
+  }
+  
+  .noError {
+    border-color: green;    
+  }
+  
+  .small-error {
+    color:#a94442;
+    font-size:12px;
+  }
+  
+  .small-noError {
+    color: #4cae4c
+  }
+  .small-error.popupInfo{
+    font-size:15px;
+  }
+  .signup{
+      display:none
+  }
+  //========================================================
     //basket styles========================================
     .sepeti-onayla{
         display: inline-block;
@@ -73,6 +128,7 @@ body.main-layout{
     .item-name{
         padding: 8px 6px;
         width: 54%;
+        font-size:12px;
     }
     .item-count{
         width: 8%;
@@ -102,6 +158,7 @@ body.main-layout{
         margin-top:-7px;
         height: 18px;
         font-weight: 700;
+        font-size: 13px;
     }
     .totlaPrice{
        

@@ -1,11 +1,11 @@
 import helper from './helper'
 import Basket from './basket'
 export default {
-    init(){ 
-                    
+    init(){                     
         var controller = document.querySelector('[data-controller="restaurant"]');       
         if(!controller) return false;        
         this.attachEvents(); 
+       
     },
     attachEvents(){        
         this.getAreas();
@@ -33,8 +33,9 @@ export default {
                 logo.classList.add("slideDown");
                 logo2.classList.add("slideUp");
             }
-        }
+        } 
         
+      
     }, 
     getAreas(){ 
        
@@ -71,7 +72,7 @@ export default {
                 category.Products.forEach((product)=> {                                
                     productList += `<li>
                                         <div class = "table-row">
-                                            <input  data-product-id="${product.ProductId}" id ="${product.ProductId}" type="text" class="item-count" value ="1">
+                                            <input  data-product-id="${product.ProductId}" id ="${product.ProductId}" type="number" class="item-count" value ="1">
                                             <button data-product-id="${product.ProductId}" data-name = "${product.DisplayName}" data-price=${product.ListPrice} class="ys-btn ys-button-success ys-btn-icon-add-to-basket btn-addtobasket"><i class="fas fa-plus ys-icon-plus"></i></button>
                                             <div class="productName">
                                                 <a data-product-id="${product.ProductId}">${product.DisplayName}</a>
@@ -98,8 +99,7 @@ export default {
                 counter++;
             });
             
-            var basketButtons = document.querySelectorAll(".btn-addtobasket");
-            
+            var basketButtons = document.querySelectorAll(".btn-addtobasket");            
             basketButtons.forEach(element => element.onclick = Basket.addBasket.bind(Basket, element));
        
         });
@@ -163,7 +163,14 @@ export default {
           left: el.left,
           top: el.top 
         }
-      }
+    },
+    preventLetters(){
+        
+        var menuInputs = document.querySelectorAll(".item-count");   
+        
+        //element => element.onkeyup = this.preventLetters.bind(this, element)      
+        menuInputs.forEach(element =>{console.log(element)});       
+    }
    
 
     
