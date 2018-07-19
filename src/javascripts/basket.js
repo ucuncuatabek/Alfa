@@ -34,13 +34,7 @@ export default {
               
         if (localStorage.getItem("basket")) {
             var basket = JSON.parse(localStorage.getItem("basket"));
-        }
-        
-        var url             = location.search;
-        var seoUrl          = url.substring(url.indexOf("/"),url.length);
-        localStorage.setItem("currentRestaurant",seoUrl);
-
-        restaurant.locationHandler();
+        }       
        
         var exists = 0;
         if (basket) {
@@ -66,8 +60,22 @@ export default {
         } else {
             localStorage.setItem("basket",JSON.stringify(newItem));
         }
-        this.insertItems(); 
         
+        var url             = location.search;
+        var seoUrl          = url.substring(url.indexOf("/"),url.length);
+        console.log(localStorage.getItem("currentRestaurant"))
+        if(localStorage.getItem("currentRestaurant") == ""){
+            localStorage.setItem("currentRestaurant",seoUrl);           
+            restaurant.locationHandler();
+        } else {
+            if(seoUrl != localStorage.getItem("currentRestaurant")){
+                alert("sepetinizde başka ürünler mevcut")
+            } else {
+                 
+            }
+        }       
+       
+        this.insertItems();
     },
     clearBasket() {        
         localStorage.setItem("basket","");

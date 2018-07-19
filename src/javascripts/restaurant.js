@@ -11,7 +11,7 @@ export default {
         this.getAreas();
         var areaSearch      = document.querySelector("#area-search-button");
         areaSearch.onclick  = this.areaSearch.bind(this);
-            
+
         this.locationHandler();
         this.getRestaurantMenu();
         this.getRestaurantInfo(); 
@@ -165,6 +165,7 @@ export default {
         }
     },
     locationHandler(){
+        
         var url             = location.search;
         var seoUrl          = url.substring(url.indexOf("/"),url.length);
         var basketLocation  = document.querySelector(".location");
@@ -172,20 +173,24 @@ export default {
         console.log(seoUrl);
 
         if (localStorage.getItem("area")) {
-            if(localStorage.getItem("currentRestaurant")){
-                helper.request('POST','get-restaurant-info',{SeoUrl:seoUrl})
-                .then( (data) => {  
-                    localStorage.setItem("currentRestaurant",seoUrl);              
+            
+            if (localStorage.getItem("currentRestaurant")) {
+                
+                helper.request('POST','get-restaurant-info',{SeoUrl:localStorage.getItem("currentRestaurant")})
+                .then( (data) => {                     
                     basketLocation.innerHTML   = `<a class ="restaurantInfo" href="restaurant.html?restaurant=${data[0].SeoUrl}">${data[0].DisplayName}</a>`;
                     basketLocation.innerHTML   += `<span><br>${data[0].AreaName}</span>`;
                 });        
-            }   else {
+
+            }  else {
+                
                 basketLocation.innerHTML = `<span>${localStorage.getItem("area")}</span>`;
             }
         } else {
+            
             helper.request('POST','get-restaurant-info',{SeoUrl:seoUrl})
             .then( (data) => {  
-                localStorage.setItem("currentRestaurant",seoUrl);              
+                localStorage.setItem("currentRestaurant",seoUrl);
                 basketLocation.innerHTML   = `<a class ="restaurantInfo" href="restaurant.html?restaurant=${data[0].SeoUrl}">${data[0].DisplayName}</a>`;
                 basketLocation.innerHTML   += `<span><br>${data[0].AreaName}</span>`;
             });        

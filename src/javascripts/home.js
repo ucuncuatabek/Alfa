@@ -1,5 +1,6 @@
 import helper from './helper'
 import index from './index'
+import restaurant from './restaurant'
 export default {
     init(){               
         var controller = document.querySelector('[data-controller="home"]');       
@@ -10,9 +11,8 @@ export default {
         var areaSearch = document.querySelector("#area-search-button");
         areaSearch.onclick = this.areaSearch.bind(this);
 
-        var basketLocation =document.querySelector(".location")
-        basketLocation.insertAdjacentHTML('beforeend','<span>'+localStorage.getItem("area")+'</span>')
-
+        restaurant.locationHandler();
+        
         this.getAreas();
         this.getRestaurants();
        
