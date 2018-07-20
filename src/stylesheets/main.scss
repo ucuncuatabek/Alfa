@@ -62,11 +62,18 @@ body.main-layout{
           text-decoration: none;
           cursor: pointer;
       }
+      .modal-header{
+          height:30px;
+          border-radius: 5px 5px 0px 0px;
+      }
+      .modal-content{
+        border-radius: 5px;
+      }
       
         .modal-header.noError {
             padding: 2px 16px;
             background-color: #5cb85c;
-            color: white;
+            
         }
         .modal-header.error{
             padding: 2px 16px;
@@ -82,16 +89,7 @@ body.main-layout{
         margin-top:5%;
         font-weight:700;
       }
-        .modal-footer.noError {
-          padding: 2px 16px;
-          background-color: #5cb85c;
-          color: white;
-        }
-      .modal-footer.error{
-        padding: 2px 16px;
-        color:white;
-        background-color: red;
-      }
+   
       //=======================================================
 .main-layout {
 

@@ -68,11 +68,11 @@ app.post('/check-user', (req, res) => {
         if (result.length>0) {
             res.send({message:"ok",username:result[0].Name,surname:result[0].Surname});
         } else {           
-          res.send({message:"Şifre yanlış"});
+          res.send({message:"password"});
         }
       });
     } else {
-      res.send({message:"Kullanıcı bulunamadı"});
+      res.send({message:"user"});
     }
   });  
   

@@ -1,5 +1,5 @@
 import helper from './helper'
-
+import modal from './modal'
 export default {
     timer : null,
     init() {       
@@ -87,11 +87,11 @@ export default {
             })
             .then((data) => {
                 if (data.message === "Kayıt başarılı!") {
-                    alert(data.message);
+                    modal.showModal("Kayıt Başarılı!","noError");
                     window.open("index.html","_self");
                     return true;
                 } else {
-                    alert(data.message);
+                    alert(data.message)
                     return false;
                 }
             })
@@ -117,7 +117,11 @@ export default {
                     return true;
                 } else {
                     localStorage.setItem("userlogged",0);
-                    alert(data.message);
+                    if(data.message == "password"){
+                        modal.showModal("Şifre Yanlış!");
+                    } else if(data.message =="user"){
+                        modal.showModal("Kullanıcı bulunamadı!");
+                    }
                 }
             })
             return false; 
