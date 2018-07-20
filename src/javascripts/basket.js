@@ -1,5 +1,6 @@
 import helper from './helper'
 import restaurant from './restaurant'
+import modal from './modal'
 
 export default {
     timer:null,
@@ -38,45 +39,70 @@ export default {
         }       
        
         var exists = 0;
-        if (basket) {
-            var keys = Object.keys(basket);
-           
-            keys.forEach((id) => {               
-                if (id === productId) { 
-                    console.log(productCount,productPrice, parseFloat(basket[id]["price"]))
-                    exists = 1;   
-                    basket[id]["price"] = productCount*productPrice + parseFloat(basket[id]["price"]);
-                    basket[id]["count"] = productCount + parseFloat(basket[id]["count"])
-                } 
-            });     
-            if (exists == 0) {                
-                basket[productId] = {
-                    "name"          :productName,
-                    "price"         :productPrice*productCount,
-                    "count"         :productCount,
-                    "originalPrice" :productPrice
-                }                
-            }    
-            localStorage.setItem("basket",JSON.stringify(basket));             
-        } else {
-            localStorage.setItem("basket",JSON.stringify(newItem));
-        }
+       
         
         var url             = location.search;
-        var seoUrl          = url.substring(url.indexOf("/"),url.length);
-        console.log(localStorage.getItem("currentRestaurant"))
+        var seoUrl          = url.substring(url.indexOf("/"),url.length); 
+
         if(localStorage.getItem("currentRestaurant") == ""){
             localStorage.setItem("currentRestaurant",seoUrl);           
             restaurant.locationHandler();
+            if (basket) {
+                var keys = Object.keys(basket);
+               
+                keys.forEach((id) => {               
+                    if (id === productId) { 
+                        console.log(productCount,productPrice, parseFloat(basket[id]["price"]))
+                        exists = 1;   
+                        basket[id]["price"] = productCount*productPrice + parseFloat(basket[id]["price"]);
+                        basket[id]["count"] = productCount + parseFloat(basket[id]["count"])
+                    } 
+                });     
+                if (exists == 0) {                
+                    basket[productId] = {
+                        "name"          :productName,
+                        "price"         :productPrice*productCount,
+                        "count"         :productCount,
+                        "originalPrice" :productPrice
+                    }                
+                }    
+                localStorage.setItem("basket",JSON.stringify(basket));             
+            } else {
+                localStorage.setItem("basket",JSON.stringify(newItem));
+            }
+            this.insertItems();
         } else {
             if(seoUrl != localStorage.getItem("currentRestaurant")){
-                alert("sepetinizde başka ürünler mevcut")
+                modal.showModal("Sepetinizde başka restorant'a ait ürünler mevcut","error");
             } else {
-                 
+                if (basket) {
+                    var keys = Object.keys(basket);
+                   
+                    keys.forEach((id) => {               
+                        if (id === productId) { 
+                            console.log(productCount,productPrice, parseFloat(basket[id]["price"]))
+                            exists = 1;   
+                            basket[id]["price"] = productCount*productPrice + parseFloat(basket[id]["price"]);
+                            basket[id]["count"] = productCount + parseFloat(basket[id]["count"])
+                        } 
+                    });     
+                    if (exists == 0) {                
+                        basket[productId] = {
+                            "name"          :productName,
+                            "price"         :productPrice*productCount,
+                            "count"         :productCount,
+                            "originalPrice" :productPrice
+                        }                
+                    }    
+                    localStorage.setItem("basket",JSON.stringify(basket));             
+                } else {
+                    localStorage.setItem("basket",JSON.stringify(newItem));
+                }
+                this.insertItems();
             }
         }       
        
-        this.insertItems();
+        
     },
     clearBasket() {        
         localStorage.setItem("basket","");
@@ -176,11 +202,7 @@ export default {
         deleteButtons.forEach(element => element.onclick = this.deleteItem.bind(this,element));
 
         var BasketProductCounts = document.querySelectorAll(".txtCount");          
-        BasketProductCounts.forEach(element => element.onkeyup = this.changeCount.bind(this,element)); 
-        
-       
-        
-    
+        BasketProductCounts.forEach(element => element.onkeyup = this.changeCount.bind(this,element));     
     },
     emptyBasketPopupOn(){
         var popup = document.getElementById("emptyBasket");
