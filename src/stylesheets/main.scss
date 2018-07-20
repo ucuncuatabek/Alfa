@@ -58,6 +58,7 @@ body.main-layout{
       display:none
   }
   //========================================================
+  
     //basket styles========================================
     .location{
         background-color: #ffd55a;
@@ -65,6 +66,8 @@ body.main-layout{
         display: block;
     }
     a.restaurantInfo{
+        display:block;
+        line-height: 1.42857;
         color: #ff6508 !important;
         cursor:pointer;
         text-decoration: underline !important;
@@ -517,7 +520,7 @@ body.main-layout{
       margin-bottom: 22px;
       margin-top: 20px;
       font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-      z-index: 1;
+      z-index: 0;
     }
     
     b{

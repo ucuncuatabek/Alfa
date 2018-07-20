@@ -100,6 +100,8 @@ export default {
             
             var basketButtons = document.querySelectorAll(".btn-addtobasket");            
             basketButtons.forEach(element => element.onclick = Basket.addBasket.bind(Basket, element));
+            var MenuProductCounts = document.querySelectorAll(".item-count");
+            MenuProductCounts.forEach(element => element.onkeyup = Basket.changeCount.bind(this,element));
        
         });
         

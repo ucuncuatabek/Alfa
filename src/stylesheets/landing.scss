@@ -40,6 +40,9 @@ header {
             background:#ff7208;
             border: none;            
         }
+        [data-error=true]{
+            border-color:red;
+        }
 
         .form-area {
             border-radius: 5px;
@@ -194,6 +197,13 @@ header {
           position: absolute;
           padding: 5px;
         }   
+        .fa-eye.signup{
+            
+          margin-top:-3px;
+        }
+        .fa-angry.signup,.fa-smile{
+            margin-right: 6px;
+        }
     
         /* align glyph */
         .right-addon .glyphicon { right: 0px;}

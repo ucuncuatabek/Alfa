@@ -8,14 +8,13 @@ export default {
         this.attachEvents();        
     },
     attachEvents(){        
-        var areaSearch = document.querySelector("#area-search-button");
-        areaSearch.onclick = this.areaSearch.bind(this);
+        var areaSearch      = document.querySelector("#area-search-button");
+        areaSearch.onclick  = this.areaSearch.bind(this);
 
         restaurant.locationHandler();
         
         this.getAreas();
-        this.getRestaurants();
-       
+        this.getRestaurants();       
     },      
     getAreas(){  
         var cityName    = this.urlParser().city;        
@@ -44,10 +43,10 @@ export default {
     },   
     getRestaurants(){        
                
-        var Area = this.urlParser().area;
-        var City = this.urlParser().city
+        var Area        = this.urlParser().area;
+        var City        = this.urlParser().city
         var resListArea = document.querySelector(".res-list-items");
-        var resCount = 0;
+        var resCount    = 0;
 
         if (Area) {      
             helper.request('POST','get-restaurants',{area:Area})

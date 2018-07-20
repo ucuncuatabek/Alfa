@@ -4,11 +4,12 @@ import restaurant from './restaurant'
 export default {
     timer:null,
     init(){       
-        this.insertItems()
+        this.insertItems();
         var trash = document.querySelector(".emptyBasket");
         trash.onmouseover   = this.emptyBasketPopupOn;
         trash.onmouseout    = this.emptyBasketPopupOff;
         trash.onclick       = this.clearBasket.bind(this);
+       
     },
     addBasket(button){   
         var trash   = document.querySelector(".emptyBasket");
@@ -100,21 +101,15 @@ export default {
 
     },
     changeCount(input) {
-        clearTimeout(this.timer);  
-
-        var that = this;
-        var basket =  JSON.parse(localStorage.getItem("basket")); 
-        var productId = input.dataset.productId;
-       
-        this.timer =  setTimeout( function() {
+        window.onmousedown = function(){
             if (input.value == 0 || input.value == "" || input.value >=999 || isNaN(input.value)) {
-                input.value = 1;
-            }
-            basket[productId]["count"] = input.value; 
-            basket[productId]["price"] = input.value*parseInt(basket[productId]["originalPrice"])     
-            localStorage.setItem("basket",JSON.stringify(basket));
-            that.insertItems();     
-         },300);          
+                        input.value = 1;
+                }
+                basket[productId]["count"] = input.value; 
+                basket[productId]["price"] = input.value*parseInt(basket[productId]["originalPrice"])     
+                localStorage.setItem("basket",JSON.stringify(basket));
+                that.insertItems();     
+        }       
     },
     insertItems(){
         var basketItemList  = document.querySelector(".items");
@@ -180,8 +175,12 @@ export default {
         var deleteButtons = document.querySelectorAll(".rmv-basket");   
         deleteButtons.forEach(element => element.onclick = this.deleteItem.bind(this,element));
 
-        var productCounts = document.querySelectorAll(".txtCount");          
-        productCounts.forEach(element => element.onkeyup = this.changeCount.bind(this,element));       
+        var BasketProductCounts = document.querySelectorAll(".txtCount");          
+        BasketProductCounts.forEach(element => element.onkeyup = this.changeCount.bind(this,element)); 
+        
+       
+        
+    
     },
     emptyBasketPopupOn(){
         var popup = document.getElementById("emptyBasket");

@@ -1,22 +1,24 @@
 import helper from './helper'
 
 export default {
-    timer : null,    
-    init(){       
+    timer : null,
+    init() {       
         this.attachEvents();  
         this.userLogged();
     },
     attachEvents(){ 
-        
+        var that = this;
         var formLogin           = document.querySelector('#formSignup');
         formLogin.onsubmit      = this.validateLogin;
+       
+        var SignUpButton       = document.querySelector('#ButtonSignup');    
+        SignUpButton.addEventListener("click",function(){           
+            that.toggleSignup();   
+            var inputs              = document.querySelectorAll('input');
+            inputs.forEach(element  => element.onkeyup = that.signupControl);  
 
-        var toggleSignup        = document.querySelector('#ButtonSignup');
-        toggleSignup.onclick    = this.toggleSignup;
-
-        var inputs              = document.querySelectorAll('input');
-        inputs.forEach(element => element.onkeyup = this.signupControl);  
-
+        });           
+        
         var viewPwd             = document.querySelector("#viewPwd");
         viewPwd.onclick         = this.viewPassword;   
         
@@ -47,9 +49,11 @@ export default {
         for (i = 0; i < elements.length; i++) {
             var el = elements[i];            
             if (el.getAttribute("required") != null) {
+
                 var fieldValue  = el.value;
                 var formGroup   = el.closest(".form-group");
                 var hasError    = formGroup.querySelector(".empty-error");
+
                 if (fieldValue == "") { 
                     empty = 1;                               
                     el.classList.add("error");       
@@ -67,16 +71,15 @@ export default {
         var username    = document.querySelector("#name").value;       
         var surname     = document.querySelector("#surname").value;
 
-        if (username!="" && surname !="") {
-            username = username.replace(username[0],username[0].toUpperCase());
-            surname  = surname.replace(surname[0],surname[0].toUpperCase());  
+        if (username != "" && surname != "") {
+            username = username.replace(username[0], username[0].toUpperCase());
+            surname  = surname.replace(surname[0], surname[0].toUpperCase());  
         }
        
         if (empty == 1) {
             return false;
         } else if (signupToggled === 1 && empty === 0) {   //signup
-            helper.request('POST','add-user',
-            {
+            helper.request('POST', 'add-user', {
                 email,
                 password,
                 username,
@@ -95,13 +98,13 @@ export default {
             return false;
 
         } else if(signupToggled === 0 && empty === 0) {      //login                                 
-            helper.request('POST','check-user',
-            {
+            helper.request('POST', 'check-user', {
                 email,
                 password
             })
             .then((data) => {
-                if (data.message === "ok") {      //logged in succesfully                    
+                if (data.message === "ok") {      //logged in succesfully   
+
                     localStorage.setItem("userlogged",1);         
                     localStorage.setItem("username",data.username);
                     localStorage.setItem("surname",data.surname);
@@ -110,8 +113,7 @@ export default {
                         window.open("home.html?city=ISTANBUL","_self");
                     } else {
                         location.reload();
-                    }
-                   
+                    }                   
                     return true;
                 } else {
                     localStorage.setItem("userlogged",0);
@@ -121,155 +123,140 @@ export default {
             return false; 
         }
     },    
-    signupControl(e){ 
-        var signupActivated = document.querySelector(".signup");           
-
-            var field           = e.target;
-            var formGroup       = field.closest(".form-group");          
-            var errorMessage    = formGroup.querySelectorAll("small");
-            
-
-            if(field.getAttribute("data-error") ==  "true"){
-                field.style.borderColor = "initial";            
-                field.setAttribute("data-error", "false")
-            }
-
-        if(signupActivated.style.display === "block") {    
-
-            clearTimeout(this.timer);            
-            
-            if(e.target.getAttribute("id") == "password"){             
-                
-                this.timer =  setTimeout(function() {       
-                    
-                    var password            = field.value.toString();
-                    var lowerCaseLetters    = /[a-z]/g;
-                    var UpperCaseLetters    = /[A-Z]/g;
-                    var Numbers             = /[0-9]/g;
-                    var length              = password.length;
-
-                    var smallLovercase = formGroup.querySelector("#lovercase");
-                    var smallUppercase = formGroup.querySelector("#uppercase");
-                    var smallPwdLength = formGroup.querySelector("#pwdLength");
-                    var smallNumbers   = formGroup.querySelector("#numbers");
-
-                    if (password.match(lowerCaseLetters)) {   
-                        passwordError(smallLovercase,"small-noError");                          
-                    } else {
-                        passwordError(smallLovercase,"error");
-                    }
-                    if (password.match(UpperCaseLetters)) {
-                        passwordError(smallUppercase,"small-noError");              
-                    }  else {
-                        passwordError(smallUppercase,"error");            
-                    }
-                    if (password.match(Numbers)) {
-                        passwordError(smallNumbers,"small-noError");   
-                    } else {
-                        passwordError(smallNumbers,"error");   
-                    }
-                    if (length >= 8) {
-                        passwordError(smallPwdLength,"small-noError");      
-                    } else {
-                        passwordError(smallPwdLength,"error");        
-                    } 
-                    if (field.value == ""){
-                        errorMessage.classList.remove("small-noError");
-                        errorMessage.classList.add("small-error");
-                    }
-
-                    var errExists = formGroup.querySelectorAll(".small-error");
-
-                    if (field.value != "" && errExists.length == 0){
-                        addToClass('noError');  
-                        this.pwdIcon.classList.remove("fa-angry");
-                        this.pwdIcon.classList.add("fa-smile");    
-                    } else {
-                        addToClass("error");
-                        this.pwdIcon.classList.add("fa-angry");
-                        this.pwdIcon.classList.remove("fa-smile");   
-                    }                    
-                    
-                }, 300); 
-            }    
+    signupControl(e){              
+        var field           = e.target;
+        var formGroup       = field.closest(".form-group");                  
         
+        if(e.target.getAttribute("id") == "password"){            
+            var errExists = 0;            
+            window.onmousedown = function() { 
+                var password            = field.value.toString();
+                var lowerCaseLetters    = /[a-z]/g;
+                var UpperCaseLetters    = /[A-Z]/g;
+                var Numbers             = /[0-9]/g;
+                var length              = password.length;
 
-            if (e.target.getAttribute("type") == "email") {
-                
-                this.timer =  setTimeout(function() {
-                    
-                    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(field.value)){
-                        
-                    } else {                       
-                        errorMaker("Hatalı email adresi girdiniz");                    
-                    }              
-                    var errExists = formGroup.querySelector(".small-error"); 
+                var smallLovercase = formGroup.querySelector("#lovercase");
+                var smallUppercase = formGroup.querySelector("#uppercase");
+                var smallPwdLength = formGroup.querySelector("#pwdLength");
+                var smallNumbers   = formGroup.querySelector("#numbers");
 
-                    if (field.value != "" && errExists == null){
-                        addToClass("noError");
-                    } else {
-                        addToClass("error");
-                    }
-
-                    if (field.value == "" && errExists != null){
-                        addToClass("noError");
-                        field.style.borderColor = "initial";  
-                        formGroup.querySelector(".small-error").remove()
-                    }
-                },500);       
-            }
-
-            if (e.target.getAttribute("id") == "name" || e.target.getAttribute("id") == "surname") {
-               
-                this.timer =  setTimeout(function() {                     
-                    if(!isNaN(parseFloat(field.value))){
-                        errorMaker(e.target.getAttribute("data-title") + " alanına yalnızca alfabetik karakter girebilirsiniz.");
-                    } 
-                    var errExists = formGroup.querySelector(".small-error"); 
-
-                    if(field.value != "" && errExists == null){
-                        addToClass("noError");                       
-                    } else {
-                        addToClass("error");
-                    }   
-
-                    if(field.value == "" && errExists != null){
-                        addToClass("noError");
-                        field.style.borderColor = "initial";  
-                        formGroup.querySelector(".small-error").remove()
-                    }
-                },500);    
-               
-            }           
-
-            function errorMaker(str){
-                var errExists = formGroup.querySelector(".small-error"); 
-                if(errExists == null){
-                    var errorInfo = '<small class="small-error"> <br>' + str + '</small>';
-                    formGroup.insertAdjacentHTML( 'beforeend' , errorInfo ); 
-                }
-            }
-
-            function addToClass(str){
-                if(str == "error"){
-                    field.classList.add(str);
-                    field.classList.remove("noError");
-                } else if(str == "noError") {
-                    field.classList.add(str);
-                    field.classList.remove("error");
-                }
-            }
-
-            function passwordError(arg,str) {
-                if (str == "small-noError") {
-                    arg.classList.add("small-noError");
-                    arg.classList.remove("small-error");
+                if (password.match(lowerCaseLetters)) {   
+                    passwordError(smallLovercase,"small-noError");                                            
                 } else {
-                    arg.classList.remove("small-noError");
-                    arg.classList.add("small-error");
+                    passwordError(smallLovercase,"error");
+                    errExists = 1;
                 }
-            }            
+                if (password.match(UpperCaseLetters)) {
+                    passwordError(smallUppercase,"small-noError");              
+                }  else {
+                    passwordError(smallUppercase,"error");    
+                    errExists = 1;           
+                }
+                if (password.match(Numbers)) {
+                    passwordError(smallNumbers,"small-noError");   
+                } else {
+                    passwordError(smallNumbers,"error");   
+                    errExists = 1;   
+                }
+                if (length >= 8) {
+                    passwordError(smallPwdLength,"small-noError");      
+                } else {
+                    passwordError(smallPwdLength,"error");  
+                    errExists = 1;         
+                }                
+                console.log(errExists)
+                if (field.value != "" && errExists ==  0){
+                    addToClass('noError');  
+                    this.pwdIcon.classList.remove("fa-angry");
+                    this.pwdIcon.classList.add("fa-smile");    
+                } else {
+                    addToClass("error");
+                    this.pwdIcon.classList.add("fa-angry");
+                    this.pwdIcon.classList.remove("fa-smile");   
+                }                    
+                
+            }; 
+        }    
+    
+
+        if (e.target.getAttribute("type") == "email") {
+            var errExists = 0;
+            window.onmousedown =  function() {
+                
+                if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(field.value)){
+                    
+                } else {                       
+                    errorMaker("Hatalı email adresi girdiniz");        
+                    errExists = 1;
+                }                            
+
+                if (field.value != "" && errExists == 0){
+                    addToClass("noError");
+                    formGroup.querySelector("small").remove()
+                } else {
+                    addToClass("error");
+                }
+
+                if (field.value == "" && errExists != 0){
+                    addToClass("noError");
+                    field.style.borderColor = "initial";  
+                    formGroup.querySelector(".small-error").remove()
+                }
+            };       
         }
+
+        if (e.target.getAttribute("id") == "name" || e.target.getAttribute("id") == "surname") {
+            var errExists = 0;
+            window.onmousedown =   function() {                     
+                if (!isNaN(parseFloat(field.value))) {
+                    errorMaker(e.target.getAttribute("data-title") + " alanına yalnızca alfabetik karakter girebilirsiniz.");
+                    var errExists = 1;
+                }               
+
+                if(field.value != "" && errExists == 0){
+                    addToClass("noError");                       
+                } else {
+                    addToClass("error");
+                }   
+
+                if(field.value == "" && errExists != 0){
+                    addToClass("noError");
+                    field.style.borderColor = "initial";  
+                    formGroup.querySelector(".small-error").remove()
+                }
+            };    
+            
+        }           
+
+        function errorMaker(str){
+            var errExists = formGroup.querySelector(".small-error"); 
+            if(errExists == null){
+                var errorInfo = '<small class="small-error"> <br>' + str + '</small>';
+                formGroup.insertAdjacentHTML( 'beforeend' , errorInfo ); 
+            }
+        }
+
+        function addToClass(str){
+            if(str == "error"){
+                field.classList.add(str);
+                field.classList.remove("noError");
+            } else if(str == "noError") {
+                field.classList.add(str);
+                field.classList.remove("error");
+            }
+        }
+
+        function passwordError(arg,str) {
+            if (str == "small-noError") {
+                arg.classList.add("small-noError");
+                arg.classList.remove("small-error");
+            } else {
+                arg.classList.remove("small-noError");
+                arg.classList.add("small-error");
+            }
+        }            
+        
 
     },
     popupOn(){
@@ -281,13 +268,16 @@ export default {
         popup.classList.toggle("show");
     },
     toggleSignup(){
-       var toggleElements =  document.querySelectorAll(".signup");
+        
+       var toggleElements       =  document.querySelectorAll(".signup");
        toggleElements.forEach(element => element.style.display = "block"); 
-       var loginButton =  document.querySelector("#login");
-       document.querySelector("#ButtonSignup").remove();
-       loginButton.innerHTML = "Kayıt ol";
 
+       var loginButton          =  document.querySelector("#login");
+       document.querySelector("#ButtonSignup").remove();
+
+       loginButton.innerHTML    = "Kayıt ol";
        document.querySelector("#buttonSeperator").remove();
+       
     },
     viewPassword(){
         var x = document.querySelector("#password");
