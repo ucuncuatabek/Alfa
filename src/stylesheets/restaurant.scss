@@ -247,11 +247,11 @@
         margin-right:5px;
         display:flex;
         width: 26px;
-        height: 17px;
+        height: 13px;
         text-align: center;
         margin-top: 2px;
         border: 1px solid #e5e5e5;
-        border-radius: 2px;
+        border-radius: 3px;
         background-clip: padding-box;
         background-color: #fff;
         box-shadow: 0 -1px 0 rgba(51,51,51,0.2);      
@@ -274,7 +274,7 @@
       display: inline-block;
       position: relative;
       top: 0px;
-      left: -1px;
+      left: 0px;
       color: #fff;
     }
     .ys-button-success:hover{

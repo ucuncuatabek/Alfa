@@ -10,7 +10,7 @@ body.main-layout{
       .modal {
           display: none; /* Hidden by default */
           position: fixed; /* Stay in place */
-          z-index: 1; /* Sit on top */
+          z-index: 2; /* Sit on top */
           padding-top: 100px; /* Location of the box */
           left: 0;
           top:55;
@@ -28,7 +28,7 @@ body.main-layout{
           margin: auto;
           top:20%;
           padding: 0;
-          border: 1px solid #888;
+         
           width: 40%;
           box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
           -webkit-animation-name: animatetop;
@@ -80,16 +80,45 @@ body.main-layout{
             background-color:red;
         }
       
-      .modal-body {padding: 2px 16px;
-        height:65px;
+      .modal-body {
+        padding: 2px 16px;
+        min-height: 85px;
+        overflow:auto;
         text-align:center;        
         }
       .modal-error{
         display:block;
         margin-top:5%;
-        font-weight:700;
+        font-weight:700;        
       }
-   
+
+      .totalValue{
+          border:none;
+         
+      }
+      .tdTotalValues{
+          
+      }
+      .Sepeti-Onayla-Modal{
+        color: #fff;
+        background-color: #5cb85c;
+        border-radius:4px;
+        border: 1px solid transparent;
+        float:right;
+      }
+      h1.thanks ,h2.thanks{
+        color: #fff;
+        font-size:22px;
+      }
+     
+      .highlight.thanks{
+        background:#4CAF50 !important;
+        text-align: center !important;
+      }
+      .fa-check-circle{
+          color: #fff;
+          font-size:35px;
+      }
       //=======================================================
 .main-layout {
 
@@ -125,8 +154,12 @@ body.main-layout{
         height:40px;
         cursor: pointer;
       }
-.error {
-    border-color: #a94442;
+    .error {
+    
+    box-shadow: 0 0 5px #ab0012;
+    padding: 3px 0px 3px 3px;
+    margin: 5px 1px 3px 0px;
+    border: 1px solid #ab0012;
   }
   
   .noError {
@@ -215,6 +248,7 @@ body.main-layout{
         width:20px;
         text-align: center;
         padding: 1px 2px;
+        border-radius:3px;
     }
     .item-actions{
         width: 8%;
@@ -405,12 +439,21 @@ body.main-layout{
         color:black;
         font-weight:bold;
     }
-    input{
-        border-radius:3px;
-        border:1px solid #f3f3f3;
-        background-clip: padding-box;
-        background-color: #fff;
+    input{   
         box-shadow: 0 -1px 0 rgba(51,51,51,0.2);
+        -webkit-transition: all 0.30s ease-in-out;
+        -moz-transition: all 0.30s ease-in-out;
+        -ms-transition: all 0.30s ease-in-out;
+        -o-transition: all 0.30s ease-in-out;
+        outline: none;
+        padding: 3px 0px 3px 3px;
+        margin: 5px 1px 3px 0px;
+        border: 1px solid #DDDDDD;        
+    }
+    input:focus{
+        box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+       
+        border: 1px solid rgba(81, 203, 238, 1);
     }
     //=====================================================
     
@@ -519,11 +562,25 @@ body.main-layout{
         width: calc(75% - 15px);
         margin-left:10px;
     }
+    .col-16-3{
+        width:25%;
+        padding-left: 6px;
+        padding-right: 6px;
+        float: left;
+        position: relative;
+        min-height: 1px;
+    }
+    .col-16-9{
+        padding-left: 6px;
+        padding-right: 6px;
+        float: left;
+        position: relative;
+        min-height: 1px;
+    }
 
 
     
-    #city-search-wrapper,#area-search-wrapper{
-        background-image:url('/path/to/your/sprite.gif');
+    #city-search-wrapper{
         width:auto;
         height:25px;
         display:inline-block;
@@ -534,7 +591,7 @@ body.main-layout{
     #ys-logo-2{
         margin-top:3px;
     }
-    #city-search-field,.area-search-field{
+    #city-search-field{
         width:177px;
         padding-left:15px;
         display:inline-block;
@@ -546,22 +603,72 @@ body.main-layout{
         margin-right:auto;
     }
 
-    #city-search-button,#area-search-button {
-        position:absolute;       
+    #city-search-button,#area-search-button{
+        display:inline-block;         
         height:28px;
         width:39px;
         border-top-right-radius: 4px;
         border-bottom-right-radius: 4px;
         background:#ff7208;
-        border: none;
-        
+        border: none;  
+    }
+    #area-search-button{
+        display:flex;
+        margin-left:-4px;
+        text-align:center;
+    }
+    #area-search-button.fa-search{
+        padding-left:13px;
+    }
+    #area-search-wrapper{
+       margin-bottom:10px;
+       width:300px;
+       margin-left:35%;
+       display:flex;
+       position:relative;
+       top:-31px;
+    }
+    .area-search-field{  
+        display:flex;    
+        height:28px; 
+        width:188px;       
+        border-radius: 4px 0px 0px 4px;
+        padding: 0px 9px;
     }
 
-    select {
+    #area-search-wrapper select {        
         -webkit-appearance: none;
-        width:20px;
-        display:inline-block;
-        overflow: hidden;
+        -moz-appearance: none;
+        -o-appearance : none;
+        -ms-appearance:none;
+        appearance:none;       
+        display:block;     
+        overflow-x:auto;  
+    }
+    
+    #area-search-wrapper:before {
+        
+        content:'';
+        top:0;
+        right:0;
+    }
+    .ys-panel {
+        border: 5px solid #eff0f2;
+        margin-bottom: 12px;
+      
+        border-radius:4px;
+    }
+    .ys-SavedAddress{
+        overflow: auto;
+        height: 146px;
+        padding-top: 5px;
+        padding-bottom: 0;
+        
+    }
+    .ys-panel.ys-pnlUserBar{
+        height: 222px;
+        min-height: 222px;
+        border-bottom: 35px solid #eff0f2;
     }
 
 [data-controller = home ] {
@@ -603,6 +710,7 @@ body.main-layout{
         margin-right: 5px;
         margin-bottom: 0px;
         margin-left: 5px;
+        padding: 2px;
     }
     .res-count{
       position: relative;

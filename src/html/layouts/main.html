@@ -13,33 +13,29 @@
   </head>
   <body class="main-layout">
     <div id="myModal" class="modal">
-
-            <!-- Modal content -->
-            <div class="modal-content">
-                <div class="modal-header">
-                <span class="close">&times;</span>
-                <h2></h2>
-                </div>
-                <div class="modal-body">               
-                </div>               
+        <div class="modal-content">
+            <div class="modal-header">
+            <span class="close">&times;</span>
+            <h2></h2>
             </div>
-            
-            </div>
-<header>
-   
-            
-      
+            <div class="modal-body">               
+            </div>               
+        </div>            
+    </div>
+    <header>  
     </header>
+    
     <div class="top" ></div>
     <div id="sticky-bar">     
             <div class="inner">
                 <div class ="search-bar">   
                     <img class = "logo" id="ys-logo" src="/images/logo.png" alt=""><br>   
                     <img class = "logo2 slideUp" id="ys-logo-2" src ="https://assets.yemeksepeti.com/assets/Images/logo2.png?v=1530878576856?v=1530878576856">
-                    <div id = "area-search-wrapper" >               
-                        <select id= "areas" class="area-search-field" placeholder = "Semt Seçiniz">
-                                <option place-holder="Tüm restoranlar"></option>
-                        </select><button id = "area-search-button" class="fas fa-search glyphicon"></button>
+                    <div id = "area-search-wrapper" >                              
+                        <select id= "areas" class="area-search-field" placeholder = "Semt Seçiniz">                                
+                                <option place-holder="Tüm restoranlar"></option>  
+                        </select>                               
+                        <button id = "area-search-button" class="fas fa-search glyphicon"></button>                        
                     </div>
                 </div>
             </div>
@@ -136,7 +132,7 @@
                 </div>
             </div>
     
-            <div class = "column-right col-md-12">
+            <div class = "column-right col-md-12">                
                 {% block content %}{% endblock %}                      
             </div>    
         </div>   

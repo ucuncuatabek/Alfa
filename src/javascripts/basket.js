@@ -10,9 +10,13 @@ export default {
         trash.onmouseover   = this.emptyBasketPopupOn;
         trash.onmouseout    = this.emptyBasketPopupOff;
         trash.onclick       = this.clearBasket.bind(this);
+        var checkOut = document.querySelector(".sepeti-onayla");        
+        checkOut.onclick = modal.checkout;
        
     },
     addBasket(button){   
+        
+
         var trash   = document.querySelector(".emptyBasket");
         trash.style ="display:block";
 
@@ -126,16 +130,27 @@ export default {
         }
 
     },
-    changeCount(input) {
+    changeCountBasket(input) {  
+        var that = this;      
         window.onmousedown = function(){
-            if (input.value == 0 || input.value == "" || input.value >=999 || isNaN(input.value)) {
+            if (input.value == 0 || input.value == "" || input.value >= 999 || isNaN(input.value)) {
                         input.value = 1;
-                }
-                basket[productId]["count"] = input.value; 
+            } else {                
+                var basket = JSON.parse(localStorage.getItem("basket"));
+                var productId = input.dataset.productId;                
+                basket[productId]["count"] = parseInt(input.value); 
                 basket[productId]["price"] = input.value*parseInt(basket[productId]["originalPrice"])     
                 localStorage.setItem("basket",JSON.stringify(basket));
-                that.insertItems();     
+                that.insertItems(); 
+            }    
         }       
+    },
+    changeCountMenu(input) {
+        window.onmousedown = function(){
+            if (input.value == 0 || input.value == "" || input.value >= 999 || isNaN(input.value)) {
+                        input.value = 1;
+            }
+        }
     },
     insertItems(){
         var basketItemList  = document.querySelector(".items");
@@ -155,7 +170,7 @@ export default {
                                         <a>${basket[id]["name"]}</a>
                                         <span></span>
                                     </td>
-                                <td class = "item-count">                              
+                                <td class = "">                              
                                     <input type="number"  data-product-id = "${id}" name="txtCount" class="txtCount ys-input-mini" title="Ürün Adedi" value="${basket[id]["count"]}">                                
                                 </td>                           
                                 <td class="item-price">
@@ -201,8 +216,8 @@ export default {
         var deleteButtons = document.querySelectorAll(".rmv-basket");   
         deleteButtons.forEach(element => element.onclick = this.deleteItem.bind(this,element));
 
-        var BasketProductCounts = document.querySelectorAll(".txtCount");          
-        BasketProductCounts.forEach(element => element.onkeyup = this.changeCount.bind(this,element));     
+        var BasketProductCounts = document.querySelectorAll(".txtCount");                
+        BasketProductCounts.forEach(element => element.onkeyup = this.changeCountBasket.bind(this,element));     
     },
     emptyBasketPopupOn(){
         var popup = document.getElementById("emptyBasket");

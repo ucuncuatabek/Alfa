@@ -59,7 +59,7 @@ export default {
                     el.classList.add("error");       
                     el.setAttribute("data-error","true");
                     if(hasError === null){       
-                        var errorInfo = '<small class = "small-error empty-error" > <br> Lütfen ' + el.getAttribute("data-title") + ' giriniz.</small>';
+                        var errorInfo = '<small class = "small-error empty-error" > Lütfen ' + el.getAttribute("data-title") + ' giriniz.</small>';
                         formGroup.insertAdjacentHTML('beforeend',errorInfo ); 
                     }
                 }
@@ -118,7 +118,7 @@ export default {
                 } else {
                     localStorage.setItem("userlogged",0);
                     if(data.message == "password"){
-                        modal.showModal("Şifre Yanlış!");
+                        modal.showModal("Şifre Yanlış!","error");
                     } else if(data.message =="user"){
                         modal.showModal("Kullanıcı bulunamadı!");
                     }
