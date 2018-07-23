@@ -1,5 +1,6 @@
 import helper from './helper'
 import modal from './modal'
+import Basket from './basket'
 export default {
     timer : null,
     init() {       
@@ -308,8 +309,8 @@ export default {
         }
     },
     signOut(){
-        localStorage.setItem("userlogged",0);
-        localStorage.setItem("basket","");
+        localStorage.setItem("userlogged",0);        
+        Basket.clearBasket();
         location.reload()
     }
 }

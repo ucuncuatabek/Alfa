@@ -11,7 +11,7 @@ export default {
         trash.onmouseout    = this.emptyBasketPopupOff;
         trash.onclick       = this.clearBasket.bind(this);
         var checkOut = document.querySelector(".sepeti-onayla");        
-        checkOut.onclick = modal.checkout;
+        checkOut.onclick = this.checkOut;
        
     },
     addBasket(button){   
@@ -226,6 +226,14 @@ export default {
     emptyBasketPopupOff(){
         var popup = document.getElementById("emptyBasket");        
         popup.classList.remove("show");
+    },
+    checkOut(){
+        if (localStorage.getItem("userlogged") == 0) {
+            document.querySelector(".form-block").classList.add("glow")
+        } else {
+            modal.checkout();
+        }
     }
+    
    
 }

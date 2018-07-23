@@ -99,6 +99,32 @@ body.main-layout{
       .tdTotalValues{
           
       }
+       // glow effect ==========================================
+      .glow{
+       
+      
+        outline: none;        
+        -webkit-animation: pusate 0.3s 2 forwards;
+        -moz-animation: pusate 0.3s 2 forwards;
+        -animation: pusate 0.3s 2 forwards;
+        text-shadow: 0 0 8px #ccc;
+      }
+
+        @-webkit-keyframes pusate {
+            from { box-shadow: 0 0 10px #333; }
+            to { box-shadow: 0 0 20px #c00; }
+        }
+        @-moz-keyframes pusate {
+            from { box-shadow: 0 0 10px #333; }
+            to { box-shadow: 0 0 20px #c00; }
+        }
+        @keyframes pusate {
+            from { box-shadow: 0 0 10px #333; }
+            to { box-shadow: 0 0 20px #c00; }
+        }
+        
+      // =======================================================
+
       .Sepeti-Onayla-Modal{
         color: #fff;
         background-color: #5cb85c;
