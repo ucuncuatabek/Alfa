@@ -6,24 +6,22 @@ export default {
     timer:null,
     init(){       
         this.insertItems();
-        var trash = document.querySelector(".emptyBasket");
+        var trash           = document.querySelector(".emptyBasket");
         trash.onmouseover   = this.emptyBasketPopupOn;
         trash.onmouseout    = this.emptyBasketPopupOff;
         trash.onclick       = this.clearBasket.bind(this);
-        var checkOut = document.querySelector(".sepeti-onayla");        
-        checkOut.onclick = this.checkOut;
-       
+        var checkOut        = document.querySelector(".sepeti-onayla");        
+        checkOut.onclick    = this.checkOut;       
     },
-    addBasket(button){   
-        
+    addBasket(button){           
 
         var trash   = document.querySelector(".emptyBasket");
-        trash.style ="display:block";
+        trash.style = "display:block";
 
         var productId       = button.dataset.productId;
         var productName     = button.dataset.name;
         var productCount    = parseInt(document.querySelector("input[id='"+productId+"']").value); 
-
+        var userId = localStorage.getItem("token")
         if (productCount == 0) {
             productCount = 1;
         }
@@ -52,8 +50,7 @@ export default {
             localStorage.setItem("currentRestaurant",seoUrl);           
             restaurant.locationHandler();
             if (basket) {
-                var keys = Object.keys(basket);
-               
+                var keys = Object.keys(basket);               
                 keys.forEach((id) => {               
                     if (id === productId) { 
                         console.log(productCount,productPrice, parseFloat(basket[id]["price"]))
@@ -70,9 +67,13 @@ export default {
                         "originalPrice" :productPrice
                     }                
                 }    
-                localStorage.setItem("basket",JSON.stringify(basket));             
+                localStorage.setItem("basket",JSON.stringify(basket));   
+                helper.request('POST','add-delete-basket',{basket,userId,task:"add"}); 
+                        
             } else {
-                localStorage.setItem("basket",JSON.stringify(newItem));
+                localStorage.setItem("basket",JSON.stringify(newItem)); 
+                var basket = newItem               
+                helper.request('POST','add-delete-basket',{basket,userId,task:"add"});                  
             }
             this.insertItems();
         } else {
@@ -98,9 +99,12 @@ export default {
                             "originalPrice" :productPrice
                         }                
                     }    
-                    localStorage.setItem("basket",JSON.stringify(basket));             
+                    localStorage.setItem("basket",JSON.stringify(basket)); 
+                    helper.request('POST','add-delete-basket',{basket,userId, task : "add"});                       
                 } else {
                     localStorage.setItem("basket",JSON.stringify(newItem));
+                    var basket = newItem
+                    helper.request('POST','add-delete-basket',{basket,userId,task:"add"});                     
                 }
                 this.insertItems();
             }
@@ -110,6 +114,8 @@ export default {
     },
     clearBasket() {        
         localStorage.setItem("basket","");
+        var userId = localStorage.getItem("token")
+        helper.request('POST','add-delete-basket',{userId,task:"clear"});
         this.insertItems();
         localStorage.setItem("currentRestaurant","");
         restaurant.locationHandler();
@@ -128,7 +134,6 @@ export default {
         } else {
             this.insertItems();
         }
-
     },
     changeCountBasket(input) {  
         var that = this;      

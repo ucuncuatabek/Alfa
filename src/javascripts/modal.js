@@ -28,10 +28,6 @@ export default{
                 modal.style.display = "none";
             }
         } 
-        
-        
-        
-       
     },
     checkout(){
         var modal = document.getElementById('myModal');        

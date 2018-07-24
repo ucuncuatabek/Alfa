@@ -5,7 +5,7 @@ export default {
     timer : null,
     init() {       
         this.attachEvents();  
-        this.userLogged();
+        this.userLogged();     
     },
     attachEvents(){ 
         var that = this;
@@ -105,19 +105,28 @@ export default {
             })
             .then((data) => {
                 if (data.message === "ok") {      //logged in succesfully   
-
                     localStorage.setItem("userlogged",1);         
                     localStorage.setItem("username",data.username);
                     localStorage.setItem("surname",data.surname);
 
-                    if (window.location.pathname == "/index.html") {
-                        window.open("home.html?city=ISTANBUL","_self");
-                    } else {
-                        location.reload();
-                    }                   
+                    helper.request('POST','start-session',{
+                        name:data.username,
+                        surname:data.surname,
+                        task:"user"
+                    })
+                    .then((data) => {
+                        localStorage.setItem("token",data.token);   
+                        if (window.location.pathname == "/index.html") {
+                            window.open("home.html?city=ISTANBUL","_self");
+                        } else {
+                            location.reload();
+                        }                                               
+                    });                  
+
+                             
                     return true;
                 } else {
-                    localStorage.setItem("userlogged",0);
+                    //localStorage.setItem("userlogged",0);
                     if(data.message == "password"){
                         modal.showModal("Şifre Yanlış!","error");
                     } else if(data.message =="user"){
@@ -297,20 +306,23 @@ export default {
             icon.classList.add("fa-eye");
         }
     }, 
-    userLogged(){        
-        if(parseInt(localStorage.getItem("userlogged")) == 1){
-            
+    userLogged(){                
+        if(localStorage.getItem("token")){            
             var username = localStorage.getItem("username");
             var surname = localStorage.getItem("surname");
             document.querySelector(".notLogged").style = "display:none";
-            document.querySelector(".logged").style = "display:block";
-            
+            document.querySelector(".logged").style = "display:block";            
             document.querySelector("#ysUserName").innerHTML = `${username} ${surname}`;
+        } else {
+            helper.request('POST','start-session',{task:"guest"});
         }
     },
-    signOut(){
+    signOut(){        
+        var userId = localStorage.getItem("token");       
         localStorage.setItem("userlogged",0);        
         Basket.clearBasket();
+        helper.request('POST','logout',{userId});
+        localStorage.setItem("token","");
         location.reload()
     }
 }

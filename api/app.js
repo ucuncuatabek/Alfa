@@ -7,6 +7,8 @@ var bodyParser = require('body-parser');
 var multer     = require('multer'); // v1.0.5
 var upload     = multer(); // for parsing multipart/form-data
 
+var sessions = [];
+
 app.use(cors())
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
@@ -42,6 +44,7 @@ app.post('/get-restaurants', (req, res) => {
   }
  
 });
+
 app.post('/get-restaurant-info',(req,res) =>{
   res.set('Content-Type', 'application/json');      
   res.status(200);  
@@ -97,8 +100,9 @@ app.post('/add-user', (req, res) => {
           res.send({message:"Kayıt başarılı!"});
       }
   });
-
 });
+
+
 app.post('/get-cities',(req,res)=>{
   res.set('Content-Type', 'application/json');
   res.status(200);
@@ -111,6 +115,71 @@ app.post('/get-cities',(req,res)=>{
       res.send(result);
     }   
   });
+});
+
+app.post('/start-session',(req,res) =>{   
+  res.set('Content-Type', 'application/json');
+  res.status(200);
+  var token = require('crypto').randomBytes(16).toString('hex'); 
+  var task = req.body.task;
+  if(task == "user"){
+    var name = req.body.name;
+    var surname = req.body.surname;  
+    var user = { 
+                  username: name, 
+                  surname : surname,
+                  basket  : {}                        
+              };
+  
+    sessions[token] = user; 
+    //console.log(sessions)
+    res.send({token:token,username:name,surname:surname}); 
+  } 
+  if(task == "guest"){
+      var user = {      
+                    basket  : {}                        
+                    };
+      sessions[token] = user; 
+      //console.log(sessions)
+      res.send({token:token}); 
+  }
+});
+
+app.post('/check-session',(req,res)=>{
+  res.set('Content-Type', 'application/json');
+  res.status(200);
+  userId = req.body.userId;
+  res.send(sessions[userId]);
+});
+
+app.post('/logout',(req,res)=>{
+  res.set('Content-Type', 'application/json');
+  res.status(200);
+  var userId = req.body.userId;    
+  delete sessions[userId];  
+  res.send({});
+});
+
+app.post('/get-session-data',(req,res)=>{
+  res.set('Content-Type', 'application/json');
+  res.status(200);  
+});
+
+app.post('/add-delete-basket',(req,res) =>{
+  res.set('Content-Type', 'application/json');
+  res.status(200); 
+ 
+  var userId = req.body.userId;  
+  var task = req.body.task;
+
+  if (task == "add") {
+    sessions[userId]["basket"] = req.body.basket;    
+  } 
+  if (task == "clear") {
+    sessions[userId]["basket"] = {};
+  }  
+  console.log(sessions[userId])
+  res.send({});
 });
 
 app.post('/get-areas',(req,res)=>{
@@ -138,9 +207,10 @@ app.post('/get-menu', (req, res) => {
     if  (result.length >0)  {
           res.send(result);
     }
-  });  
-  
+  });    
 });
+
+
 
 
 
