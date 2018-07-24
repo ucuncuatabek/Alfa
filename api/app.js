@@ -122,17 +122,20 @@ app.post('/start-session',(req,res) =>{
   res.status(200);
   var token = require('crypto').randomBytes(16).toString('hex'); 
   var task = req.body.task;
+
   if(task == "user"){
     var name = req.body.name;
     var surname = req.body.surname;  
+    var createdId = req.body.userId;
     var user = { 
                   username: name, 
                   surname : surname,
                   basket  : {}                        
-              };
-  
-    sessions[token] = user; 
-    //console.log(sessions)
+              };    
+   
+    user["basket"]  = sessions[createdId]["basket"];
+    sessions[token] = user;
+    console.log(sessions,"user")    
     res.send({token:token,username:name,surname:surname}); 
   } 
   if(task == "guest"){
@@ -140,7 +143,7 @@ app.post('/start-session',(req,res) =>{
                     basket  : {}                        
                     };
       sessions[token] = user; 
-      //console.log(sessions)
+      console.log(sessions, "guest");
       res.send({token:token}); 
   }
 });
@@ -163,17 +166,20 @@ app.post('/logout',(req,res)=>{
 app.post('/get-session-data',(req,res)=>{
   res.set('Content-Type', 'application/json');
   res.status(200);  
+  res.send(sessions[userId])
 });
 
 app.post('/add-delete-basket',(req,res) =>{
   res.set('Content-Type', 'application/json');
   res.status(200); 
- 
+  
   var userId = req.body.userId;  
+  console.log(userId)
+  console.log(sessions)
   var task = req.body.task;
 
   if (task == "add") {
-    sessions[userId]["basket"] = req.body.basket;    
+      sessions[userId]["basket"] = req.body.basket;    
   } 
   if (task == "clear") {
     sessions[userId]["basket"] = {};

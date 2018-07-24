@@ -107,12 +107,14 @@ export default {
                 if (data.message === "ok") {      //logged in succesfully   
                     localStorage.setItem("userlogged",1);         
                     localStorage.setItem("username",data.username);
-                    localStorage.setItem("surname",data.surname);
-
+                    localStorage.setItem("surname",data.surname);                    
+                       
+                    var userId = localStorage.getItem("guestId");
                     helper.request('POST','start-session',{
                         name:data.username,
-                        surname:data.surname,
-                        task:"user"
+                        surname:data.surname,  
+                        task: "user",                          
+                        userId: userId
                     })
                     .then((data) => {
                         localStorage.setItem("token",data.token);   
@@ -121,9 +123,9 @@ export default {
                         } else {
                             location.reload();
                         }                                               
-                    });                  
-
-                             
+                    });   
+                    localStorage.setItem("guestId","");
+                                                           
                     return true;
                 } else {
                     //localStorage.setItem("userlogged",0);
@@ -314,7 +316,15 @@ export default {
             document.querySelector(".logged").style = "display:block";            
             document.querySelector("#ysUserName").innerHTML = `${username} ${surname}`;
         } else {
-            helper.request('POST','start-session',{task:"guest"});
+            if(localStorage.getItem("guestId")){
+               console.log(localStorage.getItem("guestId"),"guest exists")
+            } else {
+                helper.request('POST','start-session',{task:"guest"})
+                .then((data) =>{
+                    console.log(data.token,"guest");
+                    localStorage.setItem("guestId",data.token);
+                });
+            }
         }
     },
     signOut(){        

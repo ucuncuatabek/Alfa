@@ -20,8 +20,14 @@ export default {
 
         var productId       = button.dataset.productId;
         var productName     = button.dataset.name;
-        var productCount    = parseInt(document.querySelector("input[id='"+productId+"']").value); 
-        var userId = localStorage.getItem("token")
+        var productCount    = parseInt(document.querySelector("input[id='"+productId+"']").value);
+        if(localStorage.getItem("token")) {
+            var userId = localStorage.getItem("token");
+        } else if(localStorage.getItem("guestId")){
+            var userId = localStorage.getItem("guestId");
+            console.log(userId)
+        }
+        
         if (productCount == 0) {
             productCount = 1;
         }
@@ -100,7 +106,8 @@ export default {
                         }                
                     }    
                     localStorage.setItem("basket",JSON.stringify(basket)); 
-                    helper.request('POST','add-delete-basket',{basket,userId, task : "add"});                       
+
+                    helper.request('POST','add-delete-basket',{basket,userId, task:"add"});                       
                 } else {
                     localStorage.setItem("basket",JSON.stringify(newItem));
                     var basket = newItem
