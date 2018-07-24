@@ -21,13 +21,10 @@ export default {
         var productId       = button.dataset.productId;
         var productName     = button.dataset.name;
         var productCount    = parseInt(document.querySelector("input[id='"+productId+"']").value);
-        if(localStorage.getItem("token")) {
-            var userId = localStorage.getItem("token");
-        } else if(localStorage.getItem("guestId")){
-            var userId = localStorage.getItem("guestId");
-            console.log(userId)
-        }
+       
         
+            var userId = localStorage.getItem("guestId");
+       
         if (productCount == 0) {
             productCount = 1;
         }
@@ -74,14 +71,14 @@ export default {
                     }                
                 }    
                 localStorage.setItem("basket",JSON.stringify(basket));   
-                helper.request('POST','add-delete-basket',{basket,userId,task:"add"}); 
+                helper.request('POST','add-delete-basket',{basket,userId,task:"add"}).then(this.insertItems()); 
                         
             } else {
                 localStorage.setItem("basket",JSON.stringify(newItem)); 
                 var basket = newItem               
-                helper.request('POST','add-delete-basket',{basket,userId,task:"add"});                  
+                helper.request('POST','add-delete-basket',{basket,userId,task:"add"}).then(this.insertItems());                  
             }
-            this.insertItems();
+            
         } else {
             if(seoUrl != localStorage.getItem("currentRestaurant")){
                 modal.showModal("Sepetinizde başka restorant'a ait ürünler mevcut","error");
@@ -107,11 +104,11 @@ export default {
                     }    
                     localStorage.setItem("basket",JSON.stringify(basket)); 
 
-                    helper.request('POST','add-delete-basket',{basket,userId, task:"add"});                       
+                    helper.request('POST','add-delete-basket',{basket,userId, task:"add"}).then(this.insertItems());                       
                 } else {
                     localStorage.setItem("basket",JSON.stringify(newItem));
                     var basket = newItem
-                    helper.request('POST','add-delete-basket',{basket,userId,task:"add"});                     
+                    helper.request('POST','add-delete-basket',{basket,userId,task:"add"}).then(this.insertItems());                     
                 }
                 this.insertItems();
             }
@@ -121,8 +118,10 @@ export default {
     },
     clearBasket() {        
         localStorage.setItem("basket","");
-        var userId = localStorage.getItem("token")
-        helper.request('POST','add-delete-basket',{userId,task:"clear"});
+        if  (localStorage.getItem("guestId")){
+            var userId = localStorage.getItem("guestId")
+        }        
+        helper.request('POST','add-delete-basket',{userId, task:"clear"});
         this.insertItems();
         localStorage.setItem("currentRestaurant","");
         restaurant.locationHandler();

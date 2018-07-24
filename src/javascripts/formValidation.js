@@ -6,6 +6,7 @@ export default {
     init() {       
         this.attachEvents();  
         this.userLogged();     
+        console.log(localStorage.getItem("guestId"),"guestId")
     },
     attachEvents(){ 
         var that = this;
@@ -110,6 +111,7 @@ export default {
                     localStorage.setItem("surname",data.surname);                    
                        
                     var userId = localStorage.getItem("guestId");
+
                     helper.request('POST','start-session',{
                         name:data.username,
                         surname:data.surname,  
@@ -124,7 +126,7 @@ export default {
                             location.reload();
                         }                                               
                     });   
-                    localStorage.setItem("guestId","");
+                    //localStorage.setItem("guestId","");
                                                            
                     return true;
                 } else {
@@ -328,7 +330,7 @@ export default {
         }
     },
     signOut(){        
-        var userId = localStorage.getItem("token");       
+        localStorage.setItem("guestId","")   
         localStorage.setItem("userlogged",0);        
         Basket.clearBasket();
         helper.request('POST','logout',{userId});
