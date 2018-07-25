@@ -21,19 +21,16 @@ export default {
         var productId       = button.dataset.productId;
         var productName     = button.dataset.name;
         var productCount    = parseInt(document.querySelector("input[id='"+productId+"']").value);
-       
         
-            var userId = localStorage.getItem("guestId");
-       
-        if (productCount == 0) {
-            productCount = 1;
-        }
+        
+        var userId = localStorage.getItem("guestId");   
+      
         var productPrice    = parseFloat(button.dataset.price.replace(",","."))
 
         var newItem = {
                         [productId]: {
                             "name"          :productName,
-                            "price"         :productPrice,
+                            "price"         :productPrice*productCount,
                             "originalPrice" :productPrice,
                             "count"         :productCount
                         }
@@ -56,10 +53,17 @@ export default {
                 var keys = Object.keys(basket);               
                 keys.forEach((id) => {               
                     if (id === productId) { 
-                        console.log(productCount,productPrice, parseFloat(basket[id]["price"]))
+                        //console.log(productCount,productPrice, parseFloat(basket[id]["price"]))
                         exists = 1;   
-                        basket[id]["price"] = productCount*productPrice + parseFloat(basket[id]["price"]);
-                        basket[id]["count"] = productCount + parseFloat(basket[id]["count"])
+                        
+                        if(productCount + parseFloat(basket[id]["count"]) >= 1000 ){
+                            basket[id]["count"] = 1;
+                            basket[id]["price"] = productPrice;
+                        } else {
+                            basket[id]["price"] = productCount*productPrice + parseFloat(basket[id]["price"]);
+                            basket[id]["count"] = productCount + parseFloat(basket[id]["count"])
+                        }
+                       
                     } 
                 });     
                 if (exists == 0) {                
@@ -90,8 +94,13 @@ export default {
                         if (id === productId) { 
                             console.log(productCount,productPrice, parseFloat(basket[id]["price"]))
                             exists = 1;   
-                            basket[id]["price"] = productCount*productPrice + parseFloat(basket[id]["price"]);
-                            basket[id]["count"] = productCount + parseFloat(basket[id]["count"])
+                            if(productCount + parseFloat(basket[id]["count"]) >= 1000 ){
+                                basket[id]["count"] = 1;
+                                basket[id]["price"] = productPrice;
+                            } else {
+                                basket[id]["price"] = productCount*productPrice + parseFloat(basket[id]["price"]);
+                                basket[id]["count"] = productCount + parseFloat(basket[id]["count"])
+                            }
                         } 
                     });     
                     if (exists == 0) {                
