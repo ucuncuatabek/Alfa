@@ -118,11 +118,12 @@ app.post('/get-cities',(req,res)=>{
 });
 
 app.post('/start-session',(req,res) =>{   
+  console.log(req.connection.remoteAddress,"address")
   res.set('Content-Type', 'application/json');
   res.status(200);
   var token = require('crypto').randomBytes(16).toString('hex'); 
   var task = req.body.task;
-  console.log(req.body,"req body bura")
+ // console.log(req.body,"req body bura")
   if(task == "user"){
     var name = req.body.name;
     var surname = req.body.surname;  
@@ -144,6 +145,7 @@ app.post('/start-session',(req,res) =>{
                     };
       sessions[token] = user; 
       console.log(sessions,"session  bura")
+     
       res.send({token:token}); 
   }
   
@@ -183,8 +185,8 @@ app.post('/add-delete-basket',(req,res) =>{
   if (task == "clear") {
     sessions[userId]["basket"] = {};
   }    
-  console.log(userId, task, "user ıd ve task");
-  console.log(sessions)
+  //console.log(userId, task, "user ıd ve task");
+  //console.log(sessions)
  
   res.send({});
 });
@@ -215,6 +217,43 @@ app.post('/get-menu', (req, res) => {
           res.send(result);
     }
   });    
+});
+
+app.post('/check-basket-validity',(req,res) => {
+  res.set('Content-Type', 'application/json'); 
+  res.status(200);
+
+  var userId = req.body.userId;
+  //var basket = sessions[userId].basket;
+  var basket = req.body.basket;
+  console.log(basket);
+  
+
+  var collection = db.collection('menus');
+  var menu = collection.find({},{roll:12}).toArray(function(err, result) {
+    if (err) throw err;
+    if  (result.length > 0)  {
+      result.forEach(element => element.Products.forEach(Product =>{ 
+        var productId = Product["ProductId"]
+        if(basket[productId]){
+          var dataBasePrice = parseFloat(Product["ListPrice"]);
+          var basketPrice = parseFloat(basket[productId].price);
+          var basketProductCount = parseFloat(basket[productId].count);
+          var validPrice = dataBasePrice*basketProductCount;
+
+          if( validPrice != basketPrice){
+            res.send({productId,validPrice})
+          } else {
+            res.send({message:"valid"})
+            // console.log(parseFloat(Product["ListPrice"]),Product["ProductId"]);
+            // console.log(basket[productId]);
+          }
+        }
+       
+      }))
+    }
+  });    
+
 });
 
 

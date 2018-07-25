@@ -329,7 +329,8 @@ export default {
             }
         }
     },
-    signOut(){        
+    signOut(){      
+        var userId = localStorage.getItem("guestId");
         localStorage.setItem("guestId","")   
         localStorage.setItem("userlogged",0);        
         Basket.clearBasket();

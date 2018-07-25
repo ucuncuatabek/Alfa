@@ -11,7 +11,7 @@ export default {
         trash.onmouseout    = this.emptyBasketPopupOff;
         trash.onclick       = this.clearBasket.bind(this);
         var checkOut        = document.querySelector(".sepeti-onayla");        
-        checkOut.onclick    = this.checkOut;       
+        checkOut.onclick    = this.checkOut.bind(this);       
     },
     addBasket(button){           
 
@@ -120,8 +120,9 @@ export default {
         localStorage.setItem("basket","");
         if  (localStorage.getItem("guestId")){
             var userId = localStorage.getItem("guestId")
+            helper.request('POST','add-delete-basket',{userId, task:"clear"});
         }        
-        helper.request('POST','add-delete-basket',{userId, task:"clear"});
+       
         this.insertItems();
         localStorage.setItem("currentRestaurant","");
         restaurant.locationHandler();
@@ -239,12 +240,34 @@ export default {
         popup.classList.remove("show");
     },
     checkOut(){
+        
         if (localStorage.getItem("userlogged") == 0) {
             document.querySelector(".form-block").classList.add("glow")
         } else {
             modal.checkout();
-        }
-    }
-    
+            this.insertItems()
+            var modalInputs =  document.querySelectorAll(".modal-item-count");
+            modalInputs.forEach((element) => {               
+            element.onkeyup = this.changeCountBasket.bind(this,element)
+           
+            });
+        } 
+    },
+    checkBasketValidity(cb) {
+        var userId = localStorage.getItem("guestId")
+        var basket = JSON.parse(localStorage.getItem("basket"));              
+        helper.request('POST','check-basket-validity',{userId,basket})
+        .then((data) => {
+            if ( data.message == "valid"){
+                alert("valid")
+               cb(true);
+            } else {
+                var basket = JSON.parse(localStorage.getItem("basket"));
+                basket[data.productId].price = data.validPrice;
+                localStorage.setItem("basket",JSON.stringify(basket));
+                location.reload();
+            }
+        });      
+    }   
    
 }

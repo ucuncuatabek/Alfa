@@ -45,7 +45,7 @@ export default{
                                     </tr>
                                 </thead>
                                 <tbody class = "items"> 
-                                </items>
+                                </tbody>
                             </table>`;
 
         // {name: "Seçilmiş Menü (Kebap) ", price: 23, originalPrice: 23, count: 1}
@@ -66,7 +66,7 @@ export default{
                                     ${basket[id].originalPrice} TL
                                 </td>
                                 <td class = "tdOrderCount item-count">
-                                    ${basket[id].count}
+                                    <input data-product-id ="${id}" class = "modal-item-count" value = ${basket[id].count}>                                   
                                 </td>
                                 <td class = "tdOrderTotal">
                                     ${basket[id].price} TL
@@ -97,7 +97,7 @@ export default{
                                             </div>
                                         </td>
                                         <td class = "tdTotalValues">
-                                            <div class="totalValue"> 
+                                            <div class="totalValue totalPrice"> 
                                                 ${total} TL
                                             </div>
                                         <td>
@@ -106,18 +106,21 @@ export default{
                                 </tfoot>                                
                             </table>
                             <button type="button" class = "Sepeti-Onayla-Modal" > Sepeti Onayla</button>
-                            `;
-        
+                            `;        
         
         content.innerHTML = basketInfo;
-        document.querySelector(".Sepeti-Onayla-Modal").onclick = function(){
-            var highlight = document.querySelector(".highlight");
-            highlight.innerHTML =   `<i class="fas fa-check-circle"></i>
-                                    <h1 class="thanks"> Siparişiniz bize ulaşmıştır!</h1>
-                                    <h2 class="thanks"> Teşekkür ederiz.</h2>`;
-            highlight.classList.add("thanks")
-            modal.style.display = "none"; 
-            Basket.clearBasket();
+        document.querySelector(".Sepeti-Onayla-Modal").onclick = function() {            
+            Basket.checkBasketValidity(function(valid){
+                if(valid){
+                    var highlight = document.querySelector(".highlight");
+                    highlight.innerHTML =   `<i class="fas fa-check-circle"></i>
+                                            <h1 class="thanks"> Siparişiniz bize ulaşmıştır!</h1>
+                                            <h2 class="thanks"> Teşekkür ederiz.</h2>`;
+                    highlight.classList.add("thanks")
+                    modal.style.display = "none"; 
+                    Basket.clearBasket();    
+                }
+            });   
         }
 
         modal.style.display = "block";      
