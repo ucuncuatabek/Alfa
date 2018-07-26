@@ -37,12 +37,21 @@ export default {
     },
     areaSearch(){
         var selectedArea    = document.querySelector("#areas").value;
-        localStorage.setItem("area",selectedArea)
+        localStorage.setItem("area",selectedArea);      
         var cityName        = this.urlParser().city;            
-        window.open('http://localhost:3001/home.html?city='+cityName+'&area='+selectedArea,"_self");        
+        window.open('http://localhost:3001/home.html?city='+cityName+'&area='+selectedArea,"_self");   
+             
     },   
-    getRestaurants(){        
-               
+    getRestaurants(){
+        var highlight = document.querySelector(".highlight");
+        highlight.innerHTML += '<img class ="highlight-image" src="//cdn.yemeksepeti.com/App_Themes/SiteHeaders/Yemeksonuc.jpg" >'   
+        var selectedArea    =  localStorage.getItem("area");
+        var title = document.querySelector("#highlightTitle");
+        if(selectedArea){             
+            title.innerHTML += `<h1 class="ys-h2">${selectedArea} Bölgesine Gönderim Yapan Restoranlar</h1>`
+        } else {
+            title.innerHTML += `<h1 class="ys-h2">Tüm Semtler İçin Sonuçlar</h1>`
+        }   
         var Area        = this.urlParser().area;
         var City        = this.urlParser().city
         var resListArea = document.querySelector(".res-list-items");
@@ -66,7 +75,7 @@ export default {
                                 +'<div class="head">'
                                     +'<span class="point point9 ys-invert"> '+element.AvgRestaurantScore+' </span>'
                                     +'<a class="restaurantName" href=http://localhost:3001/restaurant.html?restaurant='+element.SeoUrl+'>  '+element.DisplayName+'</a>'
-                                    +'<div class="status">'+status+'</div>'
+                                    +'<div class="statusImg" >'+status+'</div>'
                                     +'<span class="minimumDeliveryPrice"> min. '+element.MinimumDeliveryPrice+' TL </span>'
                                 +'</div>'
                             +'</div>';
@@ -83,12 +92,12 @@ export default {
                     document.querySelector(".res-count").insertAdjacentHTML('beforeend','<p><b>Seçmiş olduğunuz kriterlere uygun <span>'+data.length+'</span> restoran listelenmiştir.</b></p>')
                     data.forEach(element => {
                     if(element.DisplayName){ 
-                        element.AllPromotionImageListFullPath.forEach(el => { status += '<img src='+el+'>'})
+                        element.AllPromotionImageListFullPath.forEach(el => { status += '<img class = "statusImg" src='+el+'>'})
                         var restaurant =
                         '<div class ="res-item">'
                             +'<div class="head">'
                                 +'<span class="point point9 ys-invert"> '+element.AvgRestaurantScore+' </span>'
-                                +'<a class="restaurantName" href=http://localhost:3001/restaurant.html?restaurant='+element.SeoUrl+'>  '+element.DisplayName+'</a>'
+                                +'<a class="restaurantName" href=http://localhost:3001/restaurant.html?restaurant='+element.SeoUrl+'>  ' +element.DisplayName+ ' </a>'
                                 +'<div class="status">'+status+'</div>'
                                 +'<span class="minimumDeliveryPrice"> min. '+element.MinimumDeliveryPrice+' TL </span>'
                             +'</div>'

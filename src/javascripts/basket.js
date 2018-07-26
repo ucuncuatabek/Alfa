@@ -130,22 +130,21 @@ export default {
         if  (localStorage.getItem("guestId")){
             var userId = localStorage.getItem("guestId")
             helper.request('POST','add-delete-basket',{userId, task:"clear"});
-        }        
-       
+        }                
         this.insertItems();
         localStorage.setItem("currentRestaurant","");
         restaurant.locationHandler();
         var trash   = document.querySelector(".emptyBasket");
         trash.style ="display:none";
     },
-    deleteItem(button){
+    deleteItem(button) {
         var basket = JSON.parse(localStorage.getItem("basket"));
         
         delete basket[button.dataset.productId];
         localStorage.setItem("basket",JSON.stringify(basket));  
         var keys = Object.keys(basket);
 
-        if (keys.length == 0) {         
+        if (keys.length == 0) {                                 
             this.clearBasket();
         } else {
             this.insertItems();
@@ -209,9 +208,9 @@ export default {
 
             itemExists.forEach( (el) => {el.style  = "display:block"});  
 
-            emptyList.style ="display:none";            
-            var trash       = document.querySelector(".emptyBasket");
-            trash.style     ="display:block";
+            emptyList.style =   "display:none";            
+            var trash       =   document.querySelector(".emptyBasket");
+            trash.style     =   "display:block";
 
             var minDeliveryPrice = localStorage.getItem("minDelivery");
 
@@ -253,6 +252,7 @@ export default {
         if (localStorage.getItem("userlogged") == 0) {
             document.querySelector(".form-block").classList.add("glow")
         } else {
+            
             modal.checkout();
             this.insertItems()
             var modalInputs =  document.querySelectorAll(".modal-item-count");
@@ -277,6 +277,6 @@ export default {
                 location.reload();
             }
         });      
-    }   
+    },
    
 }

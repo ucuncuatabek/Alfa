@@ -62,6 +62,7 @@ export default {
             
     },  
     getRestaurantMenu(){
+        
         var counter = 1;
         var menuList = document.querySelector(".restaurant-menu");    
         helper.request('POST','get-menu',{})
@@ -116,6 +117,8 @@ export default {
 
         helper.request('POST','get-restaurant-info',{SeoUrl:seoUrl})
         .then((data)=> {
+            var restaurantName = data[0].DisplayName;
+            console.log(data)
             localStorage.setItem("minDelivery",data[0].MinimumDeliveryPrice);
             var resPoints =  `<b class="grayText">Restoran Puanları</b>
                                 <div class="points">
@@ -150,8 +153,12 @@ export default {
                                         <div class = "description"><b class="descriptionB">${data[0].DeliveryTime} dk.</b></div>
                                     </div>
                                 </div>`;    
-                var resLogo = `<img src ="${ data[0].ImageFullPath}">`;                           
-            
+                var resLogo = `<img src ="${ data[0].ImageFullPath}">`;                
+
+        var highlight = document.querySelector(".highlight");
+        highlight.innerHTML += '<img class ="highlight-image" src="//cdn.yemeksepeti.com/App_Themes/SiteHeaders/Yemeksonuc.jpg" >'   
+        var title = document.querySelector("#highlightTitle");
+        title.innerHTML = `<h1 class="ys-h2">${restaurantName}</h1>`  
         Points.insertAdjacentHTML('beforeend',resPoints);
         Infos.insertAdjacentHTML('beforeend',resInfos);
         logo.insertAdjacentHTML('beforeend',resLogo);

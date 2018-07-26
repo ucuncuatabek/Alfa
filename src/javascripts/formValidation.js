@@ -273,8 +273,7 @@ export default {
                 arg.classList.remove("small-noError");
                 arg.classList.add("small-error");
             }
-        }            
-        
+        }   
 
     },
     popupOn(){

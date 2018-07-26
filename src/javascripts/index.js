@@ -4,11 +4,15 @@ export default {
     timer : null,
     
     init(){
+       
         var controller = document.querySelector('[data-controller="signup"]');
         if(!controller) return false;
         this.attachEvents();  
     },
     attachEvents(){       
+        if(localStorage.getItem("userlogged") == 1){
+            window.open("home.html?city=ISTANBUL","_self");
+        }
         var citySearch      = document.querySelector("#city-search-button");
         citySearch.onclick  = this.areaSearch;        
         this.getCities();    

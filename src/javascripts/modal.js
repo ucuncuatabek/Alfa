@@ -32,6 +32,7 @@ export default{
     checkout(){
         var modal = document.getElementById('myModal');        
         var header = document.querySelector(".modal-header");
+        header.classList.add("noError");
         var footer = document.querySelector(".modal-footer");
         var span = document.getElementsByClassName("close")[0];
         var content = document.querySelector(".modal-body");          
@@ -122,7 +123,7 @@ export default{
                 }
             });   
         }
-
+       
         modal.style.display = "block";      
              
         span.onclick = function() {
@@ -135,6 +136,9 @@ export default{
             }
         } 
        
+    }, 
+    hideModal (){       
+        modal.style.display = "none";
     }
 
 }

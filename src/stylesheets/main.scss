@@ -29,7 +29,7 @@ body.main-layout{
           top:20%;
           padding: 0;
          
-          width: 40%;
+          width: 27%;
           box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
           -webkit-animation-name: animatetop;
           -webkit-animation-duration: 0.4s;
@@ -81,7 +81,7 @@ body.main-layout{
         }
       
       .modal-body {
-        padding: 2px 16px;
+        padding: 14px 16px;
         min-height: 85px;
         overflow:auto;
         text-align:center;        
@@ -147,8 +147,19 @@ body.main-layout{
       }
       //=======================================================
 .main-layout {
+    .highlight-image{
+        float: right;
+        margin-top: -53px;
+    }
 
-    
+    .restaurantName,.statusImg{
+        margin-right:5px;
+        
+    }
+    .restaurantName,.minimumDeliveryPrice{
+        margin-top: 3px;
+    }
+
     //error styles ==========================================
     #ysUserName{
           display: block;
@@ -495,6 +506,17 @@ body.main-layout{
         background:#ab0012;
         height:80px;
     }
+    .ys-h2{
+        margin-left: 0%;
+        font-size: 23px;
+        margin-top: 40px;
+        margin-bottom: -85px;
+        display:block;
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 700;
+        width:1000px;
+        
+    }
     
     .search-bar{    
         background:#ab0012;
@@ -547,7 +569,7 @@ body.main-layout{
         height: 155px;
         background: url(../Images/logo.png?v=1530878576856?v=1530878576856) no-repeat center;
         position: absolute;
-        top:-59px;
+        top:-43px;
         transition: top .4s, opacity .4s;
         opacity: 1;
         z-index: 1;
@@ -614,7 +636,11 @@ body.main-layout{
         margin-left:60px;
         top:-13px;
     }
+    #ys-logo{
+        cursor:pointer
+    }
     #ys-logo-2{
+        cursor:pointer;
         margin-top:3px;
     }
     #city-search-field{
