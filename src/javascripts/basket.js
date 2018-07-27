@@ -45,7 +45,7 @@ export default {
         
         var url             = location.search;
         var seoUrl          = url.substring(url.indexOf("/"),url.length); 
-
+        console.log(localStorage.getItem("currentRestaurant"),"hoop")
         if(localStorage.getItem("currentRestaurant") == ""){
             localStorage.setItem("currentRestaurant",seoUrl);           
             restaurant.locationHandler();
@@ -84,6 +84,7 @@ export default {
             }
             
         } else {
+            console.log(seoUrl,localStorage.getItem("currentRestaurant"))
             if(seoUrl != localStorage.getItem("currentRestaurant")){
                 modal.showModal("Sepetinizde başka restorant'a ait ürünler mevcut","error");
             } else {
@@ -153,7 +154,7 @@ export default {
     changeCountBasket(input) {  
         var that = this;      
         window.onmousedown = function(){
-            if (input.value == 0 || input.value == "" || input.value >= 999 || isNaN(input.value)) {
+            if (input.value == 0 || input.value == "" || input.value > 99 || isNaN(input.value)) {
                         input.value = 1;
             } else {                
                 var basket = JSON.parse(localStorage.getItem("basket"));
@@ -167,7 +168,7 @@ export default {
     },
     changeCountMenu(input) {
         window.onmousedown = function(){
-            if (input.value == 0 || input.value == "" || input.value >= 999 || isNaN(input.value)) {
+            if (input.value == 0 || input.value == "" || input.value > 99 || isNaN(input.value)) {
                         input.value = 1;
             }
         }
@@ -177,7 +178,8 @@ export default {
         var itemExists      = document.querySelectorAll(".exists");
         var emptyList       = document.querySelector(".no-item");
 
-        if(localStorage.getItem("basket")){
+        if (localStorage.getItem("basket")) {
+
             var basket      = JSON.parse(localStorage.getItem("basket"));
             var keys        = Object.keys(basket);
             var total       = document.querySelector(".totalPrice");
@@ -266,13 +268,18 @@ export default {
         var userId = localStorage.getItem("guestId")
         var basket = JSON.parse(localStorage.getItem("basket"));              
         helper.request('POST','check-basket-validity',{userId,basket})
-        .then((data) => {
+        .then((data) => {           
             if ( data.message == "valid"){
-                alert("valid")
-               cb(true);
+                cb(true);
             } else {
-                var basket = JSON.parse(localStorage.getItem("basket"));
-                basket[data.productId].price = data.validPrice;
+                //console.log(basket)
+                console.log(data)
+                var keys = Object.keys(data);               
+                keys.forEach((id) => { 
+                    basket[id]["price"] = data[id]
+                    console.log(id)
+                });    
+                console.log(basket)
                 localStorage.setItem("basket",JSON.stringify(basket));
                 location.reload();
             }

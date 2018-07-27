@@ -181,29 +181,18 @@ export default {
 
         console.log(seoUrl);
 
-        if (localStorage.getItem("area")) {
-            
-            if (localStorage.getItem("currentRestaurant")) {
-                
-                helper.request('POST','get-restaurant-info',{SeoUrl:localStorage.getItem("currentRestaurant")})
-                .then( (data) => {                     
-                    basketLocation.innerHTML   = `<a class ="restaurantInfo" href="restaurant.html?restaurant=${data[0].SeoUrl}">${data[0].DisplayName}</a>`;
-                    basketLocation.innerHTML   += `<span><br>${data[0].AreaName}</span>`;
-                });        
-
-            }  else {
-                
+        if (localStorage.getItem("currentRestaurant")) {   
+            helper.request('POST','get-restaurant-info',{SeoUrl:localStorage.getItem("currentRestaurant")})
+            .then( (data) => {                     
+                basketLocation.innerHTML   = `<a class ="restaurantInfo" href="restaurant.html?restaurant=${data[0].SeoUrl}">${data[0].DisplayName}</a>`;
+                basketLocation.innerHTML   += `<span><br> ${data[0].AreaName} </span>`;
+            });                  
+        } else {
+            if(localStorage.getItem("area")) {
                 basketLocation.innerHTML = `<span>${localStorage.getItem("area")}</span>`;
             }
-        } else {
-            
-            helper.request('POST','get-restaurant-info',{SeoUrl:seoUrl})
-            .then( (data) => {  
-                localStorage.setItem("currentRestaurant",seoUrl);
-                basketLocation.innerHTML   = `<a class ="restaurantInfo" href="restaurant.html?restaurant=${data[0].SeoUrl}">${data[0].DisplayName}</a>`;
-                basketLocation.innerHTML   += `<span><br>${data[0].AreaName}</span>`;
-            });        
-        }
+        }       
+        
     }
     
     
