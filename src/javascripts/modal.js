@@ -111,8 +111,8 @@ export default{
         
         content.innerHTML = basketInfo;
         document.querySelector(".Sepeti-Onayla-Modal").onclick = function() {            
-            Basket.checkBasketValidity(function(valid){
-                if(valid){
+            Basket.checkBasketValidity(function(valid){               
+                if(valid && parseFloat(total) >= parseFloat(localStorage.getItem("minDelivery"))  ){
                     var highlight = document.querySelector(".highlight");
                     highlight.innerHTML =   `<i class="fas fa-check-circle"></i>
                                             <h1 class="thanks"> Siparişiniz bize ulaşmıştır!</h1>
@@ -120,7 +120,7 @@ export default{
                     highlight.classList.add("thanks")
                     modal.style.display = "none"; 
                     Basket.clearBasket();    
-                }
+                } 
             });   
         }
        

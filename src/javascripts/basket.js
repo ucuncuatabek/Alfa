@@ -45,25 +45,22 @@ export default {
         
         var url             = location.search;
         var seoUrl          = url.substring(url.indexOf("/"),url.length); 
-        console.log(localStorage.getItem("currentRestaurant"),"hoop")
+       
         if(localStorage.getItem("currentRestaurant") == ""){
             localStorage.setItem("currentRestaurant",seoUrl);           
             restaurant.locationHandler();
             if (basket) {
                 var keys = Object.keys(basket);               
                 keys.forEach((id) => {               
-                    if (id === productId) { 
-                        //console.log(productCount,productPrice, parseFloat(basket[id]["price"]))
-                        exists = 1;   
-                        
+                    if (id === productId) {                         
+                        exists = 1;                           
                         if(productCount + parseFloat(basket[id]["count"]) >= 1000 ){
                             basket[id]["count"] = 1;
                             basket[id]["price"] = productPrice;
                         } else {
                             basket[id]["price"] = productCount*productPrice + parseFloat(basket[id]["price"]);
                             basket[id]["count"] = productCount + parseFloat(basket[id]["count"])
-                        }
-                       
+                        }                       
                     } 
                 });     
                 if (exists == 0) {                
@@ -84,16 +81,15 @@ export default {
             }
             
         } else {
-            console.log(seoUrl,localStorage.getItem("currentRestaurant"))
+           
             if(seoUrl != localStorage.getItem("currentRestaurant")){
-                modal.showModal("Sepetinizde başka restorant'a ait ürünler mevcut","error");
+                modal.showModal("Sepetinizde başka restoran'a ait ürünler mevcut","error");
             } else {
                 if (basket) {
                     var keys = Object.keys(basket);
                    
                     keys.forEach((id) => {               
-                        if (id === productId) { 
-                            console.log(productCount,productPrice, parseFloat(basket[id]["price"]))
+                        if (id === productId) {                            
                             exists = 1;   
                             if(productCount + parseFloat(basket[id]["count"]) >= 1000 ){
                                 basket[id]["count"] = 1;
@@ -254,7 +250,7 @@ export default {
         if (localStorage.getItem("userlogged") == 0) {
             document.querySelector(".form-block").classList.add("glow")
         } else {
-            
+           
             modal.checkout();
             this.insertItems()
             var modalInputs =  document.querySelectorAll(".modal-item-count");
@@ -271,19 +267,18 @@ export default {
         .then((data) => {           
             if ( data.message == "valid"){
                 cb(true);
-            } else {
-                //console.log(basket)
-                console.log(data)
+            } else {              
+                
                 var keys = Object.keys(data);               
                 keys.forEach((id) => { 
                     basket[id]["price"] = data[id]
-                    console.log(id)
-                });    
-                console.log(basket)
+                  
+                });                   
                 localStorage.setItem("basket",JSON.stringify(basket));
                 location.reload();
             }
         });      
     },
+    
    
 }

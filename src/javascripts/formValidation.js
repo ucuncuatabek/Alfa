@@ -316,6 +316,7 @@ export default {
             document.querySelector(".notLogged").style = "display:none";
             document.querySelector(".logged").style = "display:block";            
             document.querySelector("#ysUserName").innerHTML = `${username} ${surname}`;
+            document.querySelector(".accordion-trigger").onclick = this.accordion;
         } else {
             if(localStorage.getItem("guestId")){
                console.log(localStorage.getItem("guestId"),"guest exists")
@@ -336,5 +337,11 @@ export default {
         helper.request('POST','logout',{userId});
         localStorage.setItem("token","");
         location.reload()
+    },
+    accordion(){
+        var content = document.querySelector(".ys-userSettings");
+        content.classList.toggle("content-open");
+        
+
     }
 }

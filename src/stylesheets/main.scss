@@ -5,7 +5,7 @@ body.main-layout{
       //modal styles ==========================================
 
       body {font-family: Arial, Helvetica, sans-serif;}
-
+     
       /* The Modal (background) */
       .modal {
           display: none; /* Hidden by default */
@@ -23,6 +23,7 @@ body.main-layout{
       
       /* Modal Content */
       .modal-content {
+          border:none;
           position: relative;
           background-color: #fefefe;
           margin: auto;
@@ -191,6 +192,32 @@ body.main-layout{
         height:40px;
         cursor: pointer;
       }
+
+      //accordeon userSettings=====================
+      .ys-userSettings {
+            /* css animation */
+            overflow: hidden;
+            padding: 0 1em;
+            max-height: 0;
+            opacity: 0;
+        
+            /* add browser prefixes */
+            transition: all 0.3s ease;
+        }
+    
+        .content-open {
+            max-height: 500px;
+            opacity: 1;
+            padding: 15px 20px;
+        }
+        .accordion-trigger{
+            border:none;        
+            background:transparent;
+            margin-top:-14px;
+            cursor:pointer;
+        }
+      //===========================================
+
     .error {
     
     box-shadow: 0 0 5px #ab0012;
@@ -272,8 +299,7 @@ body.main-layout{
     tr{
         display: table-row;
         vertical-align: inherit;
-        border-color: inherit;
-        border-bottom:1px solid #f3f3f3;
+        border-color: inherit;       
     }
   
    

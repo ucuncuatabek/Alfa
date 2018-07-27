@@ -117,8 +117,7 @@ export default {
 
         helper.request('POST','get-restaurant-info',{SeoUrl:seoUrl})
         .then((data)=> {
-            var restaurantName = data[0].DisplayName;
-            console.log(data)
+            var restaurantName = data[0].DisplayName;            
             localStorage.setItem("minDelivery",data[0].MinimumDeliveryPrice);
             var resPoints =  `<b class="grayText">Restoran Puanları</b>
                                 <div class="points">
@@ -177,9 +176,7 @@ export default {
         
         var url             = location.search;
         var seoUrl          = url.substring(url.indexOf("/"),url.length);
-        var basketLocation  = document.querySelector(".location");
-
-        console.log(seoUrl);
+        var basketLocation  = document.querySelector(".location");    
 
         if (localStorage.getItem("currentRestaurant")) {   
             helper.request('POST','get-restaurant-info',{SeoUrl:localStorage.getItem("currentRestaurant")})
