@@ -340,8 +340,6 @@ export default {
     },
     accordion(){
         var content = document.querySelector(".ys-userSettings");
-        content.classList.toggle("content-open");
-        
-
+        content.classList.toggle("content-open");   
     }
 }

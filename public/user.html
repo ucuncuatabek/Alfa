@@ -3,13 +3,13 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}{% endblock %} - {{ title }}</title>
+    <title>Hoşgeldiniz - Yemeksepeti</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon"/>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
     <link rel="stylesheet" href="stylesheets/app.css">
     
-    {% block head %}{% endblock %}
+    
   </head>
   <body class="main-layout">
     <div id="myModal" class="modal">
@@ -153,7 +153,27 @@
             </div>
     
             <div class = "column-right col-md-12">                
-                {% block content %}{% endblock %}                      
+                
+
+<div data-controller="userSettings">
+    <div class="tabPanel-widget">
+        <label for="tab-1" tabindex="0"></label>
+        <input id="tab-1" type="radio" name="tabs" checked="true" aria-hidden="true">
+        <h2>Adreslerim</h2>
+        <div>
+
+        </div>
+        <label for="tab-2" tabi ndex="0"></label>
+        <input id="tab-2" type="radio" name="tabs" aria-h idden="true">
+        <h2>Cüzdan</h2>
+        <div>
+
+        </div>
+
+    </div>
+</div>
+
+                          
             </div>    
         </div>   
     </div>
@@ -161,8 +181,8 @@
     <footer>     
     </footer>
 
-    {% block javascript %}
+    
       <script src="javascripts/app.js"></script>    
-    {% endblock %}
+    
   </body>
 </html>
