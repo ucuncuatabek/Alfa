@@ -108,11 +108,12 @@ export default {
                 if (data.message === "ok") {      //logged in succesfully   
                     localStorage.setItem("userlogged",1);         
                     localStorage.setItem("username",data.username);
-                    localStorage.setItem("surname",data.surname);                    
-                       
-                    var userId = localStorage.getItem("guestId");
+                    localStorage.setItem("surname",data.surname);   
 
+                    var userId = localStorage.getItem("guestId");
+                  
                     helper.request('POST','start-session',{
+                        databaseId:data.databaseId,
                         name:data.username,
                         surname:data.surname,  
                         task: "user",                          

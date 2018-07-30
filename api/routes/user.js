@@ -1,3 +1,6 @@
+var ObjectId = require('mongodb').ObjectId; 
+
+
 module.exports =   {    
     init(app,db,sessions) {        
         app.post('/start-session', (req, res) => {
@@ -11,7 +14,9 @@ module.exports =   {
                 var name = req.body.name;
                 var surname = req.body.surname;
                 var createdId = req.body.userId;
+                var databaseId = req.body.databaseId;
                 var user = {
+                    databaseId: databaseId,
                     username: name,
                     surname: surname,
                     basket: {}
@@ -56,12 +61,12 @@ module.exports =   {
 
             var collection = db.collection('users');
             var userEmail = collection.find({ email: email }).toArray(function (err, result) {
-
+                
                 if (err) throw err;
                 if (result.length > 0) {
                     var userPassword = collection.find({ email: email, password: pass }).toArray(function (err, result) {
                         if (result.length > 0) {
-                            res.send({ message: "ok", username: result[0].Name, surname: result[0].Surname });
+                            res.send({ message: "ok", username: result[0].Name, surname: result[0].Surname ,databaseId:result[0]._id});
                         } else {
                             res.send({ message: "password" });
                         }
@@ -164,7 +169,23 @@ module.exports =   {
            
             res.send({});
         });
-          
+        
+        app.post('/get-addresses',(req,res)=>{
+            res.set('Content-Type', 'application/json');
+            res.status(200); 
+
+            var userToken       = req.body.token;
+            var databaseId      = sessions[userToken].databaseId;   
+            var userCollection  = db.collection('users');   
+            var o_id            = new ObjectId(databaseId);
+
+            var userInfo = userCollection.find({_id:o_id}).toArray(function(err, result) {
+                if (err) throw err;
+                var addresses = result[0].Addresses
+                res.send({addresses:addresses});               
+            });
+        
+        });
           
     }
 }

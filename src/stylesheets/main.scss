@@ -22,32 +22,35 @@ body.main-layout{
       }
       
       /* Modal Content */
-      .modal-content {
-          border:none;
-          position: relative;
-          background-color: #fefefe;
-          margin: auto;
-          top:20%;
-          padding: 0;
-         
-          width: 27%;
-          box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-          -webkit-animation-name: animatetop;
-          -webkit-animation-duration: 0.4s;
-          animation-name: animatetop;
-          animation-duration: 0.4s
-      }
+        .modal-content {
+            border:none;
+            position: relative;
+            background-color: #fefefe;
+            margin: auto;
+            top:2%;
+            padding: 0;
+            
+            width: 27%;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+            -webkit-animation-name: animatetop;
+            -webkit-animation-duration: 0.4s;
+            animation-name: animatetop;
+            animation-duration: 0.4s;
+        } 
+     
+        @-webkit-keyframes animatetop {
+            from {top:-300px; opacity:0} 
+            to {top:2%; opacity:1}
+        }
+        
+        @keyframes animatetop {
+            from {top:-300px; opacity:0}
+            to {top:2%; opacity:1}
+        }
+        
+
       
-      /* Add Animation */
-      @-webkit-keyframes animatetop {
-          from {top:-300px; opacity:0} 
-          to {top:20%; opacity:1}
-      }
       
-      @keyframes animatetop {
-          from {top:-300px; opacity:0}
-          to {top:20%; opacity:1}
-      }
       
       /* The Close Button */
       .close {
@@ -71,22 +74,22 @@ body.main-layout{
         border-radius: 5px;
       }
       
-        .modal-header.noError {
-            padding: 2px 16px;
-            background-color: #5cb85c;
-            
-        }
-        .modal-header.error{
-            padding: 2px 16px;
-            background-color:red;
-        }
+    .modal-header.noError {
+        padding: 2px 16px;
+        background-color: #5cb85c;
+        
+    }
+    .modal-header.error{
+        padding: 2px 16px;
+        background-color:red;
+    }
       
       .modal-body {
         padding: 14px 16px;
         min-height: 85px;
         overflow:auto;
         text-align:center;        
-        }
+    }
       .modal-error{
         display:block;
         margin-top:5%;
@@ -100,6 +103,7 @@ body.main-layout{
       .tdTotalValues{
           
       }
+    
        // glow effect ==========================================
       .glow{
        
@@ -123,7 +127,82 @@ body.main-layout{
             from { box-shadow: 0 0 10px #333; }
             to { box-shadow: 0 0 20px #c00; }
         }
-        
+        #address-details{
+           
+            label{
+                font-family: Verdana, Geneva, sans-serif;
+                float:left;
+                font-size:11px;  
+                font-weight:3px !important;  
+                margin-left:5px;
+            }
+            .row{
+                margin-left:5px;
+            }
+            .col-md-6{
+               margin-left:25%;
+
+            }
+            .col-md-10{
+                width: 62.5%;
+                position: relative;
+                min-height: 1px;
+                padding-left: 6px;
+                padding-right: 6px;
+            }
+            .form-group{
+                margin-bottom:5px;
+            }
+            .address-type label{
+                display: inline;
+                margin-left: 5px;                
+            }
+            .address-type {
+                float: left;
+                clear: none;
+                margin-left: 26%;
+                margin-bottom: 14px;
+                input{
+                    float: left;
+                    clear: none;
+                    margin: 2px 0 0 2px;
+                }
+            }
+              
+            label {
+                float: left;
+                clear: none;
+                display: block;
+                padding: 2px 1em 0 0;
+            }
+              
+            
+        }
+        .addAddress{
+            .modal-content{
+               width: 550px;
+            }
+            textarea{
+                border-radius:4px;
+            }
+            select{
+                width: 43%;
+                height: 25px;
+                border-radius: 4px;
+            }
+            .close{
+                color:black;
+                font-size:16px;
+            }
+            .save-button{
+                color: #fff;
+                background-color: #5cb85c;
+                border:0px;
+                border-radius:4px;
+                cursor:pointer;
+                float:right;
+            }
+        }
       // =======================================================
 
       .Sepeti-Onayla-Modal{
@@ -148,7 +227,9 @@ body.main-layout{
       }
       //=======================================================
 .main-layout {
+   
     [data-controller = userSettings ] {
+        
         body {
             font: 18px/1.5 sans-serif;
             padding: 1rem;
@@ -347,22 +428,38 @@ body.main-layout{
             .tabPanel-widget h2:after {
               display: none !important;
             }
+            
           
-          }
+        }
+       
+       
+        .add-new-address{
+            margin-left: 35%;
+            margin-top: 15px;
+        }
+        .no-address.notAvailable{
+            min-height:150px;
+            display:none;
+        }
+        .icon{
+            margin-left:15%;
+            display:inline-block;
+        }
+        .fas.fa-map-marker-alt {            
+            font-size:140px;
+            color :#ab0012;
+        }
+        p{
+            
+            margin-left: 35%;
+            margin-top: -84px;
+        }
+       
+      
     }
+   
 
-    .highlight-image{
-        float: right;
-        margin-top: -53px;
-    }
-
-    .restaurantName,.statusImg{
-        margin-right:5px;
-        
-    }
-    .restaurantName,.minimumDeliveryPrice{
-        margin-top: 3px;
-    }
+ 
 
     //error styles ==========================================
     #ysUserName{
@@ -719,13 +816,15 @@ body.main-layout{
         outline: none;
         padding: 3px 0px 3px 3px;
         margin: 5px 1px 3px 0px;
-        border: 1px solid #DDDDDD;        
+        border: 1px solid #DDDDDD;  
+        border-radius:4px;      
     }
     input:focus{
         box-shadow: 0 0 5px rgba(81, 203, 238, 1);
        
         border: 1px solid rgba(81, 203, 238, 1);
     }
+    
     //=====================================================
     
    

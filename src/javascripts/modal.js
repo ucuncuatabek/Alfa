@@ -1,41 +1,41 @@
 import Basket from './basket'
-export default{
-    init(){
+export default {
+    init() {
         this.attachEvents();
-    },   
-    showModal(text,type){
-        var modal = document.getElementById('myModal');        
+    },
+    showModal(text, type) {
+        var modal = document.getElementById('myModal');
         var header = document.querySelector(".modal-header");
         var footer = document.querySelector(".modal-footer");
         var span = document.getElementsByClassName("close")[0];
         var content = document.querySelector(".modal-body");
 
-        if(type == "error") {   
+        if (type == "error") {
             header.classList.add("error");
         } else {
             header.classList.add("noError");
         }
-      
-            content.innerHTML = `<b class = "modal-error"> ${text}</b>`;        
-        modal.style.display = "block";      
-             
-        span.onclick = function() {
+
+        content.innerHTML = `<b class = "modal-error"> ${text}</b>`;
+        modal.style.display = "block";
+
+        span.onclick = function () {
             modal.style.display = "none";
         }
-        
-        window.onclick = function(event) {
+
+        window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
-        } 
+        }
     },
-    checkout(){
-        var modal = document.getElementById('myModal');        
+    checkout() {
+        var modal = document.getElementById('myModal');
         var header = document.querySelector(".modal-header");
         header.classList.add("noError");
         var footer = document.querySelector(".modal-footer");
         var span = document.getElementsByClassName("close")[0];
-        var content = document.querySelector(".modal-body");          
+        var content = document.querySelector(".modal-body");
         var basketInfo = `<table class="ys-table">
                                 <thead>
                                     <tr>
@@ -58,7 +58,7 @@ export default{
             var keys = Object.keys(basket);
             var total = 0;
             var elements = "";
-            keys.forEach((id) => {               
+            keys.forEach((id) => {
                 elements += `<tr>
                                 <td class="tdOrderName item-name">
                                     <strong>${basket[id].name}</strong>
@@ -73,9 +73,9 @@ export default{
                                     ${basket[id].price} TL
                                 </td>
                             </tr>`
-                total += parseFloat(basket[id].price); 
-            });     
-        }       
+                total += parseFloat(basket[id].price);
+            });
+        }
         var basketInfo = `<table class="ys-table">
                                 <thead>
                                     <tr>
@@ -107,38 +107,200 @@ export default{
                                 </tfoot>                                
                             </table>
                             <button type="button" class = "Sepeti-Onayla-Modal" > Sepeti Onayla</button>
-                            `;        
-        
+                            `;
+
         content.innerHTML = basketInfo;
-        document.querySelector(".Sepeti-Onayla-Modal").onclick = function() {            
-            Basket.checkBasketValidity(function(valid){               
-                if(valid && parseFloat(total) >= parseFloat(localStorage.getItem("minDelivery"))  ){
+        document.querySelector(".Sepeti-Onayla-Modal").onclick = function () {
+            Basket.checkBasketValidity(function (valid) {
+                if (valid && parseFloat(total) >= parseFloat(localStorage.getItem("minDelivery"))) {
                     var highlight = document.querySelector(".highlight");
-                    highlight.innerHTML =   `<i class="fas fa-check-circle"></i>
+                    highlight.innerHTML = `<i class="fas fa-check-circle"></i>
                                             <h1 class="thanks"> Siparişiniz bize ulaşmıştır!</h1>
                                             <h2 class="thanks"> Teşekkür ederiz.</h2>`;
                     highlight.classList.add("thanks")
-                    modal.style.display = "none"; 
-                    Basket.clearBasket();    
-                } 
-            });   
+                    modal.style.display = "none";
+                    Basket.clearBasket();
+                }
+            });
         }
-       
-        modal.style.display = "block";      
-             
-        span.onclick = function() {
+
+        modal.style.display = "block";
+
+        span.onclick = function () {
             modal.style.display = "none";
         }
-        
-        window.onclick = function(event) {
+
+        window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
-        } 
-       
-    }, 
-    hideModal (){       
+        }
+
+    },
+    hideModal() {
         modal.style.display = "none";
+    },
+    addAddress(name, surname) {
+
+        var content = document.querySelector(".modal-body");
+        document.querySelector("#myModal").classList.add("addAddress");
+        var html = `
+        <form id="address-details" action="javascript:void(0);" novalidate="novalidate" class="bv-form">
+        <button type="submit" class="bv-hidden-submit" style="display: none; width: 0px; height: 0px;"></button>
+        <div class="formInputs">
+            <div class="form-group has-success">
+                <div class="row">
+                    <label for="FirstName" class="col-md-5 control-label">
+                        <span class="required-label">*</span> Ad
+                    </label>
+                    <div class="col-md-6">
+                        <input value="" class="form-control ys-input-xs" name="FirstName" id="FirstName" data-bv-field="FirstName">                       
+                    </div>
+                </div>
+            </div>
+            <div class="form-group has-success">
+                <div class="row">
+                    <label for="LastName" class="col-md-5 control-label">
+                        <span class="required-label">*</span> Soyad
+                    </label>
+                    <div class="col-md-6">
+                        <input value="" class="form-control ys-input-xs" name="LastName" id="LastName" data-bv-field="LastName">
+                        
+                    </div>
+                </div>
+            </div>            
+            <hr>
+            <div class="form-group has-success">
+                <div class="row">
+                    <label for="AddressType" class="col-md-5 control-label">
+                        <span class="required-label">*</span>
+                        Adres Türü
+                    </label>
+                    <div class="address-type">                
+                        <input type="radio" id="address_type_Ev" checked="true" type-name="Ev" value="0" name="AddressType" data-bv-field="AddressType">
+                        <label for="address_type_Ev">Ev</label>
+                        <input type="radio" id="address_type_İş" type-name="İş" value="1" name="AddressType" data-bv-field="AddressType">
+                        <label for="address_type_İş">İş</label>
+                        <input type="radio" id="address_type_Kampüs" type-name="Kampüs" value="2" name="AddressType" data-bv-field="AddressType">
+                        <label for="address_type_Kampüs">Kampüs</label>
+                        <input type="radio" id="address_type_Diğer" type-name="Diğer" value="3" name="AddressType" data-bv-field="AddressType">
+                        <label for="address_type_Diğer">Diğer</label>                        
+                    </div>
+                </div>
+            </div>
+            <div class="form-group has-success">
+                <div class="row">
+                    <label for="name" class="col-md-5 control-label">
+                        <span class="required-label">*</span> Adres Başlığı</label>
+                    <div class="col-md-6">
+                        <input class="form-control ys-input-xs address-name form-control" type="text" name="AddressName" id="AddressName" value="Ev"
+                            data-bv-field="AddressName">
+                        <small class="help-block" data-bv-validator="notEmpty" data-bv-for="AddressName" data-bv-result="VALID" style="display: none;">Adres adı giriniz.</small>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group has-error">
+                <div class="row">
+                    <label for="TelephoneNumber" class="col-md-5 control-label">
+                        <span class="required-label">*</span> Cep Telefonu
+                    </label>
+                    <div class="col-md-6">
+                        <input value="" class="form-control ys-input-xs" name="TelephoneNumber" id="TelephoneNumber" data-bv-field="TelephoneNumber">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="form-group has-success">
+                <div class="row">
+                    <label for="TelephoneNumber2" class="col-md-5 control-label">
+                        Tel No 2
+                    </label>
+                    <div class="col-md-6">
+                        <input value="" class="form-control ys-input-xs" name="TelephoneNumber2" id="TelephoneNumber2" data-bv-field="TelephoneNumber2">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="form-group has-success">
+                <div class="row">
+                    <label for="name" class="col-md-5 control-label">
+                        <span class="required-label">*</span>
+                        <span class="address-type-label">
+                            Semt
+                        </span>
+                    </label>
+                    <div class="col-md-6 areasViewContainer">
+                        <select class="form-control ys-input-xs select2-hidden-accessible" name="Areas" id="areas" tabindex="-1"
+                            aria-hidden="true" data-bv-field="Areas">
+                            <option value="">
+                            </option>
+                        </select>
+                       
+                       
+                    </div>
+                </div>
+            </div>
+            <div class="form-group has-error">
+                <div class="row">
+                    <label for="AddressLine1" class="col-md-5 control-label">
+                        <span class="required-label">*</span> Adres
+                    </label>
+                    <div class="col-md-6">
+                        <textarea class="form-control ys-input-xs" name="AddressLine1" id="AddressLine1" placeholder="Mahalle/Cadde/Sokak, Bina/Daire No."
+                            data-bv-field="AddressLine1"></textarea>
+                    
+                        <small class="help-block" data-bv-validator="stringLength" data-bv-for="AddressLine1"
+                            data-bv-result="VALID" style="display: none;">Adres 3 karakterden az olmamalı.</small>
+                        <small class="help-block" data-bv-validator="callback" data-bv-for="AddressLine1"
+                            data-bv-result="VALID" style="display: none;">Adres 255 karakterden çok olmamalı.</small>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group has-error">
+                <div class="row">
+                    <label for="Description" class="col-md-5 control-label">
+                        <span class="required-label">*</span> Adres Tarifi
+                    </label>
+                    <div class="col-md-6">
+                        <textarea class="form-control ys-input-xs" name="Description" id="Description" data-bv-field="Description"></textarea>
+                        
+                        <small class="help-block" data-bv-validator="stringLength" data-bv-for="Description"
+                            data-bv-result="VALID" style="display: none;">Adres tarifi 3 karakterden az olmamalı.</small>
+                        <small class="help-block" data-bv-validator="callback"
+                            data-bv-for="Description" data-bv-result="VALID" style="display: none;">Adres tarifi 255 karakterden çok olmamalı.</small>
+                    </div>
+                </div>
+            </div>            
+        </div>
+        <footer>
+            <hr>
+            <div class="row">
+                
+                <div class="col-md-6 text-right">
+                    <button class="ys-btn ys-btn-default save-button">KAYDET</button>
+                </div>
+            </div>
+        </footer>
+    </form>
+       `
+        var modal = document.getElementById('myModal');
+        content.innerHTML = html;
+        modal.style.display = "block"
+        this.modalOn();
+
+    },
+    modalOn() {
+        var modal = document.getElementById('myModal');
+        var span = document.getElementsByClassName("close")[0];
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
     }
 
 }

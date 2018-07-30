@@ -21,7 +21,7 @@
             <div class="modal-body">               
             </div>               
         </div>            
-    </div>
+    </div>   
     <header>  
     </header>
     
@@ -113,7 +113,8 @@
                             <div class ="ys-userDetails">
                                 <div class ="ys-userSettings">
                                     <ul>
-                                        <li><a href="/user.html">Adreslerim</a></li>
+                                        <li><a href="/user.html?addresses">Adreslerim</a></li>
+                                        <li><a href="/user.html?cuzdan">Cüzdan</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -158,22 +159,40 @@
 <div data-controller="userSettings">
     <div class="tabPanel-widget">
         <label for="tab-1" tabindex="0"></label>
-        <input id="tab-1" type="radio" name="tabs" checked="true" aria-hidden="true">
+        <input id="tab-1" type="radio" name="tabs" checked="true" aria-hidden="true" class="addresses">
         <h2>Adreslerim</h2>
         <div>
-
+            <div class="no-address">
+                <div class="no-address notAvailable">
+                    <div class="icon col-md-3 col-md-offset-3">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <p>Kayıtlı adresiniz bulunmamaktadır.</p>
+                    <button class="btn ys-btn ys-btn-add add-new-address">
+                        <i class="fas fa-plus-circle"></i> YENİ ADRES OLUŞTUR
+                    </button>
+                    
+                </div>
+            </div>
         </div>
+
         <label for="tab-2" tabi ndex="0"></label>
-        <input id="tab-2" type="radio" name="tabs" aria-h idden="true">
+        <input id="tab-2" type="radio" name="tabs" aria-h idden="true" class="cuzdan">
         <h2>Cüzdan</h2>
         <div>
-
+            asşdljaşsdjaşsdasd
         </div>
 
     </div>
+
+
+
+
+
+    
 </div>
 
-                          
+                      
             </div>    
         </div>   
     </div>
