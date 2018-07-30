@@ -1,4 +1,5 @@
 import Basket from './basket'
+import User from './user'
 export default {
     init() {
         this.attachEvents();
@@ -154,7 +155,7 @@ export default {
                         <span class="required-label">*</span> Ad
                     </label>
                     <div class="col-md-6">
-                        <input value="" class="form-control ys-input-xs" name="FirstName" id="FirstName" data-bv-field="FirstName">                       
+                        <input value="" class="form-control ys-input-xs" name="FirstName" id="FirstName"  data-title= "Ad" data-bv-field="FirstName" required>                       
                     </div>
                 </div>
             </div>
@@ -164,7 +165,7 @@ export default {
                         <span class="required-label">*</span> Soyad
                     </label>
                     <div class="col-md-6">
-                        <input value="" class="form-control ys-input-xs" name="LastName" id="LastName" data-bv-field="LastName">
+                        <input value="" class="form-control ys-input-xs" name="LastName" id="LastName"   data-title="Soyad" data-bv-field="LastName" required>
                         
                     </div>
                 </div>
@@ -194,7 +195,7 @@ export default {
                         <span class="required-label">*</span> Adres Başlığı</label>
                     <div class="col-md-6">
                         <input class="form-control ys-input-xs address-name form-control" type="text" name="AddressName" id="AddressName" value="Ev"
-                            data-bv-field="AddressName">
+                            data-bv-field="AddressName"  data-title="Adres Adı" required>
                         <small class="help-block" data-bv-validator="notEmpty" data-bv-for="AddressName" data-bv-result="VALID" style="display: none;">Adres adı giriniz.</small>
                     </div>
                 </div>
@@ -205,8 +206,7 @@ export default {
                         <span class="required-label">*</span> Cep Telefonu
                     </label>
                     <div class="col-md-6">
-                        <input value="" class="form-control ys-input-xs" name="TelephoneNumber" id="TelephoneNumber" data-bv-field="TelephoneNumber">
-                        
+                        <input value="" class="form-control ys-input-xs" name="TelephoneNumber" id="TelephoneNumber"  data-title="Telefon Numarası" data-bv-field="TelephoneNumber" required>                        
                     </div>
                 </div>
             </div>
@@ -216,7 +216,7 @@ export default {
                         Tel No 2
                     </label>
                     <div class="col-md-6">
-                        <input value="" class="form-control ys-input-xs" name="TelephoneNumber2" id="TelephoneNumber2" data-bv-field="TelephoneNumber2">
+                        <input value="" class="form-control ys-input-xs" name="TelephoneNumber2" id="TelephoneNumber2" data-bv-field="TelephoneNumber2" >
                         
                     </div>
                 </div>
@@ -231,7 +231,7 @@ export default {
                     </label>
                     <div class="col-md-6 areasViewContainer">
                         <select class="form-control ys-input-xs select2-hidden-accessible" name="Areas" id="areas" tabindex="-1"
-                            aria-hidden="true" data-bv-field="Areas">
+                            aria-hidden="true" data-bv-field="Areas"  data-title="Semt" required>
                             <option value="">
                             </option>
                         </select>
@@ -247,7 +247,7 @@ export default {
                     </label>
                     <div class="col-md-6">
                         <textarea class="form-control ys-input-xs" name="AddressLine1" id="AddressLine1" placeholder="Mahalle/Cadde/Sokak, Bina/Daire No."
-                            data-bv-field="AddressLine1"></textarea>
+                            data-bv-field="AddressLine1" required></textarea>
                     
                         <small class="help-block" data-bv-validator="stringLength" data-bv-for="AddressLine1"
                             data-bv-result="VALID" style="display: none;">Adres 3 karakterden az olmamalı.</small>
@@ -262,7 +262,7 @@ export default {
                         <span class="required-label">*</span> Adres Tarifi
                     </label>
                     <div class="col-md-6">
-                        <textarea class="form-control ys-input-xs" name="Description" id="Description" data-bv-field="Description"></textarea>
+                        <textarea class="form-control ys-input-xs" name="Description" id="Description" data-bv-field="Description" required></textarea>
                         
                         <small class="help-block" data-bv-validator="stringLength" data-bv-for="Description"
                             data-bv-result="VALID" style="display: none;">Adres tarifi 3 karakterden az olmamalı.</small>
@@ -286,6 +286,7 @@ export default {
         var modal = document.getElementById('myModal');
         content.innerHTML = html;
         modal.style.display = "block"
+        document.querySelector(".save-button").onclick = User.validateAddress
         this.modalOn();
 
     },

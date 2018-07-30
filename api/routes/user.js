@@ -186,6 +186,25 @@ module.exports =   {
             });
         
         });
+
+        app.post('/add-address',(req,res)=>{
+            res.set('Content-Type', 'application/json');
+            res.status(200);
+
+            var Name        = req.body.name;
+            var Surname     = req.body.surname;
+            var AddressType = req.body.type;
+            var cell        = req.body.cell;
+            var cell2       = req.body.cell2;
+            var area        = req.body.area;
+            var address     = req.body.address;
+            var addressInfo = req.body.addressInfo;
+            
+            var insertAddress = {Name,Surname,AddressType,cell,area,address,addressInfo};
+            console.log(insertAddress);
+            // var userCollection = db.collection("users");
+            // userCollection.insert({});
+        });
           
     }
 }

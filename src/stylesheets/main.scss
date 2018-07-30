@@ -178,6 +178,20 @@ body.main-layout{
               
             
         }
+        .add-new-address{
+            background-color: transparent;
+            border: 1px solid #9393a5;
+            
+            border-radius:4px ;
+            padding:6px;
+            color:black;
+        }
+        .required-label {
+            color: #ac000b;
+        }
+        .fa-plus-circle{
+            color:#ff6508;
+        }
         .addAddress{
             .modal-content{
                width: 550px;
@@ -201,6 +215,9 @@ body.main-layout{
                 border-radius:4px;
                 cursor:pointer;
                 float:right;
+            }
+            .small-error{
+                margin-left: 25%;
             }
         }
       // =======================================================
