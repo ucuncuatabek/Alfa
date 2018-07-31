@@ -10,9 +10,24 @@ export default {
     attachEvents(){        
         var areaSearch      = document.querySelector("#area-search-button");
         areaSearch.onclick  = this.areaSearch.bind(this);
-
+        var that    = this;
+        var element = document.querySelector(".search-bar");
+        var logo    = document.querySelector("#ys-logo");
+        var logo2   = document.querySelector("#ys-logo-2");
         restaurant.locationHandler();
-        
+        window.onscroll = function(){            
+            if(that.getOffset(element).top == 0 ){
+                console.log("asdasd");
+                logo.classList.add("slideUp");
+                logo.classList.remove("slideDown");
+                logo2.classList.remove("slideUp");
+                
+            } else {
+                logo.classList.remove("slideUp");
+                logo.classList.add("slideDown");
+                logo2.classList.add("slideUp");
+            }
+        } 
         this.getAreas();
         this.getRestaurants();       
     },      
@@ -124,5 +139,12 @@ export default {
             return {city:cityName}
         }
     },
+    getOffset(el) {
+        el = el.getBoundingClientRect();
+        return {
+          left: el.left,
+          top: el.top 
+        }
+    }
 
 };
