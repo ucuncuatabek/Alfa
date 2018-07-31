@@ -1,4 +1,5 @@
 import helper from './helper'
+import home from './home'
 import Basket from './basket'
 export default {
     init(){                     
@@ -15,25 +16,8 @@ export default {
         this.locationHandler();
         this.getRestaurantMenu();
         this.getRestaurantInfo(); 
-
-        var that    = this;
-        var element = document.querySelector(".search-bar");
-        var logo    = document.querySelector("#ys-logo");
-        var logo2   = document.querySelector("#ys-logo-2");
-        window.onscroll = function(){            
-            if(that.getOffset(element).top == 0 ){
-                console.log("asdasd");
-                logo.classList.add("slideUp");
-                logo.classList.remove("slideDown");
-                logo2.classList.remove("slideUp");
-                
-            } else {
-                logo.classList.remove("slideUp");
-                logo.classList.add("slideDown");
-                logo2.classList.add("slideUp");
-            }
-        } 
-        
+        home.shiftLogo();
+       
       
     }, 
     getAreas(){ 
@@ -164,14 +148,7 @@ export default {
         
        })
        
-    },
-    getOffset(el) {
-        el = el.getBoundingClientRect();
-        return {
-          left: el.left,
-          top: el.top 
-        }
-    },
+    },   
     locationHandler(){
         
         var url             = location.search;
@@ -190,7 +167,8 @@ export default {
             }
         }       
         
-    }
+    },
+
     
     
 

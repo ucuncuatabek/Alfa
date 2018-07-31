@@ -870,6 +870,12 @@ body.main-layout{
     .userSetting{
         margin-bottom:5px;
     }
+    .statusImg{
+        margin-left: 5px;
+    }
+    .restaurantName{
+        margin-top:5px;
+    }
     .search-bar{    
         background:#ab0012;
         width:1000px;
@@ -1094,7 +1100,7 @@ body.main-layout{
     .minimumDeliveryPrice{
       color: #707070;
       font-size: 12px;
-      top: 1px;
+      top: 5px;
       position: relative;
       cursor: default;
       font-weight: 600;
