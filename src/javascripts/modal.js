@@ -216,7 +216,7 @@ export default {
                         Tel No 2
                     </label>
                     <div class="col-md-6">
-                        <input value="" class="form-control ys-input-xs" name="TelephoneNumber2" id="TelephoneNumber2" data-bv-field="TelephoneNumber2" >
+                        <input value="" class="form-control ys-input-xs" name="TelephoneNumber2" id="TelephoneNumber2" data-title="TelNo2" data-bv-field="TelephoneNumber2" >
                         
                     </div>
                 </div>
@@ -230,12 +230,11 @@ export default {
                         </span>
                     </label>
                     <div class="col-md-6 areasViewContainer">
-                        <select class="form-control ys-input-xs select2-hidden-accessible" name="Areas" id="areas" tabindex="-1"
-                            aria-hidden="true" data-bv-field="Areas"  data-title="Semt" required>
-                            <option value="">
+                        <select class="form-control ys-input-xs" name="Areas" id="areas"  data-title="Semt" required>
+                            <option></option>
+                            <option value="asddsasd">dsfsdf
                             </option>
-                        </select>
-                       
+                        </select>                    
                        
                     </div>
                 </div>
@@ -247,7 +246,7 @@ export default {
                     </label>
                     <div class="col-md-6">
                         <textarea class="form-control ys-input-xs" name="AddressLine1" id="AddressLine1" placeholder="Mahalle/Cadde/Sokak, Bina/Daire No."
-                            data-bv-field="AddressLine1" required></textarea>
+                            data-bv-field="AddressLine1" data-title="Adres" required ></textarea>
                     
                         <small class="help-block" data-bv-validator="stringLength" data-bv-for="AddressLine1"
                             data-bv-result="VALID" style="display: none;">Adres 3 karakterden az olmamalı.</small>
@@ -262,7 +261,7 @@ export default {
                         <span class="required-label">*</span> Adres Tarifi
                     </label>
                     <div class="col-md-6">
-                        <textarea class="form-control ys-input-xs" name="Description" id="Description" data-bv-field="Description" required></textarea>
+                        <textarea class="form-control ys-input-xs" name="Description" id="Description" data-bv-field="Description" data-title="Adres Tarifi" required></textarea>
                         
                         <small class="help-block" data-bv-validator="stringLength" data-bv-for="Description"
                             data-bv-result="VALID" style="display: none;">Adres tarifi 3 karakterden az olmamalı.</small>
@@ -277,7 +276,7 @@ export default {
             <div class="row">
                 
                 <div class="col-md-6 text-right">
-                    <button class="ys-btn ys-btn-default save-button">KAYDET</button>
+                    <button type ="submit" class="ys-btn ys-btn-default save-button">KAYDET</button>
                 </div>
             </div>
         </footer>
@@ -286,7 +285,9 @@ export default {
         var modal = document.getElementById('myModal');
         content.innerHTML = html;
         modal.style.display = "block"
-        document.querySelector(".save-button").onclick = User.validateAddress
+        document.querySelector(".save-button").onclick = User.saveAddress.bind(User);
+        var radioButtons =  document.querySelectorAll("[type=radio]")
+        radioButtons.forEach((button) => {button.onclick = User.radioButtonHandle.bind(button)})       
         this.modalOn();
 
     },

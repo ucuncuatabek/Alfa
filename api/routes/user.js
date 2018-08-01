@@ -4,7 +4,7 @@ var ObjectId = require('mongodb').ObjectId;
 module.exports =   {    
     init(app,db,sessions) {        
         app.post('/start-session', (req, res) => {
-            console.log(req.connection.remoteAddress, "address")
+           
             res.set('Content-Type', 'application/json');
             res.status(200);
             var token = require('crypto').randomBytes(16).toString('hex');
@@ -24,7 +24,7 @@ module.exports =   {
 
                 //user["basket"]  = sessions[createdId]["basket"];
                 sessions[createdId] = user;
-                console.log(createdId, sessions[createdId])
+            
                 res.send({ token: token, username: name, surname: surname });
             }
             if (task == "guest") {
@@ -115,7 +115,7 @@ module.exports =   {
             var userId = req.body.userId;
             var basket = sessions[userId].basket;
             var basket = req.body.basket;
-            console.log(basket);
+           
             
             var inValid = {};
             var invalidExists = 0;
@@ -140,7 +140,7 @@ module.exports =   {
                   if (invalidExists == 0) {
                     res.send({message:"valid"});
                   } else {
-                    console.log(inValid,"invalid")
+                    
                     
                     res.send(inValid);        
                   }
@@ -164,7 +164,7 @@ module.exports =   {
               
               sessions[userId]["basket"] = {};
             }    
-            console.log(userId, task, "user ıd ve task");
+         
             console.log(sessions)
            
             res.send({});
@@ -190,20 +190,37 @@ module.exports =   {
         app.post('/add-address',(req,res)=>{
             res.set('Content-Type', 'application/json');
             res.status(200);
-
-            var Name        = req.body.name;
-            var Surname     = req.body.surname;
-            var AddressType = req.body.type;
-            var cell        = req.body.cell;
-            var cell2       = req.body.cell2;
-            var area        = req.body.area;
-            var address     = req.body.address;
-            var addressInfo = req.body.addressInfo;
             
-            var insertAddress = {Name,Surname,AddressType,cell,area,address,addressInfo};
-            console.log(insertAddress);
-            // var userCollection = db.collection("users");
-            // userCollection.insert({});
+            var id = sessions[req.body.token].databaseId;
+           
+            var o_id = new ObjectId(id);
+           
+            var Name        = req.body.address.Ad;
+            var Surname     = req.body.address.Soyad;
+            var AddressType = req.body.address["Adres Adı"];
+            var cell        = req.body.address["Telefon Numarası"];
+            var cell2       = req.body.address["TelNo2"];
+            var area        = req.body.address.Semt;
+            var address     = req.body.address.Adres;
+            var addressInfo = req.body.address["Adres Tarifi"];
+   
+            var userCollection = db.collection("users");
+            userCollection.update({ _id:o_id},{ $push :
+                                                        { Addresses : 
+                                                            { [address] :{
+                                                                
+                                                                    Name,
+                                                                    Surname,
+                                                                    address,
+                                                                    AddressType,
+                                                                    cell,
+                                                                    cell2,
+                                                                    area,
+                                                                    addressInfo
+                                                            }
+                                                            }
+                                                        }
+                                                    });
         });
           
     }

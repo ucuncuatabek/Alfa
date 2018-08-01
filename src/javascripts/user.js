@@ -6,8 +6,7 @@ export default {
         if(!controller) return false;        
         this.attachEvents();    
     },
-    attachEvents() {
-        
+    attachEvents() {        
         this.setSelected();
     },
     getSelected(){
@@ -27,23 +26,37 @@ export default {
         
         helper.request('POST',`get-${selected}`,{token:token})
         .then((data) =>{
-               if(selected == "addresses" && Object.keys(data).length === 0){
+                console.log(data)
+               if(selected == "addresses" && Object.keys(data).length === 1){
                     document.querySelector(".notAvailable").style = "display:block";
                     document.querySelector(".add-new-address").onclick = this.addAddress;
                } else {
-                   console.log(data)
+                   console.log(data) //address exists
                }
         })
     },
     addAddress(){
         modal.addAddress();
-       
+    },
+    saveAddress(){
+        var address ={};
+        if(this.validateAddress()){
+            var form            = document.querySelector("#address-details");
+            var elements        = form.querySelectorAll(".ys-input-xs"); 
+            elements.forEach((el) =>{
+                address[el.dataset["title"]] = el.value;               
+            });
+            console.log(address)      
+            var token = localStorage.getItem("guestId")
+            helper.request('POST','add-address',{address,token});      
+        } 
     },
     validateAddress(){
         var form            = document.querySelector("#address-details");
-        var elements       = form.getElementsByTagName("input");   
+        var elements        = form.querySelectorAll(".ys-input-xs");           
         var i;
         var empty           = 0;
+
         for (i = 0; i < elements.length; i++) {
             var el = elements[i];            
             if (el.getAttribute("required") != null) {
@@ -62,8 +75,21 @@ export default {
                     }
                 }
             }
-        }          
+        }
+    
+        if(empty == 0){
+            return true;
+        }  else {
+            return false;
+        } 
+    },
+    radioButtonHandle(){
+        var selectedRadio = this.getAttribute("type-name");
+        document.querySelector("#AddressName").value = selectedRadio;
     }
+
+   
+
 
 
 }
