@@ -26,8 +26,9 @@ export default {
         
         helper.request('POST',`get-${selected}`,{token:token})
         .then((data) =>{
-                console.log(data)
-               if(selected == "addresses" && Object.keys(data).length === 1){
+               
+                console.log(Object.keys(data.addresses).length)
+               if(selected == "addresses" && Object.keys(data.addresses).length === 0){
                     document.querySelector(".notAvailable").style = "display:block";
                     document.querySelector(".add-new-address").onclick = this.addAddress;
                } else {

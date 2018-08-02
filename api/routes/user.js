@@ -207,17 +207,15 @@ module.exports =   {
             var userCollection = db.collection("users");
             userCollection.update({ _id:o_id},{ $push :
                                                         { Addresses : 
-                                                            { [address] :{
-                                                                
+                                                            { [AddressType] :{                                                                
                                                                     Name,
                                                                     Surname,
-                                                                    address,
-                                                                    AddressType,
+                                                                    address,                                                                   
                                                                     cell,
                                                                     cell2,
                                                                     area,
                                                                     addressInfo
-                                                            }
+                                                                }
                                                             }
                                                         }
                                                     });
