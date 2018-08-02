@@ -93,7 +93,7 @@ module.exports =   {
                 if (result.length > 0) {
                     res.send({ message: "Email kullanımda" });
                 } else {
-                    userCollection.insert({ email: email, password: pass, Name: username, Surname: surname });
+                    userCollection.insert({ email: email, password: pass, Name: username, Surname: surname,Addresses:[],Cuzdan:"" });
                     res.send({ message: "Kayıt başarılı!" });
                 }
             });
@@ -203,27 +203,43 @@ module.exports =   {
             var area        = req.body.address.Semt;
             var address     = req.body.address.Adres;
             var addressInfo = req.body.address["Adres Tarifi"];
-   
+            var ID =  '_' + Math.random().toString(36).substr(2, 9);
+        
+            console.log(ID);
             var userCollection = db.collection("users");
             userCollection.update({ _id:o_id},{ $push :
-                                                        { Addresses : 
-                                                            {                                                                 
-                                                                Name,
-                                                                Surname,
-                                                                address,
-                                                                AddressType,                                                                   
-                                                                cell,
-                                                                cell2,
-                                                                area,
-                                                                addressInfo
-                                                                
+                                                        { 
+                                                            Addresses : 
+                                                                {       
+                                                                    ID,                                                          
+                                                                    Name,
+                                                                    Surname,
+                                                                    address,
+                                                                    AddressType,                                                                   
+                                                                    cell,
+                                                                    cell2,
+                                                                    area,
+                                                                    addressInfo
+                                                                    
+                                                                }
                                                             }
-                                                        }
                                                     })
             .then( res.send({message:"ok"}));
            
            
         });
           
+        app.post('/delete-address',(req,res)=>{
+            res.set('Content-Type', 'application/json');
+            res.status(200);
+            var userToken = req.body.token;            
+            var databaseId      = sessions[userToken].databaseId;   
+            var userCollection  = db.collection('users');   
+            var o_id            = new ObjectId(databaseId);
+            var addressID = req.body.addressID;
+            userCollection.update({_id:o_id},{$pull: {Addresses:{ID:addressID}}});
+            res.send({});
+
+        });
     }
 }

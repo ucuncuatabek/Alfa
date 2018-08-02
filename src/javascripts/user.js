@@ -37,14 +37,14 @@ export default {
                     var logos = {"Ev":"home","İş":"building","Kampüs":"graduation-cap"}
                     addressTab.style.display ="block";
                     data.addresses.forEach((address) => {
-                        console.log(address);
+                       console.log(address);
                        var type = logos[address.AddressType];
                        addressHTML += `
                        <div class="address-item">
                             <div class ="address-header">
                                 <i class="fas fa-${type}"></i>
                                 <b class="Address" >${address.AddressType}</b>
-                                <button class="delete-address" type="button"> <i class=" far fa-trash-alt "></i> </button>
+                                <button class="delete-address" id = "${address.ID}" "type="button"> <i class=" far fa-trash-alt "></i> </button>
                             </div>
                             <div class ="address-detail">
                                 <div class="top">
@@ -63,10 +63,12 @@ export default {
                         </div>
                        `
                     });
-                    console.log(addressHTML);
+                   
                     addressTab.innerHTML += addressHTML;
                     
                     document.querySelector(".add-address").onclick = this.addAddress;
+                    var deleteButton = document.querySelectorAll(".delete-address");
+                    deleteButton.forEach((button) =>{ button. onclick = this.deleteAddress.bind(button)});
                }
         })
     },
@@ -130,6 +132,12 @@ export default {
         var modal = document.getElementById('myModal');
         modal.style.display = "none";
     },
+    deleteAddress(){
+        alert()
+        var token = localStorage.getItem("guestId");
+        var addressID = this.getAttribute("id");
+        helper.request('POST',`delete-address`,{token:token,addressID:addressID});
+    }
 
    
 
