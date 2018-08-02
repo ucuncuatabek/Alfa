@@ -207,18 +207,22 @@ module.exports =   {
             var userCollection = db.collection("users");
             userCollection.update({ _id:o_id},{ $push :
                                                         { Addresses : 
-                                                            { [AddressType] :{                                                                
-                                                                    Name,
-                                                                    Surname,
-                                                                    address,                                                                   
-                                                                    cell,
-                                                                    cell2,
-                                                                    area,
-                                                                    addressInfo
-                                                                }
+                                                            {                                                                 
+                                                                Name,
+                                                                Surname,
+                                                                address,
+                                                                AddressType,                                                                   
+                                                                cell,
+                                                                cell2,
+                                                                area,
+                                                                addressInfo
+                                                                
                                                             }
                                                         }
-                                                    });
+                                                    })
+            .then( res.send({message:"ok"}));
+           
+           
         });
           
     }

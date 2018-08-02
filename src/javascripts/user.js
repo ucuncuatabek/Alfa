@@ -29,10 +29,44 @@ export default {
                
                 console.log(Object.keys(data.addresses).length)
                if(selected == "addresses" && Object.keys(data.addresses).length === 0){
-                    document.querySelector(".notAvailable").style = "display:block";
+                    document.querySelector(".notAvailable").style.display = "block";
                     document.querySelector(".add-new-address").onclick = this.addAddress;
                } else {
-                   console.log(data) //address exists
+                    var addressTab = document.querySelector(".address-exists");
+                    var addressHTML = ``;
+                    var logos = {"Ev":"home","İş":"building","Kampüs":"graduation-cap"}
+                    addressTab.style.display ="block";
+                    data.addresses.forEach((address) => {
+                        console.log(address);
+                       var type = logos[address.AddressType];
+                       addressHTML += `
+                       <div class="address-item">
+                            <div class ="address-header">
+                                <i class="fas fa-${type}"></i>
+                                <b class="Address" >${address.AddressType}</b>
+                                <button class="delete-address" type="button"> <i class=" far fa-trash-alt "></i> </button>
+                            </div>
+                            <div class ="address-detail">
+                                <div class="top">
+                                <b class="name" > ${address.Name} ${address.Surname}</b>
+                                </div>
+                                <div class="bottom">
+                                    <div class="Left">
+                                        <p class="address" > ${address.address}</p>
+                                        <p class="address-info"> ${address.addressInfo}</p>
+                                    </div>
+                                    <div class ="Right" >
+                                        ${address.cell}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       `
+                    });
+                    console.log(addressHTML);
+                    addressTab.innerHTML += addressHTML;
+                    
+                    document.querySelector(".add-address").onclick = this.addAddress;
                }
         })
     },
@@ -40,7 +74,7 @@ export default {
         modal.addAddress();
     },
     saveAddress(){
-        var address ={};
+        var address = {};
         if(this.validateAddress()){
             var form            = document.querySelector("#address-details");
             var elements        = form.querySelectorAll(".ys-input-xs"); 
@@ -49,7 +83,11 @@ export default {
             });
             console.log(address)      
             var token = localStorage.getItem("guestId")
-            helper.request('POST','add-address',{address,token});      
+            helper.request('POST','add-address',{address,token}).then((data) =>{ 
+                if(data.message === "ok"){
+                   this.hideModal();
+                }
+            })     
         } 
     },
     validateAddress(){
@@ -87,7 +125,11 @@ export default {
     radioButtonHandle(){
         var selectedRadio = this.getAttribute("type-name");
         document.querySelector("#AddressName").value = selectedRadio;
-    }
+    },
+    hideModal() {
+        var modal = document.getElementById('myModal');
+        modal.style.display = "none";
+    },
 
    
 

@@ -458,6 +458,67 @@ body.main-layout{
             min-height:150px;
             display:none;
         }
+        .address-item{
+            border:1px solid;
+            border-radius:4px;
+        }
+        .address-exists{
+            min-height:150px;
+            display:none;
+        }
+        .address-item{
+            height:150px;
+            margin-bottom:10px;
+        }
+        .address-header{
+            background:#ab0012;
+            height:20px;
+            padding:9px;
+        }
+        .address-detail{
+            margin-top:7px;
+            padding:5px;
+        }
+
+        p.address{
+            float:left;
+            margin-left: 11px;
+            margin-top: -4%;
+            font-size:13px;
+        }
+        p.address-info{
+            float:left;
+            margin-left: 11px;
+            margin-top: 1%;
+            font-size:13px;
+        }
+        .Right{
+            float:right;
+            margin-top:-28px;
+        }
+        .add-address{
+            border-radius:4px;
+            background:transparent;
+            border:1px solid;
+            margin-bottom:8px;
+        }
+        b{
+            font-family: 'Open Sans', sans-serif;
+        }
+        b.name{
+            margin-left:10px;
+            font-weight:700;
+            font-size:15px;
+        }
+        b.Address{
+            font-weight:700;
+        }
+        .delete-address{
+            float:right;
+            background:none;
+            border:none;
+            cursor:pointer;
+        }
         .icon{
             margin-left:15%;
             display:inline-block;
