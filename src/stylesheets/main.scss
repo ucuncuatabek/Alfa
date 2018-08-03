@@ -7,6 +7,16 @@ body.main-layout{
       body {font-family: Arial, Helvetica, sans-serif;}
      
       /* The Modal (background) */
+      .delete{
+        margin-top:10px;
+        border-radius:4px;
+        border:none;
+        background:#ff7208;
+        color:#fff;
+        width:45px;
+        height:20px;
+
+        }
       .modal {
           display: none; /* Hidden by default */
           position: fixed; /* Stay in place */
@@ -458,17 +468,18 @@ body.main-layout{
             min-height:150px;
             display:none;
         }
-        .address-item{
-            border:1px solid;
-            border-radius:4px;
-        }
+       
         .address-exists{
             min-height:150px;
             display:none;
+            max-height: 515px;
+            overflow: auto;
         }
         .address-item{
             height:150px;
             margin-bottom:10px;
+            border:1px solid #e63e3e;
+            border-radius:4px;
         }
         .address-header{
             background:#ab0012;
@@ -499,12 +510,16 @@ body.main-layout{
         .add-address{
             border-radius:4px;
             background:transparent;
-            border:1px solid;
+            border:1px solid  #e63e3e;
             margin-bottom:8px;
+            
+            width: 80px;
+            height: 30px;           
         }
         b{
             font-family: 'Open Sans', sans-serif;
         }
+       
         b.name{
             margin-left:10px;
             font-weight:700;

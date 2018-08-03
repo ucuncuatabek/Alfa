@@ -206,7 +206,7 @@ export default {
                         <span class="required-label">*</span> Cep Telefonu
                     </label>
                     <div class="col-md-6">
-                        <input value="" class="form-control ys-input-xs" name="TelephoneNumber" id="TelephoneNumber"  data-title="Telefon Numarası" data-bv-field="TelephoneNumber" required>                        
+                        <input value="" class="form-control ys-input-xs" name="TelephoneNumber" id="TelephoneNumber" type="number"  data-title="Telefon Numarası" data-bv-field="TelephoneNumber" required>                        
                     </div>
                 </div>
             </div>
@@ -216,7 +216,7 @@ export default {
                         Tel No 2
                     </label>
                     <div class="col-md-6">
-                        <input value="" class="form-control ys-input-xs" name="TelephoneNumber2" id="TelephoneNumber2" data-title="TelNo2" data-bv-field="TelephoneNumber2" >
+                        <input value="" class="form-control ys-input-xs" name="TelephoneNumber2" id="TelephoneNumber2" type="number" data-title="TelNo2" data-bv-field="TelephoneNumber2" >
                         
                     </div>
                 </div>

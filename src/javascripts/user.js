@@ -38,13 +38,18 @@ export default {
                     addressTab.style.display ="block";
                     data.addresses.forEach((address) => {
                        console.log(address);
-                       var type = logos[address.AddressType];
+                       if(logos[address.AddressType]){
+                            var type =logos[address.AddressType] ;
+                       } else{
+                            var type = "map-marked-alt";
+                       }
+                     
                        addressHTML += `
                        <div class="address-item">
                             <div class ="address-header">
                                 <i class="fas fa-${type}"></i>
                                 <b class="Address" >${address.AddressType}</b>
-                                <button class="delete-address" id = "${address.ID}" "type="button"> <i class=" far fa-trash-alt "></i> </button>
+                                <button class="delete-address" id = "${address.ID}" name="${address.AddressType}" "type="button"> <i class=" far fa-trash-alt "></i> </button>
                             </div>
                             <div class ="address-detail">
                                 <div class="top">
@@ -88,6 +93,7 @@ export default {
             helper.request('POST','add-address',{address,token}).then((data) =>{ 
                 if(data.message === "ok"){
                    this.hideModal();
+                   location.reload();
                 }
             })     
         } 
@@ -133,11 +139,22 @@ export default {
         modal.style.display = "none";
     },
     deleteAddress(){
-        alert()
-        var token = localStorage.getItem("guestId");
-        var addressID = this.getAttribute("id");
-        helper.request('POST',`delete-address`,{token:token,addressID:addressID});
+        var addressType = this.getAttribute("name");
+        modal.showModal(`${addressType} Adresini silmek istediğinizden emin misiniz?`,"error");
+        var addressID       = this.getAttribute("id");
+        var modalContent    = document.querySelector(".modal-body");
+        
+        modalContent.innerHTML += `<button class="delete" type="button" > Sil </button> `
+        var deleteButton =  modalContent.querySelector(".delete");       
+
+        deleteButton.onclick = function() {           
+            var token = localStorage.getItem("guestId");            
+            helper.request('POST',`delete-address`,{token:token,addressID:addressID});
+            modal.showModal("Silme İşlemi Başarılı");
+        }      
     }
+   
+    
 
    
 
